@@ -1,0 +1,15 @@
+[DEFAULT]
+max_epochs = 400
+restart_latest = False
+batch_size = 600
+seed_value = 42
+save_path = ./ckps/1w_dataset_5_irc_20_qnms
+train_path = ./datasets/1w_dataset_5_irc_20_qnms/1w_dataset_5_irc_20_qnms_train.db
+valid_path = ./datasets/1w_dataset_5_irc_20_qnms/1w_dataset_5_irc_20_qnms_val.db
+test_path = ./datasets/1w_dataset_5_irc_20_qnms/1w_dataset_5_irc_20_qnms_test.db
+split_type = random
+split_ratio = [0.8, 0.1, 0.1]
+num_interactions = 5
+hidden_state_size = 128
+cutoff = 6
+
