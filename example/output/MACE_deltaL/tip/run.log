@@ -1,0 +1,10 @@
+rxn_name: tip
+ref_time: 9.39
+refine_steps: 12
+imaginary_count: 3
+irc_time: 	4.95
+irc_steps: 64
+
+reaction barrier:	Ef = 1.4080011165078758 eV	Er = 1.4153538532264065 eV	
+
+irc split flag: 36
