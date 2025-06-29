@@ -1,0 +1,938 @@
+<html>
+<head>
+<title>ASE atomic visualization</title>
+<link rel="stylesheet" type="text/css"
+ href="https://www.x3dom.org/x3dom/release/x3dom.css">
+</link>
+<script type="text/javascript"
+ src="https://www.x3dom.org/x3dom/release/x3dom.js">
+</script>
+<style>
+* {
+    box-sizing: border-box;
+  }
+ 
+/* Create two unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 1px;
+}
+
+.left {
+  width: 20%;
+}
+
+.right {
+  width: 80%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#x3dase{
+    top:0;
+    width: 80%;
+    height: 80%;
+    border:2px solid darkorange;        
+}
+
+#sidebar{
+    top:0;
+    border:2px solid darkorange;        
+}
+
+
+/* Sidebar component containers */
+.ui-widget-header
+{
+  background-color: lightblue;
+  font-size: 12px;
+
+}
+.sidebarComponent
+{
+    padding:2px 2px 2px 2px;
+    font-size: medium;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: 1px solid green;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  cursor: pointer;
+  /* float: left; */
+}
+
+</style></head>
+<body>
+<div class = "column left", id = "sidebar">
+
+    <div class="ui-widget-header">Model</div>
+    <div class="sidebarComponent">
+        <form style="text-align:left;">
+            <button type="button" class = "button" onclick="spacefilling('e94b6feb')">Ball</button>
+            <button type="button" class = "button" onclick="ballstick('e94b6feb')">Ball-and-stick</button>
+            <button type="button" class = "button" onclick="polyhedra('e94b6feb')">Polyhedra</button>
+        </form>
+    </div>
+    <div class="ui-widget-header">Label</div>
+    <div class="sidebarComponent">
+        <form style="text-align:left;">
+            <button type="button" class = "button" onclick="none('e94b6feb')">None</button>
+            <button type="button" class = "button" onclick="element('e94b6feb')"> Element</button>
+            <button type="button" class = "button" onclick="index('e94b6feb')">Index</button>
+        </form>
+    </div>
+
+    <div class="ui-widget-header">Camera</div>
+    <div class="sidebarComponent">
+        <form style="text-align:left;">
+            <button type="button" class = "button" onclick="document.getElementById('camera_ortho_e94b6feb').setAttribute('set_bind','true');">Orthographic</button>
+            <button type="button" class = "button" onclick="document.getElementById('camera_persp_e94b6feb').setAttribute('set_bind','true');">Perspective</button>
+        </form>
+    </div>
+
+    <div class="ui-widget-header">View</div>
+    <div class="sidebarComponent">
+        <form style="text-align:left;">
+            <button type="button" class = "button" onclick="set_viewpoint('e94b6feb', 'top_pos', 'top_ori')">Top</button>
+            <button type="button" class = "button" onclick="set_viewpoint('e94b6feb', 'front_pos', 'front_ori')">Front</button>
+            <button type="button" class = "button" onclick="set_viewpoint('e94b6feb', 'right_pos', 'right_ori')">Right</button>
+        </form>
+    </div>
+
+    <div class="ui-widget-header">Measurement</div>
+    <div class="sidebarComponent">
+        <form style="text-align:left; font-size: 12px;">
+            <table style="font-size:1.0em;">
+                <td id="lastonMouseoverObject_kind_e94b6feb">-</td> <td id="lastonMouseoverObject_index_e94b6feb">-</td> 
+                <td id="position_e94b6feb">-</td></tr>
+            </table>
+            <p id="measure_e94b6feb"></p>
+            <p id="error_e94b6feb"></p>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    document.onkeyup = function(e) {
+      var x = event.which || event.keyCode;
+      var label = 0;
+        if (x == 49) {
+            set_viewpoint('e94b6feb', 'top_pos', 'top_ori');
+        } else if (x == 50) {
+            set_viewpoint('e94b6feb', 'front_pos', 'front_ori');
+        } else if (x == 51) {
+            set_viewpoint('e94b6feb', 'right_pos', 'right_ori');
+        } else if (x == 83) {
+          spacefilling('e94b6feb');
+        } else if (x == 66) {
+          ballstick('e94b6feb');
+        } else if (x == 80) {
+          polyhedra('e94b6feb');
+        } else if (x == 52) {
+            element('e94b6feb');
+        } else if (x == 53) {
+            index('e94b6feb');
+        } else if (x == 54) {
+            none('e94b6feb');
+        }
+      };
+    </script>
+ <div class = "column right" > 
+   <X3D id = "x3dase" PrimitiveQuality = "high" > 
+     <Scene > 
+       <Transform id = "t_camera_persp_e94b6feb" rotation = "0 0 0 0" > 
+         <Viewpoint id = "camera_persp_e94b6feb" position = "-0.05331743426871787 0.0004582796147326756 21.58115216039942" centerOfRotation = "-0.05331743426871787 0.0004582796147326756 -1.3550775490189807e-05" orientation = "0 0 0 0" description = "camera" > 
+         </Viewpoint> 
+       </Transform> 
+       <Transform id = "t_camera_ortho_e94b6feb" rotation = "0 0 0 0" > 
+         <OrthoViewpoint id = "camera_ortho_e94b6feb" position = "-0.05331743426871787 0.0004582796147326756 21.58115216039942" centerOfRotation = "-0.05331743426871787 0.0004582796147326756 -1.3550775490189807e-05" orientation = "0 0 0 0" fieldOfView = "-7.1937219037249704 -7.1937219037249704 7.1937219037249704 7.1937219037249704" description = "camera" > 
+         </OrthoViewpoint> 
+       </Transform> 
+       <Group onclick = "handleGroupClick(event, 'e94b6feb')" > 
+         <Switch whichChoice = "-1" > 
+           <Shape DEF = "as_O" id = "as_O_e94b6feb" > 
+             <Appearance DEF = "app_O" > 
+               <Material name = "am_e94b6feb" diffuseColor = "1.0 0.051 0.051" transparency = "0.01" > 
+               </Material> 
+             </Appearance> 
+             <Sphere DEF = "asp_O" radius = "0.66" > 
+             </Sphere> 
+           </Shape> 
+         </Switch> 
+         <Transform DEF = "at_0_e94b6feb" uuid = "e94b6feb" id = "at_0_e94b6feb" radius = "0.66" name = "at_e94b6feb" translation = "-3.43 -0.1 -0.0" scale = "1 1 1" > 
+           <Shape kind = "O" index = "0" uuid = "e94b6feb" > 
+             <Appearance USE = "app_O" > 
+             </Appearance> 
+             <Sphere USE = "asp_O" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+         <Switch whichChoice = "-1" > 
+           <Shape DEF = "as_C" id = "as_C_e94b6feb" > 
+             <Appearance DEF = "app_C" > 
+               <Material name = "am_e94b6feb" diffuseColor = "0.565 0.565 0.565" transparency = "0.01" > 
+               </Material> 
+             </Appearance> 
+             <Sphere DEF = "asp_C" radius = "0.76" > 
+             </Sphere> 
+           </Shape> 
+         </Switch> 
+         <Transform DEF = "at_3_e94b6feb" uuid = "e94b6feb" id = "at_3_e94b6feb" radius = "0.76" name = "at_e94b6feb" translation = "-0.06 -0.16 0.0" scale = "1 1 1" > 
+           <Shape kind = "C" index = "3" uuid = "e94b6feb" > 
+             <Appearance USE = "app_C" > 
+             </Appearance> 
+             <Sphere USE = "asp_C" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+         <Transform DEF = "at_4_e94b6feb" uuid = "e94b6feb" id = "at_4_e94b6feb" radius = "0.76" name = "at_e94b6feb" translation = "0.48 1.13 0.0" scale = "1 1 1" > 
+           <Shape kind = "C" index = "4" uuid = "e94b6feb" > 
+             <Appearance USE = "app_C" > 
+             </Appearance> 
+             <Sphere USE = "asp_C" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+         <Transform DEF = "at_5_e94b6feb" uuid = "e94b6feb" id = "at_5_e94b6feb" radius = "0.76" name = "at_e94b6feb" translation = "1.86 1.27 -0.0" scale = "1 1 1" > 
+           <Shape kind = "C" index = "5" uuid = "e94b6feb" > 
+             <Appearance USE = "app_C" > 
+             </Appearance> 
+             <Sphere USE = "asp_C" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+         <Transform DEF = "at_6_e94b6feb" uuid = "e94b6feb" id = "at_6_e94b6feb" radius = "0.76" name = "at_e94b6feb" translation = "2.69 0.16 -0.0" scale = "1 1 1" > 
+           <Shape kind = "C" index = "6" uuid = "e94b6feb" > 
+             <Appearance USE = "app_C" > 
+             </Appearance> 
+             <Sphere USE = "asp_C" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+         <Transform DEF = "at_7_e94b6feb" uuid = "e94b6feb" id = "at_7_e94b6feb" radius = "0.76" name = "at_e94b6feb" translation = "2.14 -1.11 -0.0" scale = "1 1 1" > 
+           <Shape kind = "C" index = "7" uuid = "e94b6feb" > 
+             <Appearance USE = "app_C" > 
+             </Appearance> 
+             <Sphere USE = "asp_C" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+         <Transform DEF = "at_8_e94b6feb" uuid = "e94b6feb" id = "at_8_e94b6feb" radius = "0.76" name = "at_e94b6feb" translation = "0.76 -1.27 -0.0" scale = "1 1 1" > 
+           <Shape kind = "C" index = "8" uuid = "e94b6feb" > 
+             <Appearance USE = "app_C" > 
+             </Appearance> 
+             <Sphere USE = "asp_C" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+         <Switch whichChoice = "-1" > 
+           <Shape DEF = "as_H" id = "as_H_e94b6feb" > 
+             <Appearance DEF = "app_H" > 
+               <Material name = "am_e94b6feb" diffuseColor = "1.0 1.0 1.0" transparency = "0.01" > 
+               </Material> 
+             </Appearance> 
+             <Sphere DEF = "asp_H" radius = "0.31" > 
+             </Sphere> 
+           </Shape> 
+         </Switch> 
+         <Transform DEF = "at_9_e94b6feb" uuid = "e94b6feb" id = "at_9_e94b6feb" radius = "0.31" name = "at_e94b6feb" translation = "-2.53 -1.1 0.0" scale = "1 1 1" > 
+           <Shape kind = "H" index = "9" uuid = "e94b6feb" > 
+             <Appearance USE = "app_H" > 
+             </Appearance> 
+             <Sphere USE = "asp_H" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+         <Transform DEF = "at_10_e94b6feb" uuid = "e94b6feb" id = "at_10_e94b6feb" radius = "0.31" name = "at_e94b6feb" translation = "-0.17 1.99 0.0" scale = "1 1 1" > 
+           <Shape kind = "H" index = "10" uuid = "e94b6feb" > 
+             <Appearance USE = "app_H" > 
+             </Appearance> 
+             <Sphere USE = "asp_H" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+         <Transform DEF = "at_11_e94b6feb" uuid = "e94b6feb" id = "at_11_e94b6feb" radius = "0.31" name = "at_e94b6feb" translation = "2.29 2.27 -0.0" scale = "1 1 1" > 
+           <Shape kind = "H" index = "11" uuid = "e94b6feb" > 
+             <Appearance USE = "app_H" > 
+             </Appearance> 
+             <Sphere USE = "asp_H" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+         <Transform DEF = "at_12_e94b6feb" uuid = "e94b6feb" id = "at_12_e94b6feb" radius = "0.31" name = "at_e94b6feb" translation = "3.77 0.29 -0.0" scale = "1 1 1" > 
+           <Shape kind = "H" index = "12" uuid = "e94b6feb" > 
+             <Appearance USE = "app_H" > 
+             </Appearance> 
+             <Sphere USE = "asp_H" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+         <Transform DEF = "at_13_e94b6feb" uuid = "e94b6feb" id = "at_13_e94b6feb" radius = "0.31" name = "at_e94b6feb" translation = "2.78 -1.98 -0.0" scale = "1 1 1" > 
+           <Shape kind = "H" index = "13" uuid = "e94b6feb" > 
+             <Appearance USE = "app_H" > 
+             </Appearance> 
+             <Sphere USE = "asp_H" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+         <Transform DEF = "at_14_e94b6feb" uuid = "e94b6feb" id = "at_14_e94b6feb" radius = "0.31" name = "at_e94b6feb" translation = "0.32 -2.26 0.0" scale = "1 1 1" > 
+           <Shape kind = "H" index = "14" uuid = "e94b6feb" > 
+             <Appearance USE = "app_H" > 
+             </Appearance> 
+             <Sphere USE = "asp_H" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+         <Switch whichChoice = "-1" > 
+           <Shape DEF = "as_N" id = "as_N_e94b6feb" > 
+             <Appearance DEF = "app_N" > 
+               <Material name = "am_e94b6feb" diffuseColor = "0.188 0.314 0.973" transparency = "0.01" > 
+               </Material> 
+             </Appearance> 
+             <Sphere DEF = "asp_N" radius = "0.71" > 
+             </Sphere> 
+           </Shape> 
+         </Switch> 
+         <Transform DEF = "at_1_e94b6feb" uuid = "e94b6feb" id = "at_1_e94b6feb" radius = "0.71" name = "at_e94b6feb" translation = "-2.32 0.54 0.0" scale = "1 1 1" > 
+           <Shape kind = "N" index = "1" uuid = "e94b6feb" > 
+             <Appearance USE = "app_N" > 
+             </Appearance> 
+             <Sphere USE = "asp_N" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+         <Transform DEF = "at_2_e94b6feb" uuid = "e94b6feb" id = "at_2_e94b6feb" radius = "0.71" name = "at_e94b6feb" translation = "-1.45 -0.38 0.0" scale = "1 1 1" > 
+           <Shape kind = "N" index = "2" uuid = "e94b6feb" > 
+             <Appearance USE = "app_N" > 
+             </Appearance> 
+             <Sphere USE = "asp_N" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+       </Group> 
+       <Switch whichChoice = "-1" > 
+         <Shape DEF = "O" > 
+           <Appearance > 
+             <Material diffuseColor = "1.0 0.051 0.051" transparency = "0.01" > 
+             </Material> 
+           </Appearance> 
+           <Cylinder height = "1.0" radius = "0.1" subdivision = "8" > 
+           </Cylinder> 
+         </Shape> 
+       </Switch> 
+       <Switch whichChoice = "-1" > 
+         <Shape DEF = "C" > 
+           <Appearance > 
+             <Material diffuseColor = "0.565 0.565 0.565" transparency = "0.01" > 
+             </Material> 
+           </Appearance> 
+           <Cylinder height = "1.0" radius = "0.1" subdivision = "8" > 
+           </Cylinder> 
+         </Shape> 
+       </Switch> 
+       <Switch whichChoice = "-1" > 
+         <Shape DEF = "H" > 
+           <Appearance > 
+             <Material diffuseColor = "1.0 1.0 1.0" transparency = "0.01" > 
+             </Material> 
+           </Appearance> 
+           <Cylinder height = "1.0" radius = "0.1" subdivision = "8" > 
+           </Cylinder> 
+         </Shape> 
+       </Switch> 
+       <Switch whichChoice = "-1" > 
+         <Shape DEF = "N" > 
+           <Appearance > 
+             <Material diffuseColor = "0.188 0.314 0.973" transparency = "0.01" > 
+             </Material> 
+           </Appearance> 
+           <Cylinder height = "1.0" radius = "0.1" subdivision = "8" > 
+           </Cylinder> 
+         </Shape> 
+       </Switch> 
+       <Switch id = "bs_e94b6feb" whichChoice = "-1" > 
+         <Group > 
+           <Transform translation = "-3.15 0.06 -0.0" scale = "1 0.64 1" rotation = "-0.0006 -0.0 1.0 2.0907" > 
+             <Shape USE = "O" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "-3.2 -0.35 -0.0" scale = "1 0.67 1" rotation = "-0.0006 -0.0 1.0 0.7275" > 
+             <Shape USE = "O" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "0.08 0.16 0.0" scale = "1 0.7 1" rotation = "0.0 -0.0 1.0 2.7424" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "-0.41 -0.21 0.0" scale = "1 0.71 1" rotation = "-0.0002 0.0 -1.0 1.4082" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "0.15 -0.44 0.0" scale = "1 0.69 1" rotation = "0.0002 -0.0 1.0 0.6342" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "0.32 1.34 0.0" scale = "1 0.54 1" rotation = "-0.0003 0.0 -1.0 2.4928" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "0.35 0.81 0.0" scale = "1 0.7 1" rotation = "-0.0 0.0 -1.0 0.3992" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "0.83 1.16 0.0" scale = "1 0.69 1" rotation = "0.0002 -0.0 1.0 1.6781" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "1.97 1.52 -0.0" scale = "1 0.54 1" rotation = "0.0 -0.0 1.0 2.7361" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "1.52 1.24 -0.0" scale = "1 0.69 1" rotation = "-0.0002 0.0 -1.0 1.4635" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "2.07 1.0 -0.0" scale = "1 0.69 1" rotation = "0.0002 -0.0 1.0 0.6424" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "2.96 0.19 -0.0" scale = "1 0.54 1" rotation = "0.0002 -0.0 1.0 1.6883" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "2.55 -0.16 -0.0" scale = "1 0.69 1" rotation = "-0.0001 0.0 -1.0 0.4088" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "2.48 0.44 -0.0" scale = "1 0.69 1" rotation = "-0.0002 0.0 -1.0 2.4992" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "2.3 -1.33 -0.0" scale = "1 0.54 1" rotation = "0.0002 -0.0 1.0 0.6351" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "2.28 -0.79 -0.0" scale = "1 0.69 1" rotation = "0.0001 -0.0 1.0 2.7328" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "1.8 -1.15 -0.0" scale = "1 0.69 1" rotation = "-0.0002 0.0 -1.0 1.4525" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "0.65 -1.52 -0.0" scale = "1 0.54 1" rotation = "-0.0001 0.0 -1.0 0.4244" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "1.11 -1.23 -0.0" scale = "1 0.69 1" rotation = "0.0002 -0.0 1.0 1.6891" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "0.56 -0.99 0.0" scale = "1 0.69 1" rotation = "-0.0002 0.0 -1.0 2.5074" > 
+             <Shape USE = "C" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "-2.26 -0.92 0.0" scale = "1 0.65 1" rotation = "-0.0002 -0.0 1.0 2.1572" > 
+             <Shape USE = "H" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "-2.76 -0.85 0.0" scale = "1 0.67 1" rotation = "0.0006 0.0 -1.0 2.4141" > 
+             <Shape USE = "H" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "-0.01 1.77 0.0" scale = "1 0.54 1" rotation = "0.0003 -0.0 1.0 0.6488" > 
+             <Shape USE = "H" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "2.18 2.02 -0.0" scale = "1 0.54 1" rotation = "-0.0 0.0 -1.0 0.4055" > 
+             <Shape USE = "H" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "3.5 0.26 -0.0" scale = "1 0.54 1" rotation = "-0.0002 0.0 -1.0 1.4533" > 
+             <Shape USE = "H" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "2.62 -1.76 -0.0" scale = "1 0.54 1" rotation = "-0.0002 0.0 -1.0 2.5065" > 
+             <Shape USE = "H" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "0.43 -2.01 0.0" scale = "1 0.54 1" rotation = "0.0001 -0.0 1.0 2.7172" > 
+             <Shape USE = "H" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "-2.59 0.38 0.0" scale = "1 0.64 1" rotation = "0.0006 0.0 -1.0 1.0509" > 
+             <Shape USE = "N" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "-2.1 0.31 0.0" scale = "1 0.63 1" rotation = "-0.0002 -0.0 1.0 0.7532" > 
+             <Shape USE = "N" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "-1.67 -0.15 0.0" scale = "1 0.63 1" rotation = "0.0002 0.0 -1.0 2.3884" > 
+             <Shape USE = "N" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "-1.1 -0.33 0.0" scale = "1 0.71 1" rotation = "0.0002 -0.0 1.0 1.7334" > 
+             <Shape USE = "N" > 
+             </Shape> 
+           </Transform> 
+           <Transform translation = "-1.72 -0.56 0.0" scale = "1 0.65 1" rotation = "0.0002 0.0 -1.0 0.9844" > 
+             <Shape USE = "N" > 
+             </Shape> 
+           </Transform> 
+         </Group> 
+       </Switch> 
+       <Switch id = "switch_marker_0_e94b6feb" whichChoice = "-1" > 
+         <Transform id = "marker_0_e94b6feb" scale = ".1 .1 .1" translation = "5 0 0" > 
+           <Shape isPickable = "False" > 
+             <Appearance > 
+               <Material diffuseColor = "#FFD966" transparency = "0.5" > 
+               </Material> 
+             </Appearance> 
+             <Sphere radius = "1.0" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+       </Switch> 
+       <Switch id = "switch_marker_1_e94b6feb" whichChoice = "-1" > 
+         <Transform id = "marker_1_e94b6feb" scale = ".1 .1 .1" translation = "5 0 0" > 
+           <Shape isPickable = "False" > 
+             <Appearance > 
+               <Material diffuseColor = "#FFD966" transparency = "0.5" > 
+               </Material> 
+             </Appearance> 
+             <Sphere radius = "1.0" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+       </Switch> 
+       <Switch id = "switch_marker_2_e94b6feb" whichChoice = "-1" > 
+         <Transform id = "marker_2_e94b6feb" scale = ".1 .1 .1" translation = "5 0 0" > 
+           <Shape isPickable = "False" > 
+             <Appearance > 
+               <Material diffuseColor = "#FFD966" transparency = "0.5" > 
+               </Material> 
+             </Appearance> 
+             <Sphere radius = "1.0" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+       </Switch> 
+       <Switch id = "switch_marker_3_e94b6feb" whichChoice = "-1" > 
+         <Transform id = "marker_3_e94b6feb" scale = ".1 .1 .1" translation = "5 0 0" > 
+           <Shape isPickable = "False" > 
+             <Appearance > 
+               <Material diffuseColor = "#FFD966" transparency = "0.5" > 
+               </Material> 
+             </Appearance> 
+             <Sphere radius = "1.0" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+       </Switch> 
+       <Switch id = "switch_marker_4_e94b6feb" whichChoice = "-1" > 
+         <Transform id = "marker_4_e94b6feb" scale = ".1 .1 .1" translation = "5 0 0" > 
+           <Shape isPickable = "False" > 
+             <Appearance > 
+               <Material diffuseColor = "#FFD966" transparency = "0.5" > 
+               </Material> 
+             </Appearance> 
+             <Sphere radius = "1.0" > 
+             </Sphere> 
+           </Shape> 
+         </Transform> 
+       </Switch> 
+       <Switch id = "switch_line_0_e94b6feb" whichChoice = "-1" > 
+         <Shape > 
+           <IndexedLineSet id = "line_ind_0_e94b6feb" solid = "false" coordIndex = "0 1 -1" > 
+             <Coordinate id = "line_coor_0_e94b6feb" point = "0 0 0 0 0 1" > 
+             </Coordinate> 
+           </IndexedLineSet> 
+           <Appearance > 
+             <Material diffuseColor = "0 0 0" emissiveColor = "0 0.5 1" > 
+             </Material> 
+           </Appearance> 
+         </Shape> 
+       </Switch> 
+       <Switch id = "switch_line_1_e94b6feb" whichChoice = "-1" > 
+         <Shape > 
+           <IndexedLineSet id = "line_ind_1_e94b6feb" solid = "false" coordIndex = "0 1 -1" > 
+             <Coordinate id = "line_coor_1_e94b6feb" point = "0 0 0 0 0 1" > 
+             </Coordinate> 
+           </IndexedLineSet> 
+           <Appearance > 
+             <Material diffuseColor = "0 0 0" emissiveColor = "0 0.5 1" > 
+             </Material> 
+           </Appearance> 
+         </Shape> 
+       </Switch> 
+       <TimeSensor DEF = "time" cycleInterval = "64" loop = "true" > 
+       </TimeSensor> 
+       <PositionInterpolator DEF = "move_0" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "-3.427714032309422 -0.09816680434984142 -0.0003765459998821295 -3.427515485088633 -0.10029221185002897 -0.00036070264697980227 -3.427388758197152 -0.10244096248639667 -0.0003540285914139563 -3.4273478941269087 -0.10459705373543529 -0.0003503134444072312 -3.4274258239848057 -0.10674692256352379 -0.0003474754251450923 -3.427665335404114 -0.10886868101764649 -0.0003450527649488186 -3.4281410281065035 -0.11093144047390151 -0.00034257731878904025 -3.428963686296299 -0.11287278299316911 -0.0003400820293604634 -3.4302871399650083 -0.11457597095985066 -0.0003394514598439017 -3.432284574662494 -0.11589154446822478 -0.00033756734161155175 -3.43507061860618 -0.11665096871498953 -0.00033480367994695383 -3.4386796088466642 -0.11675148973526389 -0.0003311387163858958 -3.443061218571531 -0.11613130618987673 -0.0003257764350347633 -3.448134908982517 -0.11477114820280748 -0.00032091686619485524 -3.4537365145545142 -0.1126417055701675 -0.0003133792581608354 -3.459633075063975 -0.10977583392372749 -0.00030464615823866 -3.465597199951623 -0.1062220005973348 -0.00029464401254846904 -3.471433655618477 -0.10208355941649229 -0.0002819960996089702 -3.4769986658659455 -0.0974417733385678 -0.00026793718914687855 -3.4822278304422443 -0.09236256735747404 -0.0002505245977303023 -3.487092281433186 -0.08687867776667157 -0.00022263926312963994 -3.4915908766630173 -0.08103668844060244 -0.00019291961783710664 -3.495745369755938 -0.07484960635346538 -0.00016031479513330257 -3.499506832184298 -0.0682979087899757 -0.00016180232556739537 -3.5028445325469812 -0.061346160473029786 -0.00018075904299496047 -3.5057818766485047 -0.05403763068200838 -0.00020035835323780964 -3.508252625294219 -0.04644593201758426 -0.00022431592270950488 -3.510189076305129 -0.0386534840904245 -0.0002547977351199202 -3.5116398210021256 -0.030797525577807572 -0.00029137255346374703 -3.5125202453871527 -0.022969985617692753 -0.00033322606019469986 -3.5128932126563672 -0.015257090305280363 -0.0003682307318497919 -3.512828691704913 -0.0076775555824542055 -0.00038426379632593247 -3.512396792098102 -0.00023518206587362905 -0.00036995716974388244 -3.511650724576399 0.007090685944090981 -0.00032190598680477157 -3.510649790554208 0.014318483608982267 -0.00023971177066390203 -3.5094347051068104 0.021475520064649728 -0.00013045166687138918 -3.427920737108725 -0.09600555340655344 -0.0003716462355267378 -3.4281686461703997 -0.09384772946527943 -0.00036781809451177564 -3.4284502371918744 -0.09166370045568893 -0.00036552257876425697 -3.4287522664093584 -0.08943015342654431 -0.0003639339375592723 -3.429078115436432 -0.08711848046271056 -0.00036314271712372444 -3.4294412095212845 -0.08469949577097471 -0.00036253548254178093 -3.429852586069145 -0.0821414282264224 -0.00036135188242567153 -3.4303415916752544 -0.07942189929244566 -0.00035972267125887757 -3.430937943130567 -0.07651430388199379 -0.00035697894539740265 -3.4316929997044374 -0.07340706227543292 -0.0003539748144920468 -3.4326795664828262 -0.07007732053328758 -0.0003516611033989263 -3.433972808178495 -0.06650223757786275 -0.00034958783511764534 -3.435692343793248 -0.06264729242605636 -0.0003478428376980257 -3.437970938004637 -0.058451261359574576 -0.00034455905320561903 -3.440983394744148 -0.053869386286895 -0.0003397821148042436 -3.4449022791716355 -0.04880619145788558 -0.0003351995171745262 -3.4498172492958896 -0.04322529296003824 -0.00033015565733636134 -3.4556222955852616 -0.03708435801592208 -0.00032217546699093904 -3.4619974732006162 -0.030435960927860533 -0.00030721765230056457 -3.4684535750522394 -0.02330703263102098 -0.0002793402727024775 -3.474519674115945 -0.01581839441365576 -0.00025811506791173944 -3.480005557478568 -0.00798317417163613 -0.00018088290152669574 -3.4841853196404022 0.00011801781117077052 -0.0002458792077313936 -3.487189258762581 0.008323294504591402 -0.0003861108562461102 -3.489242838751732 0.016370042729142047 -0.0005387879760296553 -3.490286966740384 0.024144769346875882 -0.000720096643852339 -3.490425206816503 0.03167178975930461 -0.000842702141070384 -3.489560139765783 0.03897250397583155 -0.0008112685626706453 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_0" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_0" fromField = "value_changed" toNode = "at_0_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+       <PositionInterpolator DEF = "move_1" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "-2.3160432680758745 0.5381312228489302 0.00026426110782450563 -2.3138245513614715 0.5382517448210461 0.0002503480419461191 -2.3115571569297657 0.538370282327802 0.00024497098756255187 -2.309223735546336 0.5384799566077199 0.00024270184688545654 -2.306793783884893 0.5385612317699217 0.00024084858203415017 -2.304231161585053 0.5386004388994797 0.00023952489415740713 -2.3014620414621603 0.5385635070664541 0.0002380171644327055 -2.2984042806467673 0.5383962810823959 0.00023646609246850346 -2.2949556212843856 0.5380028800220543 0.00023641842215372405 -2.291046656583655 0.5372427533936217 0.00023534162939342453 -2.2867181888684462 0.5359395044021897 0.00023261024968008787 -2.2820874758142238 0.5339396252763758 0.00022914387351463875 -2.2773582772329135 0.5311626773894409 0.00022410320103435178 -2.2726985390834678 0.5275688651627989 0.00021901713582066722 -2.2683295611002072 0.5232491237550443 0.00021163698562453012 -2.2644085557789206 0.5183287654355729 0.0002032290517823381 -2.2610131522740176 0.5129987717183437 0.00019335694680752306 -2.2581328099763636 0.5074137627670199 0.00018284620540263735 -2.2557010589759594 0.501697426524232 0.00017016819929347875 -2.2536220618656495 0.49593671751208024 0.00015390914514219655 -2.251797164229477 0.49026111082491974 0.00012272901092438523 -2.250158316366479 0.4846739542208083 8.609710435176596e-05 -2.2486303362937594 0.47922885790657715 4.4136963838842735e-05 -2.2471138354839972 0.4739549792154907 3.828885181323824e-05 -2.2455427943691473 0.46900440857319653 6.0060209715138915e-05 -2.2438513778017697 0.46450353178082954 8.040850762571438e-05 -2.2419889395807466 0.4605518915477046 9.99629889401606e-05 -2.2398901440843004 0.457267090458594 0.0001217889375498575 -2.237621828835657 0.4546562555581703 0.00014522068389255895 -2.2351476660505627 0.4526830883408838 0.00017155611898073464 -2.2324655297407987 0.45120401652072883 0.00019282795864406053 -2.229625321985195 0.450097949304843 0.00019653653221535447 -2.2266440369394527 0.4492740857562063 0.0001716336428751427 -2.2235288272449085 0.44862389885185944 0.00011564060766486599 -2.220307249078349 0.44810156967474996 2.7181407226177227e-05 -2.216986553681731 0.44762022245712796 -8.652463481474687e-05 -2.318348450499606 0.5379586026604145 0.00025792086759733243 -2.3206682010249553 0.5377891406689608 0.0002540202990009813 -2.3230462521716517 0.5376085584308661 0.0002511779389126034 -2.3255141220390025 0.5373936675850925 0.00024898559149445494 -2.328108413988496 0.5371199217587995 0.0002477685557680292 -2.3308601941891185 0.5367628004601287 0.00024705675026331334 -2.333800735947692 0.5362726205945788 0.00024545671281606536 -2.336932725708205 0.5356220921504725 0.00024326463409006958 -2.3402584506181974 0.5347489859674351 0.00023859986702536495 -2.3437606260814174 0.5336320586600238 0.0002330798343395611 -2.3474152758437765 0.5322197546024754 0.0002284574470169907 -2.3511958737704366 0.5304724284334519 0.00022412298161811908 -2.3550561888416097 0.5283730662022451 0.0002204657011713158 -2.3589524303979963 0.5258504859290446 0.0002150067765213287 -2.3627797355622464 0.5228702745285597 0.00020830173154410498 -2.3664195010898386 0.5193727215162536 0.00019917924358164082 -2.3697067905469 0.5153920777119073 0.0001900497201019371 -2.3725100622411786 0.5109969266366484 0.00017840929723061605 -2.3747210076735668 0.5064375391004295 0.00016298491197724114 -2.3763395897090023 0.5019617128382577 0.00012857361681835132 -2.377355466581214 0.49784417766087286 9.985711554729568e-05 -2.3779249061344667 0.49441508704179893 1.2457274217750049e-05 -2.377543770415398 0.4918832942842555 8.147430197512446e-05 -2.3765107978118936 0.49026829307193415 0.00024047077428933052 -2.374849509028083 0.48936385778385555 0.00041571493286736064 -2.3727698953134735 0.4891015813705682 0.0006240655561151704 -2.370069426559692 0.4891999146038408 0.0008129421758338146 -2.366475732198318 0.48946946082255577 0.0009378360845631865 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_1" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_1" fromField = "value_changed" toNode = "at_1_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+       <PositionInterpolator DEF = "move_2" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "-1.4510549754698334 -0.38445585810360267 0.0004012879672340663 -1.4502616635089765 -0.38366237561043565 0.0004020819798123062 -1.449447452822284 -0.3829097771491864 0.00040259905177014076 -1.4486087794559577 -0.3821832424697304 0.0004010882079011069 -1.4477386040920865 -0.38148179735793125 0.00040077335339138814 -1.4468336690898151 -0.380797433063864 0.00040014127644748455 -1.4458883062092651 -0.38013098609562235 0.0003998900196238004 -1.4448716704366555 -0.3794813808400806 0.0003994520449443739 -1.4437537951705752 -0.37885997719141407 0.00039932338540319014 -1.4424863817574012 -0.378304961168569 0.00039775088716256487 -1.441035561672103 -0.37791244484223147 0.0003979093311580971 -1.4393731216873367 -0.3778241384103275 0.0003968165446891413 -1.4374844655404693 -0.3782298001153717 0.00039410833660281783 -1.4354223959830288 -0.37931893731279803 0.0003915939369832481 -1.4332474147456005 -0.38127596194156294 0.00038759419127201066 -1.431122001951747 -0.3841704558324287 0.0003820200103457168 -1.4291837631260194 -0.3880246409378118 0.00037653247781354725 -1.4275631835730498 -0.39273952754703173 0.00036569623809706506 -1.4263470975164443 -0.398181060471584 0.00035672594476545273 -1.425569233047768 -0.4042092654842007 0.0003502207929494393 -1.42528002243808 -0.41071037808932515 0.0003537500153955516 -1.4253546204556102 -0.4175272979931944 0.000361394430050506 -1.425791519062076 -0.4245741714800598 0.0003700286959437351 -1.4264882643894254 -0.43174092403288267 0.00036242569679331737 -1.427454390234102 -0.4389549723065473 0.0003385067744167549 -1.4286420879709825 -0.44610209585845784 0.0003187481032929455 -1.4299536636451347 -0.4529799205567477 0.0003094841486645812 -1.4312893690175328 -0.45945170063853397 0.00029707781445974924 -1.4326476149186262 -0.4654244665349131 0.0002872851838825116 -1.4338887480418614 -0.4708513154387578 0.00026542604551112664 -1.4349988482769926 -0.475793456884827 0.00023142052034511897 -1.4359905400454573 -0.4803477903985161 0.00019772712461119595 -1.436859910851913 -0.4846110764531256 0.0001699101581300829 -1.4376191871934008 -0.48866945348841995 0.0001485316455312948 -1.4382814408929014 -0.49259120667938994 0.00013852998727333774 -1.4388624939469312 -0.4964303981141029 0.0001393949403292638 -1.4517589937195359 -0.38529665393284007 0.0004026985823882146 -1.4523908878783427 -0.3861595819888888 0.00040051231026268187 -1.4529014831414395 -0.387027732771146 0.00039981955336664953 -1.453276358146764 -0.3878734676535396 0.0003992231358231289 -1.4534570536523908 -0.38866839311040907 0.00039821580436933437 -1.4533845448410279 -0.38938833648418614 0.00039664970481847713 -1.453008543666831 -0.3899984837195087 0.00039635340028492007 -1.452276839465717 -0.39047183606209523 0.00039534017619948913 -1.4511669994447707 -0.39080008714934467 0.0003973654916143138 -1.449652538056517 -0.39101461529007575 0.0003991307870058281 -1.4477170102207366 -0.391160772423773 0.000400701622216367 -1.445372240644328 -0.3913150226664703 0.0004015902559709781 -1.4426030492308384 -0.39155302819130927 0.00040202629257753305 -1.4394266805549842 -0.39197825550946397 0.0004030502543137889 -1.4359092237042765 -0.3927265591867179 0.00040219255469839393 -1.4321871607077195 -0.3939717662820695 0.00040597042067269825 -1.4285435101963206 -0.3958905075232226 0.00040814548419218104 -1.4254192836033974 -0.3986854816786236 0.0004046488459334332 -1.4232682405284296 -0.4024775993411621 0.00039553803281407076 -1.4222988101387855 -0.4071982485111097 0.0004018112069251128 -1.4225052340301056 -0.412643863882654 0.0004121045482615222 -1.423719762901581 -0.4184878097349747 0.0004381292343406001 -1.4253013656796618 -0.42444360059547137 0.0004159960553967414 -1.4270200320231181 -0.430146215181956 0.0003463745074043594 -1.4286044614489564 -0.4352445463092943 0.0002614154504468131 -1.4300034409846147 -0.43995647797981957 0.00015721200744716886 -1.4310669657652728 -0.44428392799950317 -5.95067020170774e-05 -1.4315752983163628 -0.44835533751595186 -0.0005360686026424972 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_2" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_2" fromField = "value_changed" toNode = "at_2_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+       <PositionInterpolator DEF = "move_3" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "-0.057941583649429744 -0.1559668735566971 0.00016171329280273924 -0.05796117681247576 -0.15535388954286183 0.00016943153963733842 -0.05797929570697776 -0.1547338766281078 0.0001730989096958614 -0.058002806656236236 -0.15409776738424877 0.000175253816163303 -0.058027093170356606 -0.1534401077507486 0.00017734725777094641 -0.05804746160005294 -0.1527472102773152 0.0001791675168877108 -0.058053152516054765 -0.151997023328909 0.00018100862103086448 -0.05804026763712016 -0.15116685841515795 0.00018300426680062303 -0.057987862740259716 -0.15021390151769126 0.00018454240775139582 -0.05786734582504879 -0.14911017510069993 0.00018666653937383172 -0.05763140474493247 -0.1478417013840132 0.00019003075012915822 -0.05722964429971532 -0.14640471114377163 0.00019353666475272244 -0.05661377139015338 -0.14482374577368543 0.00019806527646611848 -0.0557227872183722 -0.1431039233499631 0.00020242960843015295 -0.05458395937290887 -0.14130647264236804 0.0002068369100486103 -0.053237503076150064 -0.13948164189509585 0.00021194853688609583 -0.05176818536414748 -0.13768772456952316 0.00021714160944025105 -0.050296558525404086 -0.1359757641706254 0.00022086453413960375 -0.04893552130962424 -0.1343984674250901 0.00022501054045250243 -0.047770552444681744 -0.13299199730576422 0.00022925168949951757 -0.04685711883639559 -0.13181016439869286 0.00024377055445079 -0.046221911194489686 -0.13090284624240667 0.00026424695941513083 -0.04587792671856177 -0.1303073689388292 0.0002904325692398465 -0.045793667637329595 -0.13016367030075568 0.00029931647197387783 -0.045936643103924674 -0.13060584642838857 0.00029272978037452263 -0.04622894605850857 -0.1316795410398679 0.00028888576587962286 -0.04661031323633097 -0.1334434322102058 0.00028221156385125484 -0.047028030841352784 -0.13591234716280484 0.0002667435002309622 -0.04746670890705021 -0.13897655625692784 0.0002453982368855755 -0.0478259223402619 -0.1425308604497775 0.00021078066683181157 -0.04813091632646842 -0.14645715675582915 0.0001650462989421148 -0.048377771019391703 -0.15061930513329508 0.00011410650713435287 -0.04856078740184285 -0.15494946974448404 6.422467290884694e-05 -0.048698933040803465 -0.1593650530338526 1.828987386806393e-05 -0.04878625407883793 -0.16383970624307412 -1.769412055292736e-05 -0.04884762261283569 -0.16832083310402418 -4.285106983727478e-05 -0.05797695074479348 -0.1565716403989086 0.0001668577831601339 -0.05801673180200367 -0.1571804406222772 0.00016918647051965768 -0.058074918990814545 -0.1577978106242829 0.00017076206641788126 -0.05814766260405542 -0.1584213981898344 0.00017187750514910594 -0.058236290945615825 -0.15905012097535162 0.0001724890455778071 -0.05834971787850988 -0.15968496291848477 0.00017284511089649262 -0.05848024062151535 -0.1603178445067835 0.0001735221389676401 -0.058625196007633024 -0.16093109964615013 0.0001740422505767228 -0.05876659587855493 -0.16150470592388083 0.00017558563574776595 -0.058882920519337995 -0.16200418121726357 0.00017690926303402812 -0.05895555674741453 -0.16239770559965452 0.00017785238904119478 -0.05892557520365229 -0.16264326509015736 0.00017856779996360352 -0.05875682500580261 -0.16271007091742717 0.00017918805264621418 -0.05836271625797296 -0.16256592827952399 0.00018046671995372874 -0.05765574875286431 -0.1621853187956489 0.00018180859297237684 -0.056529266444055655 -0.16155410269573653 0.00018475264087965465 -0.054987732704742116 -0.1607444681229049 0.00018786168225354733 -0.05309045638499905 -0.15989445358955687 0.00019087641370080165 -0.05114026791984302 -0.159239765354363 0.00019415892686909064 -0.04956718976741211 -0.15901819556999164 0.0002047864871939473 -0.0486142479632113 -0.15947523254690343 0.00021230066580142244 -0.04837087328896278 -0.16067737744147553 0.0002537712755133699 -0.04856081062960018 -0.16312871123415457 0.00021468669959790132 -0.04898597338873599 -0.1664577038351943 0.00014653621323820217 -0.049480962328580985 -0.17042140689087348 9.79134182000547e-05 -0.04990678194330005 -0.17487054636550176 2.3514017419545887e-05 -0.050179137040902856 -0.17954244772510133 -7.175095343260978e-05 -0.05027892875560079 -0.18413264496850787 -0.00022112907297902392 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_3" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_3" fromField = "value_changed" toNode = "at_3_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+       <PositionInterpolator DEF = "move_4" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "0.48305055729294527 1.1264011780914063 0.00013953902818952674 0.48324169203002376 1.126453196023956 0.00014089425736483975 0.48345833743728867 1.126518375295028 0.0001412833291947004 0.4836874657269953 1.126590116785366 0.00014192689051353675 0.48392818892774214 1.1266707972029495 0.00014200645482634946 0.4841788866596656 1.12676839277596 0.00014214079814390854 0.48445655701289975 1.1268857767018754 0.0001423717197315694 0.48476804179802524 1.1270383306441947 0.00014268286038544628 0.48513581802425587 1.1272483418102976 0.00014272329545526343 0.4855704907487648 1.1275426128285089 0.00014325012781834864 0.48609650897313356 1.1279540687803782 0.00014361041930852634 0.48670797540913313 1.12853823562684 0.0001449121953917783 0.48742587514262514 1.1293440517834046 0.00014578504608399098 0.48823775350557325 1.1303953843489323 0.0001468035444184053 0.4891526792143776 1.1317277448284588 0.00014818355503413264 0.4901391591562917 1.1333448656082556 0.00014851282575093573 0.49116267711049044 1.1352009853412497 0.00014851876238622955 0.4921839219323054 1.1372323180786519 0.00014903478685298648 0.4931719631116588 1.139352737118275 0.00014946478748600894 0.49409304820796507 1.1414751579480784 0.0001507748493458865 0.4949030168645173 1.1435214796416184 0.00015871217058159785 0.49556598851661393 1.1453584588504788 0.00016982037791695326 0.4960409533598328 1.1469253255644245 0.00018369985387726412 0.49628334713645367 1.1480197540702926 0.00019022776159056875 0.49623963748436545 1.1485060245673546 0.00017975002641028607 0.4957881476854717 1.148403632401902 0.00015375009593826452 0.4948633183199496 1.1476521231015122 0.00011139388320966301 0.4934376541434275 1.146261158033508 6.0861055222326914e-05 0.49157968193937823 1.1443135615759283 1.743588052864087e-06 0.4893323666548813 1.1418915161134942 -5.127978342264297e-05 0.48682955852021303 1.1391081944667618 -9.169543052277576e-05 0.4841490627359265 1.1360880067097254 -0.00011886023284575469 0.4813336241782836 1.1329096553093603 -0.00013007854551828562 0.4784280847378674 1.1296558816598192 -0.00012398874113664764 0.47544205958417934 1.1263600702578829 -0.0001023328418980023 0.4724111763780005 1.1230682823801272 -6.749706239674696e-05 0.4827810140560613 1.1262958789739679 0.00013733549448373893 0.48253140305640724 1.1262040245876674 0.0001372486754674197 0.4822773217763432 1.1261186935642011 0.00013690713988954862 0.4820239834781488 1.1260199618853213 0.0001367254520872525 0.4817635497264372 1.1259004487659654 0.0001363571434684689 0.4814835626839737 1.1257695297563977 0.00013593345076461745 0.481200149513466 1.1256057877947423 0.00013508004623634119 0.4808983249563037 1.1254212211410533 0.0001349766351730244 0.4806078046085123 1.125190889702219 0.00013499388739278079 0.4803091976094532 1.12492763326007 0.0001363356801664371 0.48002951451094533 1.1246249164840059 0.00013738525251791707 0.4797595190337159 1.1242873141637968 0.00013870696116773936 0.47952180824171414 1.123932191894975 0.00013952484683966832 0.4793321637095026 1.1235598888646496 0.00014001388299018198 0.47920659622777484 1.1232211109311816 0.00014004281775877993 0.4791801620025383 1.1229732841701645 0.00013990101163567116 0.47930337721705085 1.122908266323845 0.00014005944821212483 0.47958418945005327 1.1230609359244075 0.00014577075648046324 0.4799392875895802 1.1234100945832732 0.00015473421165143638 0.48026157931479807 1.123833073780702 0.00016803124536795877 0.48046424185165637 1.1239050667267059 0.00017601522848912287 0.4802924539123945 1.123448567007497 0.00018235943205424762 0.4796082685785537 1.121863080389094 0.00011800532644478031 0.4784148522424701 1.1193855965155226 -1.4074926289506753e-05 0.47667696828687034 1.1163900468866472 -0.00019225117805213185 0.47457682228570347 1.112962860877995 -0.0003879034163507398 0.4720498127717318 1.1094545764926338 -0.0005513162372328508 0.4688401111405159 1.1062710462706447 -0.000604749895942008 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_4" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_4" fromField = "value_changed" toNode = "at_4_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+       <PositionInterpolator DEF = "move_5" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "1.859137745232221 1.274653979791857 -0.00010041064969440191 1.8592075293359411 1.2747403987124584 -0.00010031553008165147 1.859257440230057 1.274829856469356 -0.00010037790747338777 1.8593054795175794 1.2749278143947187 -0.00010014790950463075 1.8593610565741618 1.2750321720028308 -0.00010021538249935401 1.8594281136150677 1.2751444605440703 -0.00010018581103040209 1.859504162581176 1.275269610266427 -0.00010025657625814886 1.8596026373927568 1.2754140355313017 -0.00010029879651418852 1.8597385327265328 1.2755849876487817 -0.00010047136151796682 1.8599257661649733 1.2757964010214498 -0.00010028222157131361 1.8601758550299978 1.2760514017012372 -0.00010046463558779472 1.8605425488164165 1.2763762856539649 -0.00010038733633058336 1.8610369340654944 1.2767743058557115 -0.00010024856658942159 1.861691752332179 1.277263148008342 -0.0001001628721152702 1.8625164078631948 1.277842013562665 -9.943542321134414e-05 1.863513757736132 1.2785265772726122 -9.894645886517357e-05 1.864666015245383 1.2792954174785889 -9.869837150779688e-05 1.8659425097834783 1.2801357419382964 -9.72240286225683e-05 1.867300032841797 1.2810248709700436 -9.670690583795474e-05 1.8686850722390138 1.281938074770895 -9.691634096194872e-05 1.8700512996924386 1.2828441800330361 -0.00010539442594674717 1.8713480454560831 1.2836967832745174 -0.00011711413040990873 1.8724671370925707 1.2844885625412246 -0.00013072248066509255 1.8733071451083714 1.2851790540412347 -0.00013714923984200543 1.873775356198456 1.2857797696390534 -0.00013699159178055248 1.873769164469749 1.2863354866153025 -0.00013931069981289163 1.8731553905839116 1.286876503528399 -0.000144786816267343 1.871882112475826 1.2874135257906587 -0.00015178953172434377 1.8700014089907262 1.287965761783924 -0.00015841607355417884 1.8675851905866498 1.2885437044510097 -0.0001602836534924592 1.8647536079577292 1.2891427447676838 -0.00015366645872403402 1.8616098739378713 1.2897690065803222 -0.00013984143217286854 1.8582469609486678 1.2904179684168786 -0.00012073174176046516 1.8547120976713058 1.2910800160127618 -9.678914496359458e-05 1.8510580298893904 1.2917522067920042 -7.028701308171522e-05 1.8473063452310046 1.2924255368993836 -4.160542806506359e-05 1.859089852685311 1.2745317674289283 -0.00010054931671439362 1.8590472246178251 1.2744258798000812 -0.00010028665881956529 1.8590027045875466 1.274315422433239 -0.00010037844266326316 1.8589449313164723 1.2742003107120459 -0.00010043447599382009 1.8588798835696299 1.2740840241656581 -0.0001004835591294789 1.8588036589994366 1.2739587147173017 -0.00010043890707194047 1.858708262692065 1.2738244278046313 -0.00010053578383149614 1.8585979725281372 1.273678894366881 -0.00010033500780253106 1.8584548739445454 1.2735169527187937 -0.0001004445493324014 1.8582962467741613 1.2733390027712097 -0.00010026821882649884 1.8581035090763227 1.2731421277251544 -9.99987956107613e-05 1.8578892682494745 1.272929782224847 -9.94168388697946e-05 1.857646274241582 1.272699889132389 -9.903967125323844e-05 1.8573826673358467 1.2724517558672108 -9.89468625773016e-05 1.8571249253046287 1.272191713473817 -9.856707732315177e-05 1.856909548198586 1.271917148630785 -9.909896552451885e-05 1.8568083351159597 1.2716670289026644 -9.953262769922088e-05 1.856913323030934 1.2715244003331454 -9.874413538462024e-05 1.8572374838161092 1.2715190507099012 -9.619463546297865e-05 1.8576960110439538 1.2716887239398629 -9.414477860369394e-05 1.85816255849968 1.2719664513408233 -9.668659201163652e-05 1.8583770246522682 1.2722472052464158 -0.00010889827495064672 1.8579543580048568 1.2723818741375472 -0.00011844856854086697 1.8568016010643784 1.2724436813869835 -0.00013114834673011617 1.8548759092455138 1.2725885600076805 -0.0001479831957969884 1.852451074718008 1.272784512076579 -0.00017008436236326985 1.8494095514833617 1.2731083355580017 -0.00018837570427713518 1.8455989853304313 1.2735894275608939 -0.00016930281273984615 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_5" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_5" fromField = "value_changed" toNode = "at_5_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+       <PositionInterpolator DEF = "move_6" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "2.691677072495328 0.16212374722554151 -0.0003002355023703408 2.6916483220600065 0.16214431104852256 -0.00030116933084799516 2.6916347907852423 0.1621496539605827 -0.0003016007221456492 2.6916050259514486 0.16214513829098914 -0.0003019574167330849 2.6915763169829425 0.16214394345951394 -0.0003019682671200063 2.69155026877829 0.1621428701835143 -0.0003021140043847129 2.691513742108599 0.1621390755711432 -0.0003022681306297996 2.691474526455662 0.1621367346206748 -0.0003025380724884671 2.691428253105151 0.16213140912090282 -0.0003028818735826583 2.691374991755549 0.16213048227519014 -0.000303298811294274 2.6913124900769394 0.1621366847529558 -0.0003038565561685025 2.691245860870352 0.1621450622537278 -0.0003049756190128714 2.6911814957411613 0.1621584747464086 -0.00030503081051254307 2.6911210081348167 0.1621607768984241 -0.0003055775970305872 2.691088703631345 0.16215335863901875 -0.0003064047065652184 2.6911155199715378 0.16214187492161314 -0.00030581405878681587 2.691215869338467 0.16213092789890537 -0.00030487831948332984 2.691419925210935 0.16212435908365733 -0.00030351472892889387 2.691754811596308 0.16215631766279817 -0.00030164517593760874 2.6922402034530513 0.16224856420313805 -0.00029983358187459874 2.692880574261375 0.16243271594455239 -0.00030090102610191524 2.6937043083488112 0.1627367524546351 -0.00030357042856494825 2.694679495167987 0.1631957825429079 -0.0003064940068044731 2.6958312945451084 0.1638907699025199 -0.00030343889457224663 2.69710467173899 0.16490542387049087 -0.0002905600253381642 2.6983823649529 0.16626968178713655 -0.00027069534809936405 2.6995538396818337 0.16800934461697853 -0.00024653959063141 2.7004902792650527 0.17011193639861197 -0.00022841052414346918 2.701158242826279 0.172492070011312 -0.00021816392960232982 2.701505572308657 0.17508052874437816 -0.00022709540355334191 2.701538261082456 0.17780922668342408 -0.000252684550094341 2.70129745872436 0.180614956440476 -0.0002871022069714686 2.700828298170952 0.18348013878804553 -0.0003244269845298362 2.700157823902076 0.18635566162059017 -0.00035843468111821573 2.699329444044946 0.18924688091697187 -0.00038320037295918783 2.6983695460362864 0.19211911303286394 -0.0003929083511950691 2.6917214593333494 0.16215033934077613 -0.00029877818686151143 2.6917409985640135 0.1621631262711238 -0.0002981962183547745 2.691775194457084 0.16217601698494913 -0.00029764263332317904 2.6918052159431487 0.1621834263381219 -0.0002973025111344917 2.691831795490271 0.16218853964549268 -0.00029673252872569 2.6918647110946945 0.16219462290847236 -0.0002962008948906305 2.691900170369568 0.16220717490363357 -0.00029532439057904076 2.691939158889875 0.16221538463241036 -0.0002948387915274668 2.6919837972968397 0.16222632797152917 -0.0002948023725010699 2.6920296340132013 0.162231612582503 -0.0002958068361457805 2.6920825423889534 0.1622453075805591 -0.00029669688534408786 2.6921539178614506 0.16226960943217927 -0.00029758782256368756 2.692224413762045 0.16230604424754272 -0.00029791933370450533 2.692317047348298 0.1623713248151138 -0.0002977112635725369 2.6924403627164866 0.1624802215295616 -0.000296445051879324 2.6926096710089156 0.1626313154854927 -0.00029608748425318426 2.692852738310069 0.16284230736527333 -0.00029628054343017207 2.6932073527739964 0.1631282922230772 -0.0002994748695304052 2.6937888248499604 0.16354592252478012 -0.0003051441292506387 2.6946912751802947 0.16413484001277584 -0.00031623122834957714 2.6960270141858387 0.16504975266493485 -0.0003213333953188285 2.697637444871049 0.16627079992233468 -0.00031990697428363257 2.6992707751138267 0.16801660422728293 -0.0002571546910602867 2.7006518556979575 0.17008988491572943 -0.0001407174866887813 2.701744007370332 0.1724640474416637 -1.0724396730698492e-05 2.702416664620266 0.17506126275938397 0.00013781655334013461 2.7024601782974926 0.17774614711647682 0.00027458399577869584 2.701484353107905 0.1803669346390013 0.0003426129126275229 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_6" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_6" fromField = "value_changed" toNode = "at_6_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+       <PositionInterpolator DEF = "move_7" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "2.1405759347753452 -1.110195849576523 -0.0002537838851883212 2.140556532849347 -1.1102338561042993 -0.0002542468447417276 2.1405435326759688 -1.1102662616496641 -0.0002545150244238658 2.140531884716606 -1.1102993186633554 -0.0002544238373017368 2.1405197998672905 -1.1103317857035946 -0.00025458588993473933 2.1405106134641954 -1.1103618302159326 -0.0002546545739901375 2.1404998744386177 -1.1104003682703496 -0.0002547884669122668 2.140482403462806 -1.1104460455077627 -0.00025490865467513125 2.1404542164098905 -1.1105055816895362 -0.0002550423944184215 2.1404098723865035 -1.1105802634778132 -0.0002548541502816135 2.1403340867967544 -1.1106664706156235 -0.00025513200011048766 2.140244716156436 -1.1107697544481092 -0.0002551058473472603 2.140122644010942 -1.1108898916469208 -0.0002549590746755695 2.1399964344760063 -1.1109989258057356 -0.00025485478342844543 2.1398575949584475 -1.1110844152701156 -0.0002539530851729311 2.1397635389752603 -1.1111604457383328 -0.000253142225448686 2.139727956418372 -1.111171967626288 -0.00025243362122815647 2.139803067775452 -1.1111174839403788 -0.0002501278305226967 2.14002240930676 -1.1109853673981935 -0.000248560553751267 2.140408904989561 -1.1107584632252638 -0.00024763792394722026 2.1409935820264634 -1.1104437505045281 -0.0002552098216796757 2.1417879140911076 -1.1099496162864564 -0.00026683218899400897 2.1427774623514333 -1.1092933854529712 -0.0002818157826741618 2.1439935724105346 -1.1083977786095414 -0.00029266651156399084 2.1454857470487547 -1.1072737311924785 -0.000299845494868673 2.1472841573663097 -1.1059530090595655 -0.00031013600793600545 2.1493691761376503 -1.1044465365809186 -0.00032051904094488275 2.1517004018959245 -1.102827659052404 -0.000321415056659266 2.154150004789075 -1.1011447343398257 -0.0003110920315489773 2.1566924593247254 -1.0994520188832078 -0.0002784781178422705 2.1592079978283625 -1.0977467905483427 -0.00022310323001971768 2.1616777383470462 -1.0960450774161552 -0.00015156450541170752 2.1640715222688227 -1.0943641258077736 -6.922362688467608e-05 2.166400313278194 -1.0927075725980955 2.0271125977829794e-05 2.16864982350816 -1.0910862482905699 0.00011223559506975301 2.17085179690248 -1.0894871692944748 0.00020430041209328038 2.1405861883564685 -1.1102057194915287 -0.00025437754199934294 2.1406009737974836 -1.1101974827485164 -0.00025441259792932766 2.1406163728094434 -1.1101821329718842 -0.0002546796820574013 2.1406343025154952 -1.110167488275413 -0.0002549020829291443 2.1406619499095303 -1.110153689988743 -0.0002551063794225593 2.14069603104407 -1.1101354600476512 -0.000255267469755367 2.140731219253891 -1.1101134825329901 -0.00025558123934286454 2.1407823465274887 -1.1100862222776697 -0.0002555472054068388 2.140838310859901 -1.1100605399693964 -0.0002557529484225048 2.1409214237027756 -1.1100389909592137 -0.000255536324205072 2.141011133736944 -1.1100128571602443 -0.00025529662514660025 2.14112458325908 -1.1099934039130197 -0.0002548316271947059 2.1412654049356434 -1.109979235440437 -0.0002546783151608697 2.1414614383528345 -1.1099774108321125 -0.00025476209817923667 2.1417335308371532 -1.1099917161739008 -0.00025430591452248056 2.142143502754467 -1.110017831423406 -0.00025438596693630656 2.1427765403896264 -1.1100959192870254 -0.0002541728088459367 2.1437901146350313 -1.110200504869524 -0.0002530955591093125 2.145281158719825 -1.1102324340420568 -0.0002506557402558566 2.1473080257655064 -1.1101788946506626 -0.0002493595536694175 2.149835691238768 -1.1097623210262153 -0.00025269087078827116 2.1526325440176657 -1.108999015217715 -0.0002654063277562278 2.155798324002113 -1.107752770957272 -0.0002643159897247141 2.1589542368980728 -1.106282339926741 -0.0002530612573095341 2.1621424871474533 -1.1047073585344835 -0.00023340590736161665 2.1652569174764777 -1.1030117662891101 -0.0002100360410554192 2.168143875103067 -1.101435655289989 -0.0001677754783666783 2.1704424637765376 -1.1002244324683603 -6.197339206834009e-05 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_7" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_7" fromField = "value_changed" toNode = "at_7_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+       <PositionInterpolator DEF = "move_8" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "0.7642371316280717 -1.273769692151925 -1.7536361129961678e-05 0.7641893153053084 -1.27368139179715 -1.5908779881027153e-05 0.7641232749417727 -1.2735966231028473 -1.553516718203314e-05 0.7640488230635896 -1.2735126908622474 -1.4808970192942424e-05 0.7639711601583573 -1.2734232686411342 -1.4634815127437495e-05 0.7638850393184605 -1.273318833229733 -1.4433587694979862e-05 0.7637970795301338 -1.2731946927798323 -1.4231196892087857e-05 0.7636945857341959 -1.2730433901699323 -1.3949370211577365e-05 0.7635772853837253 -1.272838170050632 -1.3950539142233486e-05 0.7634337337991456 -1.2725670197598005 -1.3404846192360555e-05 0.7632743602489002 -1.2721985916375511 -1.3305830976290655e-05 0.76309238237091 -1.2717036794138883 -1.2748158811594798e-05 0.7629244172674933 -1.2710571176841978 -1.1535652507599456e-05 0.7627574938607989 -1.2702156479189823 -9.982928608412464e-06 0.762656118164227 -1.2691805280547015 -7.2024718152258605e-06 0.7626509336023212 -1.2679824602663876 -3.7837974678455357e-06 0.7627754869823777 -1.2666147279074458 3.465899458910969e-07 0.7630494964564615 -1.2651181288855047 5.95928891918199e-06 0.7634919306149917 -1.2635293852880742 1.1622967848003945e-05 0.7641058468292511 -1.2618797199015865 1.6886427849564365e-05 0.7649191969891801 -1.260200751185552 2.578802542752201e-05 0.7658748846521318 -1.258511886323409 3.4344247513084974e-05 0.7670061348562001 -1.2568683256147997 4.162676281796474e-05 0.7683184843481771 -1.255362660975167 3.858492763620362e-05 0.7698640728617226 -1.2541444420603303 2.5172855676360217e-05 0.7716785500547927 -1.2532863366518978 1.114988904099723e-05 0.7737735069931791 -1.2528975214862426 1.4408578637968583e-07 0.7761262864322676 -1.2530612743789475 1.1614006526674137e-06 0.7786528319946788 -1.2537632278372841 7.925681558715808e-06 0.7812624574498582 -1.2549634740441582 2.7057037319322913e-05 0.7838997529464161 -1.2565789253918105 5.365354693800886e-05 0.7865360870206096 -1.258498612742484 8.58482477016956e-05 0.7891306640973841 -1.260649826649009 0.000124989255476313 0.7916987029165703 -1.2629510627442688 0.00017174768374752237 0.7942129870590129 -1.265364554713194 0.0002256494608681502 0.7967100186603019 -1.2678243430364513 0.0002857046340318177 0.76436943204503 -1.2738161990482209 -1.8707763438725136e-05 0.7644722505307712 -1.2738806197984975 -1.818811607927375e-05 0.764577059691905 -1.2739451429496222 -1.8186902500417334e-05 0.7646873506182554 -1.2740155028765043 -1.808585182698255e-05 0.7648021873807127 -1.274096953782005 -1.8121342120887323e-05 0.7649217080766343 -1.2741870182221915 -1.810852651014264e-05 0.7650592569937354 -1.274295983657764 -1.8446557791900677e-05 0.7652132018439604 -1.2744192731872672 -1.811297053669296e-05 0.765395479937834 -1.2745725819192064 -1.7958768055725668e-05 0.765596375576106 -1.2747540212243966 -1.701615946211685e-05 0.7658334929525631 -1.2749553381304677 -1.6450054906350093e-05 0.7660962193055004 -1.2751931005589299 -1.5922770456408265e-05 0.766437738300661 -1.2754373617311021 -1.558201120727612e-05 0.766879431151378 -1.2756931066596866 -1.5053740839744589e-05 0.767474214837654 -1.2759606307066442 -1.3905355516804694e-05 0.768284907933924 -1.2761983224284068 -1.2917672431330871e-05 0.7694216001185128 -1.2763792295910459 -1.1635818228689721e-05 0.7709520377465994 -1.276399082336922 -7.644921263930106e-06 0.7728954549748545 -1.2762458199476445 -2.2651447824435104e-06 0.7752498536177769 -1.2759765251438888 3.6796586887704753e-06 0.7779391597464894 -1.2756239305981112 1.0243033494381707e-05 0.7807521384944044 -1.275316455347566 2.7204164471407443e-05 0.7838142174181206 -1.2755107687946092 1.9378106426954655e-05 0.7869326058595879 -1.2762989148422623 -8.05355569010109e-06 0.7900388722057549 -1.2778290529779235 -6.682578486828238e-05 0.79312751521847 -1.2797418101102584 -0.00012603294967601154 0.7961135351759155 -1.2820296854959847 -0.00015124189426290517 0.7986740505224578 -1.2845092133436624 -0.00010168715003926835 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_8" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_8" fromField = "value_changed" toNode = "at_8_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+       <PositionInterpolator DEF = "move_9" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "-2.5328384037769016 -1.103212101732077 0.000147521726182764 -2.5796763865834476 -1.0921400351772361 9.362494440190799e-05 -2.6263691683959043 -1.080637069776183 6.896571404591495e-05 -2.672896572299247 -1.0686798428947362 2.0989489497249448e-05 -2.7193185772542208 -1.056592225279173 -2.012723625578208e-05 -2.7657138218311927 -1.0447914398733218 -4.200838170301745e-05 -2.812160140852583 -1.0339113394393407 -4.01242085390204e-05 -2.8587174872612398 -1.0249116941271639 -5.9593258863070767e-05 -2.9052700688961495 -1.019070422355084 -9.670982447275471e-05 -2.951305322178753 -1.0175899543577611 -0.00012265862912243767 -2.995954611913174 -1.02056760802178 -0.00013478227816441765 -3.038387243098679 -1.0266341584822147 -0.0001267760175512154 -3.078182300563924 -1.033900937862082 -0.0001566533657796751 -3.1149616230759714 -1.0404563227559915 -0.00014724944025940485 -3.148427083176486 -1.0455566559741247 -7.322528638435325e-05 -3.1785100954375163 -1.0487715700543414 -8.349853645733726e-05 -3.2053064860037677 -1.050298752332256 -6.584420756083975e-05 -3.2292745089420793 -1.0503427594834307 -5.2034452874231805e-05 -3.2510120646833363 -1.0492279214688653 -3.8430908574604566e-05 -3.270969946566415 -1.0472801381041192 -5.264846726251833e-05 -3.2896580032089786 -1.0445970021085569 -0.00010215459230764687 -3.3075074868901297 -1.0413136308992519 -0.0002441692626632982 -3.3246420084195902 -1.0374051980325254 -0.00045927170312240776 -3.3412971995050165 -1.032831895464595 -0.000739248345475085 -3.3572909021484874 -1.0277821683080117 -0.000892929101245912 -3.372246125332817 -1.0222526051606362 -0.0010191815663959988 -3.3862844033450528 -1.0160866708811207 -0.0011144081241621407 -3.3989726900191815 -1.0096371133337019 -0.001106934165720914 -3.410220361155704 -1.0026384523621181 -0.00095856604399252 -3.420305102180852 -0.9958122197435604 -0.0006829119626747039 -3.428996181795254 -0.988828292245802 -0.0003208577846954047 -3.436611565337606 -0.9818828038129654 7.480781299981095e-05 -3.443337888582914 -0.9749683435764357 0.0004793904280097952 -3.4493989699492196 -0.9681205870769758 0.0008600339988333711 -3.4549297884430237 -0.9612874346506858 0.0012040623483347695 -3.460117549539572 -0.9545007442433945 0.0014865721768170144 -2.485910851111166 -1.1135269375388788 2.1777060250528848e-05 -2.438876399308458 -1.1233502160273432 -3.0404036088420235e-05 -2.391855129190212 -1.133017093371999 -5.707010664413087e-05 -2.344945041655337 -1.1428134471417908 -8.212907375395092e-05 -2.2982819549758835 -1.1531204912390816 -0.0001332496286202269 -2.2520692857367 -1.1644615110857475 -0.00017007190185379847 -2.2065338062966706 -1.1772020416400488 -0.00017359328631788443 -2.1619164513332034 -1.191621131331521 -0.00013100227591061168 -2.1183871995258583 -1.2075833850058941 -2.054310796176752e-05 -2.076050932094227 -1.2248329669509024 0.00013778463442940312 -2.034834362193384 -1.242643830314812 0.00016472575677336308 -1.9946771244782244 -1.2603493989615842 0.00018989466947149787 -1.9557357218434601 -1.2775831606336423 0.00018984136367079495 -1.9182884331415593 -1.293756949202163 0.0002120474464995125 -1.8828548016104645 -1.308579360552899 0.0002958118293293473 -1.8504650892578336 -1.3217887968726323 0.0003266377415199255 -1.8222289759451602 -1.3334197826448868 0.00027314758743642584 -1.7994856945313848 -1.3437063538892577 0.0001816848816970873 -1.7825806082927742 -1.3529445990030735 0.00020428716051121217 -1.7714227723611367 -1.3612933359027628 0.00038330462203579543 -1.7648953648758887 -1.369128588522731 0.00045989035359676376 -1.7619887110021577 -1.3765042382553265 0.00045646082831187856 -1.7616201077392493 -1.3831022812686957 3.932374929790267e-05 -1.7629168670548128 -1.3889748309142196 -0.0006610937013246984 -1.765331841653131 -1.3938388786730327 -0.0014695518233243028 -1.7682456969572582 -1.398018360950918 -0.0026427296711824203 -1.771278299886952 -1.4015808560023573 -0.003910101189527205 -1.7741566513773486 -1.4047650462249957 -0.004647960930443137 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_9" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_9" fromField = "value_changed" toNode = "at_9_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+       <PositionInterpolator DEF = "move_10" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "-0.1699569090170072 1.987568612402309 0.00030980854179860686 -0.16956653731471424 1.9878551456540516 0.00032725710514630867 -0.16939694697150787 1.9879709232285312 0.00033765159961257076 -0.1692532567372463 1.9880412112495403 0.00033591819700638066 -0.16913224884691702 1.988114756894885 0.00033363128910144805 -0.16901001279030847 1.9881975499889633 0.00033504984116868914 -0.16887107411651817 1.9882737378801023 0.000342370809971203 -0.1687371401670715 1.988360405029447 0.0003452249795529432 -0.16854550405592786 1.9884903123247812 0.00034363757371935 -0.16833818134533854 1.9886744383352868 0.0003468639689732365 -0.1680974735469058 1.9889548472951069 0.0003605804571731317 -0.16774725433896429 1.9893367450562014 0.0003827040742373011 -0.16729655978491903 1.98995257990732 0.00035378405996274744 -0.16669668785785405 1.9908104503314243 0.0003444758787842652 -0.1659385691435671 1.9919557287703997 0.00033219778397335363 -0.1650338429483671 1.9935075841962098 0.00029472908716553936 -0.16396120769831696 1.995365312861833 0.00027508453584070263 -0.16278179021261008 1.997515251866924 0.000260604670178244 -0.1614970147528452 1.9998483560078584 0.00025300278296664465 -0.1601592361852139 2.0023062215574803 0.00025899630910785227 -0.15871584571607306 2.0048036117407206 0.00029370557483363404 -0.15733187250518352 2.0072435611936945 0.0003197627130186666 -0.1560749834265009 2.0094342254685653 0.00032272693891996165 -0.15506927556930175 2.0110995636601525 0.0002681353690135986 -0.1545366241451282 2.0119371345050134 0.00017282185265653569 -0.1547150140299255 2.012043306777619 5.446353483694348e-05 -0.15568083216944123 2.0112065237466448 -9.610101004113319e-05 -0.15764671657027876 2.0094799205124803 -0.00021668414391501814 -0.16038942874037507 2.006769353600934 -0.0003231259258791094 -0.16396771637844473 2.0033537199283646 -0.00035478434537668143 -0.16810089414051532 1.9993057538153658 -0.0003343655533467575 -0.17262645343989028 1.9948152887208168 -0.00027832875876927256 -0.17745991055068677 1.9900284821139347 -0.00019553087667175062 -0.18248399111440758 1.985062926033497 -9.631030692423038e-05 -0.18766959904877997 1.9799908072075092 1.2932355814713458e-05 -0.1929316412519901 1.9748772138286377 0.00012152358875941012 -0.16983457610370395 1.9876890767164628 0.0002889852745216531 -0.16986163667268697 1.987711973244121 0.00027952627888697254 -0.16993077011920651 1.9877172359098139 0.00027625174766933815 -0.17001946000588145 1.98769342827427 0.0002712134401293891 -0.17014379931431003 1.9876488007765094 0.00025722905986168076 -0.170327812746666 1.987596826389798 0.0002443074138373926 -0.1705531606785947 1.9875154365075463 0.00023799776001657332 -0.1707900649088569 1.9873533388321747 0.00024098101869307002 -0.1710511485980185 1.98715273800467 0.0002643875810350818 -0.1713394225348957 1.9868985888803714 0.0003055925825068534 -0.17171994639187985 1.986588341923714 0.0003186718685095592 -0.17216649791178906 1.9862075583514072 0.00033335673167790976 -0.17267113013269955 1.9856321612265113 0.00033219338070124017 -0.17330669998395315 1.984961129298888 0.0003211649869246908 -0.17406078298031602 1.984196068995393 0.00029821221579366675 -0.1748286009780419 1.9833712857624126 0.000285863697865476 -0.175531899928317 1.982613079552451 0.00028463525250691527 -0.176196037763671 1.9819794188311768 0.00031583165292884736 -0.17678494650637738 1.9816637282199858 0.00036697577586976277 -0.1771600232141172 1.981548443878398 0.00042623589570267383 -0.17737715729573247 1.9811573652342847 0.00038102736453304344 -0.1778197687364757 1.9805147820695663 0.0002363501910514906 -0.178638148367093 1.978754591102281 -3.840996442442207e-05 -0.18019019770218042 1.9759337749033048 -0.0004262578071011153 -0.1829762879313671 1.9721143294381467 -0.0007839087571097131 -0.1864588988556509 1.967540531559458 -0.0012472233937508583 -0.1908669492618896 1.9625875765798715 -0.001690394314429942 -0.19644475075903864 1.9576996363409491 -0.0018260915103787772 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_10" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_10" fromField = "value_changed" toNode = "at_10_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+       <PositionInterpolator DEF = "move_11" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "2.285997546438721 2.2690371568766117 -0.00011790512236221333 2.286262265357864 2.2690231389899345 -0.00011468191423676594 2.2865858735894764 2.2690500759305627 -0.00011176043405670521 2.286767493103819 2.2690869433965277 -0.00011299357978673194 2.2869588395198743 2.269128785533179 -0.00011506446432128497 2.28718748203125 2.26916174655961 -0.00011739876381341593 2.287480276741932 2.2691767176096675 -0.00011942997730551955 2.2877748990483795 2.2692165811419622 -0.00011978176926024368 2.288186567374445 2.2692647009528946 -0.00011217189030095845 2.288624050430688 2.269324981909349 -0.00010691401668419037 2.2891642798099245 2.2694496227506034 -0.00010600009775658024 2.289835196149379 2.2696089357383493 -0.00010080067801269648 2.290742617146996 2.269798959576056 -0.00010508488807986672 2.291885391635581 2.2700533961712273 -0.00010369822158832727 2.293303718026774 2.270345812695485 -9.505729711644064e-05 2.295094208584928 2.2706589494008833 -0.00010485907965675506 2.2971643052810715 2.2710053719401673 -0.00011272568701307833 2.299478432444239 2.2713873234567945 -0.0001246306001594076 2.3019432428420643 2.271797448045997 -0.00014276850726895336 2.304437260125616 2.2722471764012315 -0.000168829921297862 2.3068678934535787 2.2727090511829036 -0.00019772040738130024 2.309048988222936 2.2732064398219554 -0.00024252686995675042 2.310834247294343 2.2737473877225938 -0.00030537949958437505 2.311926882506073 2.2743391654624836 -0.00038053708913285124 2.312208424469974 2.2750117805868655 -0.0004205409276872889 2.311545114281944 2.2758887307768103 -0.0004483163754517733 2.3097505303615 2.2769535382066874 -0.00045450630313986106 2.3067656906561487 2.2782985850075463 -0.00040951354477506476 2.3028161215442844 2.2797489122016685 -0.00031151425805972294 2.297995856078594 2.2814414823094356 -0.00015427211183970466 2.292463257083007 2.28323088215615 4.101040931202125e-05 2.2864497106787742 2.2850946008327377 0.0002474894815988469 2.2801468966064182 2.286994706010248 0.00044656708780452774 2.2736531917623264 2.288899564066979 0.0006188870581392713 2.267076248064931 2.29078808446238 0.0007532722440924896 2.2604325207566114 2.2926497892481135 0.0008362699510564103 2.2855831562635127 2.269112729499919 -0.00012440576901439346 2.2852360024140235 2.2690850649527214 -0.00012739710128969293 2.284992682957475 2.2690523956826656 -0.0001272167754798227 2.2847250027844876 2.269030573102861 -0.00012784692778283047 2.284379291380244 2.2690079221210246 -0.0001305584436032573 2.2840272956812537 2.268984874611437 -0.00013372840717427108 2.283696673017292 2.268945248401781 -0.0001368558667980701 2.283371008756615 2.2688936454343755 -0.00014036925318176952 2.2831217632769074 2.268790515766835 -0.00014053521387149615 2.2829144838755724 2.268627213897406 -0.00013644371014026743 2.282606472207 2.268495488650629 -0.00013169026645760675 2.2822618058971327 2.268335063986428 -0.0001250615275820286 2.28184749347968 2.268198129113025 -0.00012371662025116234 2.281405137941684 2.268075368435762 -0.00012862619195681143 2.2809244955976853 2.2678804060679156 -0.00014345829097636484 2.2805210820932498 2.267660479896371 -0.00015207510964097734 2.280249221137635 2.267478711926998 -0.00015276168629390559 2.2802082394315653 2.2674003666532068 -0.00013762765810367678 2.280465860978691 2.2674261960776314 -0.00012599795518477262 2.2809668991391994 2.267585484601825 -0.00012767519462129933 2.281148583128917 2.267983125887612 -0.00016200679207614127 2.280843908316594 2.268533950713178 -0.00023264623451417239 2.2787038849248384 2.269385708147154 -0.000315637267272916 2.2752525568591553 2.270375793976989 -0.0004144619378742653 2.270843048456428 2.271644834061119 -0.0004557039099298848 2.26528530531579 2.2731260969820686 -0.0005073453314187208 2.259004483670572 2.2747820006928037 -0.0005354035063627001 2.2526878365185565 2.2763648455946863 -0.00046610477981025446 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_11" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_11" fromField = "value_changed" toNode = "at_11_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+       <PositionInterpolator DEF = "move_12" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "3.766007871415548 0.2889871758480675 -0.0004729450154345121 3.7660075664894728 0.2890052203632499 -0.000496633400196806 3.7660368494447902 0.28899562687405883 -0.0005079587764807035 3.766006600089799 0.28899443642936057 -0.000506064069295729 3.766020111039596 0.2890020691232452 -0.000503381464216087 3.766048780315332 0.28901845444601765 -0.0005045954564079762 3.766032420368909 0.2890293434451237 -0.0005118856148586903 3.7660219879668353 0.2890076970562941 -0.0005149919374516978 3.7660057688474136 0.2889095548941454 -0.0005164214394891869 3.7659915916182474 0.288826170072839 -0.0005201762819913494 3.7659896884024997 0.28874476113861164 -0.0005335708117587931 3.76593817048689 0.28861628201262 -0.0005544819580288584 3.7658858428008375 0.28849970494875266 -0.0005281798596729714 3.7658617914694146 0.2882957231004321 -0.0005234710753979817 3.7658622226277756 0.28803898750052676 -0.000524431911015645 3.7659232559420275 0.2877123107243522 -0.0004957975300987319 3.7660709392011134 0.2872988777525197 -0.00048501104013191947 3.766324125554328 0.28681783457968124 -0.0004766992187367387 3.7667224547809806 0.28634119039750616 -0.0004724018179804073 3.7672831324887306 0.28587913614889754 -0.00047354056744247354 3.7680448460401617 0.28548033504657777 -0.0004917624523391969 3.7688951614789796 0.28524275753004363 -0.0004900174309852164 3.769904812071167 0.2852839528249044 -0.0004599454079338061 3.771052399892127 0.2858847672178195 -0.0003851995774647291 3.7722914760643564 0.2875623285362533 -0.00032606542112897257 3.7734540407870796 0.28999810686516747 -0.0002676903621855077 3.7744822243300544 0.29318973049128527 -0.0002043079664149559 3.7751953939344376 0.29703501443294655 -0.000191757075470429 3.7756700249448207 0.30144582305881334 -0.0002198402614272586 3.7757692210532676 0.30620489824921626 -0.00032549556748584486 3.7755297650877226 0.31115816125074924 -0.0004721956673812007 3.7750134930192245 0.3162687288571867 -0.0006342843543275894 3.774241358563873 0.32147821874426497 -0.0007941591022332418 3.7732570918367965 0.32677618595837454 -0.0009332045524056661 3.7720923668639497 0.3321297241742295 -0.0010401396239881925 3.7707831872004247 0.3375588449996027 -0.0011004507145538447 3.766016795908166 0.28903329413564266 -0.0004503194010115769 3.765983411795918 0.28904421917039647 -0.0004430010111431915 3.7659984358482017 0.2890413176876639 -0.00044145120211647995 3.7659918132314454 0.28904037680236466 -0.0004375162027500159 3.7659947563650777 0.28904372767527614 -0.00042336613624019496 3.766023015459279 0.2890569344623516 -0.00041056034202144575 3.766063347415603 0.28908156866905005 -0.000404965322390838 3.7660670565441294 0.2891240118635206 -0.00040996297739588974 3.76606885292924 0.2891761150847261 -0.00043716051668514803 3.7660741553021855 0.28922624227346283 -0.0004829605144712572 3.7661511696475274 0.28924185012197773 -0.0004968559700375746 3.7662218735894233 0.2892589671030982 -0.0005101679376967412 3.7662667262073035 0.28933667929351414 -0.000507336709290967 3.766346270404517 0.28949963839570114 -0.000494864687080389 3.7664668865326383 0.2897623681169769 -0.0004698850791662878 3.7666050110330414 0.2901426215462496 -0.0004646587858253756 3.7667623493898117 0.29064810801587776 -0.0004803280189333036 3.767021391894625 0.29138225387681305 -0.000525342908944245 3.767510561531264 0.2924776203336373 -0.0005799729898134708 3.768311509954634 0.29397252776225913 -0.0006338742842493763 3.7695384151191105 0.2959872791664738 -0.0005702406538796703 3.7710405836130287 0.29836758425987386 -0.00039847210171819916 3.772420698492643 0.301708620664989 -0.00012498513732700674 3.7736212039281267 0.30559583775114013 0.0002424951926187979 3.7745422750888653 0.31018862050353163 0.000529286467967972 3.7749448898751123 0.3149388058737189 0.0009147102012946237 3.774659567909955 0.31999527352489776 0.00126460977729451 3.7731695213720124 0.32572032781797733 0.001278238013896843 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_12" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_12" fromField = "value_changed" toNode = "at_12_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+       <PositionInterpolator DEF = "move_13" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "2.7824403435900353 -1.981191933884528 -0.00039911035202244683 2.7824428246559463 -1.9812193111328553 -0.00039708638983262847 2.7824979486257395 -1.981219888951609 -0.0003945045672127733 2.7825377572373076 -1.9812470616969213 -0.000395697962664897 2.782575834780762 -1.9812511960549584 -0.00039784543446680885 2.7826310079320944 -1.9812496081191808 -0.00040067587867026634 2.782715069676646 -1.9812519102026234 -0.00040363885782102857 2.7827552958879664 -1.9812593323203582 -0.00040424410267520455 2.782760072834607 -1.98132433104976 -0.0003941502329960606 2.782764044026742 -1.9813580434556313 -0.0003875045058372569 2.78276846136287 -1.9813807984290284 -0.00038826903313698123 2.782732602343233 -1.9814282331884097 -0.0003848252263959634 2.782761908009312 -1.981494839506876 -0.00038518407585957703 2.7826389618201985 -1.9815519311864251 -0.0003809111378474306 2.7824372725294375 -1.9816543886372773 -0.00036548311749718326 2.782262945032074 -1.9817429280773975 -0.00037021050918748986 2.782030511286553 -1.9818616373283506 -0.00037343164700096807 2.7818342751876877 -1.982022002338624 -0.000381237587033035 2.7816987616068154 -1.9821544058436031 -0.00039753661070818057 2.781670635131251 -1.9822692674848452 -0.0004264084411399776 2.7817244788061215 -1.9822490847873986 -0.00046621562235098837 2.7819957290917143 -1.9821341756240927 -0.0005288539669228321 2.782466935326256 -1.981828156759045 -0.0006147071529463585 2.783216099180889 -1.9812613608343037 -0.0007110957616914652 2.784479512894742 -1.9803097540274186 -0.0007573641267525014 2.786269153959722 -1.9790008516668756 -0.0007860047588850786 2.788605993361512 -1.977306872066174 -0.0007823962560608536 2.7916015126030413 -1.9752361620624324 -0.0007129300476331129 2.79507959043565 -1.9727860453960608 -0.0005726534012780335 2.7990556689946255 -1.9700540660107257 -0.0003561564152202543 2.803342320297001 -1.9670629786215437 -8.442483750514595e-05 2.8078291940020828 -1.9638885032164082 0.00021156855782658503 2.812435969765251 -1.9605721228094892 0.0005109909792615532 2.8171103853106443 -1.9571704854956986 0.0007920721140087556 2.8217962273093877 -1.9537109563764854 0.0010418823593638226 2.8264729664124495 -1.9502410446672083 0.001244369780536581 2.782364637346251 -1.9812525967809786 -0.00040279913105914267 2.782281463931755 -1.9812694658734997 -0.0004050406138791929 2.7822356864110716 -1.9812737769330067 -0.00040431473448994545 2.782204468718992 -1.9812919561025806 -0.00040438946254875625 2.782187780505647 -1.9813291691666415 -0.00040608509215629045 2.7821400179715208 -1.981320005912289 -0.0004081990451792361 2.782106950183441 -1.9813137040619784 -0.0004103273616041972 2.7820876927100318 -1.9813217584356269 -0.00041329252990021176 2.7821306073284733 -1.9813613436550566 -0.00041429491614006984 2.7822298314921423 -1.981401667598319 -0.0004130873576984039 2.782321866777772 -1.9813448647879057 -0.00041062187235859363 2.7824897508894746 -1.9813095680496668 -0.00040747144202767354 2.7826995049218093 -1.9813021332513456 -0.0004071936543388618 2.7829252271602942 -1.98126138339261 -0.00041073589369770077 2.7832190723751977 -1.981246608815149 -0.0004204684979083458 2.7837958332207604 -1.9811854158512703 -0.00042457619212171016 2.7846758094180464 -1.981053080847975 -0.00042190442246539553 2.786094504716249 -1.9809182482494911 -0.0004108824483751635 2.7879255244770205 -1.980770074879235 -0.0004072938297152794 2.7900925691299814 -1.9805706869061042 -0.0004174088786052948 2.7927711530053103 -1.9799350422119666 -0.00044993963732742863 2.7956365295050434 -1.979090114540821 -0.0005056709024438836 2.7996568787915668 -1.9772774462024285 -0.0005508892064363464 2.8041742093410362 -1.9748220594052783 -0.0005896308758202572 2.809642734735788 -1.9714998304470852 -0.0005538251344897439 2.8150821815260154 -1.9681754664838846 -0.0005112180521276491 2.820071429366325 -1.965043515686722 -0.00042955086785545515 2.8237922835737193 -1.9627346215417991 -0.00023150923312388776 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_13" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_13" fromField = "value_changed" toNode = "at_13_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+       <PositionInterpolator DEF = "move_14" key = " 0.0 0.015625 0.03125 0.046875 0.0625 0.078125 0.09375 0.109375 0.125 0.140625 0.15625 0.171875 0.1875 0.203125 0.21875 0.234375 0.25 0.265625 0.28125 0.296875 0.3125 0.328125 0.34375 0.359375 0.375 0.390625 0.40625 0.421875 0.4375 0.453125 0.46875 0.484375 0.5 0.515625 0.53125 0.546875 0.5625 0.578125 0.59375 0.609375 0.625 0.640625 0.65625 0.671875 0.6875 0.703125 0.71875 0.734375 0.75 0.765625 0.78125 0.796875 0.8125 0.828125 0.84375 0.859375 0.875 0.890625 0.90625 0.921875 0.9375 0.953125 0.96875 0.984375" keyValue = "0.3186949694302502 -2.2597239597295298 3.4341224052446276e-05 0.31828202757385915 -2.259492140867006 3.678552708042232e-05 0.31792343538346796 -2.2592416640332442 3.6598766703941896e-05 0.3175471102066647 -2.259024507312234 3.656200125972911e-05 0.31717458050390823 -2.258794174912254 3.6162568632088434e-05 0.31681259399637407 -2.2585367919678427 3.578546150583425e-05 0.31644246434460926 -2.2582609349680856 3.518607216164713e-05 0.3159303587201038 -2.25793824022609 3.481002065224103e-05 0.3151769250685152 -2.2574272473607238 3.7776050706128246e-05 0.31434042233692683 -2.2568810317764423 3.925154170960241e-05 0.31340777534647735 -2.256231679535612 3.663724208626631e-05 0.31228860432647576 -2.2552973664354976 3.488009837557557e-05 0.3108828230443255 -2.254075036156539 4.301755185899039e-05 0.3092590799183342 -2.252542207417379 5.1070373514358464e-05 0.30741650584225033 -2.2506883937495727 7.124895127290187e-05 0.30544492540928314 -2.2485210451648765 8.333740608917374e-05 0.30350018324566186 -2.246130453298924 9.324744397516829e-05 0.3017127401205957 -2.2436064151957504 0.00010011094129791276 0.30020711338012135 -2.2410609069871885 0.00010206884224967658 0.2991383756889023 -2.238562501962126 9.189719336534667e-05 0.2986163992308048 -2.2362461528501902 5.967790749907267e-05 0.2987123142115682 -2.234097419139054 9.493152213797995e-06 0.29944162755170733 -2.2322390519372868 -5.042086480156496e-05 0.3007771387186584 -2.230714455056033 -9.990486255315005e-05 0.30264339677356283 -2.229640858774906 -0.0001004961984080213 0.30540593635124036 -2.2292441098457925 -8.72864565044603e-05 0.3090066766050931 -2.2295723897117163 -5.409214520386181e-05 0.3134225356772215 -2.230737690680803 -6.702423659458356e-06 0.3184071548712087 -2.2325969356767024 6.79771707962374e-05 0.32377072175305366 -2.235110334493531 0.00015269542867990687 0.329322736623571 -2.238096545519134 0.00024866780387660086 0.33493746969265864 -2.2414200510267484 0.0003525574863398642 0.3405420385106265 -2.2449658836148156 0.0004622247873479693 0.34609972526003113 -2.2486572393334456 0.0005749484333900279 0.3515850456349878 -2.252423268394455 0.0006895299816197801 0.3570087214281348 -2.256226631847261 0.0008034804811419278 0.3190374144154669 -2.2599180975824114 3.126894652091777e-05 0.3193716853832664 -2.2601572920813977 3.149879597498253e-05 0.31974477427578624 -2.2603703372884563 3.060417632043275e-05 0.32013687374647526 -2.2606126889658875 2.9533354593472355e-05 0.3205539020877604 -2.260867104493691 2.7217344060611335e-05 0.32102767562390655 -2.261194636946858 2.5695758505937994e-05 0.3216174987613203 -2.2615658112086368 2.5556889241821783e-05 0.32232361758075767 -2.2620559178483317 2.8006136527311787e-05 0.3231657146913638 -2.2626012110247467 3.307806137440385e-05 0.3240879359274155 -2.263194439355034 3.926492527737254e-05 0.3248887408249796 -2.2638006988671755 3.8002732496312086e-05 0.32574132671364725 -2.2644047719473446 3.5171245824847856e-05 0.32681803817328814 -2.265078295038197 3.2538266191627394e-05 0.3280872558597442 -2.2658643001702266 3.145764894355579e-05 0.3295861891377805 -2.2666173281456565 3.246800365831004e-05 0.3312104760875565 -2.2673597269162267 3.335720231840884e-05 0.33287008838315585 -2.2679457778744903 3.3138290255253806e-05 0.334640001238996 -2.26812111045911 3.1350122237461204e-05 0.33671476231849296 -2.268089496247736 3.707206385827372e-05 0.3393296586221581 -2.2679792182754075 5.4324080600127494e-05 0.3428156393598484 -2.2679452305868586 6.736131649550208e-05 0.34709720355799273 -2.268316638472344 8.12716304254366e-05 0.35239620289221296 -2.269465910476355 7.272232322518559e-05 0.3583097014946087 -2.2715020116280176 5.175169234964006e-05 0.36468927343970775 -2.274589729596996 9.369861612002724e-06 0.3712597718929004 -2.2779772429387886 -5.058078472783009e-05 0.37757517670767743 -2.2816580312007955 -0.00012117072287222176 0.3827648278362863 -2.2851552191049875 -0.00018331076953447998 " > 
+       </PositionInterpolator> 
+       <ROUTE fromNode = "time" fromField = "fraction_changed" toNode = "move_14" toField = "set_fraction" > 
+       </ROUTE> 
+       <ROUTE fromNode = "move_14" fromField = "value_changed" toNode = "at_14_e94b6feb" toField = "translation" > 
+       </ROUTE> 
+     </Scene> 
+   </X3D> 
+ </div> 
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js" ></script>
+ <script >
+ if (atoms_dict == undefined) {var atoms_dict = {"new": true};}; 
+atoms_dict["e94b6feb"] = {com: "-0.05 0.00 -0.00", 
+top_pos: "-0.05 0.00 21.58", 
+front_pos: "-0.05 -21.58 -0.00", 
+right_pos: "21.53 0.00 -0.00", 
+left_pos: "-21.63 0.00 -0.00", 
+top_ori: "0 0 0 0", 
+front_ori: "1 0 0 1.57079", 
+right_ori: "0 1 0 1.57079", 
+left_ori: "0 1 0 -1.57079", 
+select: [], 
+uuid: "e94b6feb", 
+label: "False", 
+bond: "True", 
+polyhedra: {}, 
+};
+
+// if (atoms_dict[uuid]['new']){
+function setQuality(uuid, quality){
+        // $('#error_'.concat(atoms_dict[uuid]['uuid'])).html('uuid: '.concat(atoms_dict[uuid]["uuid"]));
+        var x3d = 'x3dase_' + uuid;
+        document.getElementById(x3d).setAttribute('PrimitiveQuality', quality);
+    }
+function set_viewpoint(uuid, pos, ori){
+    // $('#error_'.concat(atoms_dict[uuid]['uuid'])).html('uuid: '.concat(atoms_dict[uuid]["uuid"]));
+    var persp = 'camera_persp_' + uuid;
+    var ortho = 'camera_ortho_' + uuid;
+    document.getElementById(persp).setAttribute('orientation', atoms_dict[uuid][ori]);
+    document.getElementById(persp).setAttribute('position', atoms_dict[uuid][pos]);
+    document.getElementById(ortho).setAttribute('orientation', atoms_dict[uuid][ori]);
+    document.getElementById(ortho).setAttribute('position', atoms_dict[uuid][pos]);
+}
+
+//Round a float value to x.xx format
+function roundWithTwoDecimals(value)
+{
+    var x = (Math.round(value * 100)) / 100;
+    var y = x.toFixed(2);
+    return y;
+}
+//Handle click on any group member
+function handleGroupClick(event)
+{
+    //Mark hitting point
+    var target = event.target;
+    var uuid = target.parentNode.getAttribute('uuid')
+    var radius = target.parentNode.getAttribute('radius');
+    var scale = target.parentNode.getAttribute('scale');
+    scale = parseFloat(radius)*parseFloat(scale)*1.2;
+    var scale = ' ' + scale + ' ' + scale + ' ' + scale;
+    var translation = target.parentNode.getAttribute('translation');
+    var id = target.parentNode.getAttribute('id');
+    if (window.event.ctrlKey) {
+        atoms_dict[uuid]['select'].push(id);
+
+    }
+    else {
+        for (var i=1; i<= atoms_dict[uuid]['select'].length; i++) {
+            $('#switch_marker_' + i + '_' + uuid).attr('whichChoice', -1);
+        }
+        atoms_dict[uuid]['select'] = [];
+        atoms_dict[uuid]['select'].push(id);
+        $('#switch_marker_' + 2 + '_' + uuid).attr('whichChoice', -1);
+}
+    var n = atoms_dict[uuid]['select'].length;
+    $('#switch_marker_' + n + '_' + uuid).attr('whichChoice', 0);
+    $('#marker_' + n + '_' + uuid).attr('translation', translation);
+    $('#marker_' + n + '_' + uuid).attr('scale', scale);
+    var atom_kind = '#lastonMouseoverObject_kind_'.concat(uuid);
+    var atom_index = '#lastonMouseoverObject_index_'.concat(uuid);
+    $(atom_kind).html(target.getAttribute("kind"));
+    $(atom_index).html(target.getAttribute("index"));
+    //
+    var coord = translation.split(" ")
+    var atom_position = '#position_'.concat(uuid);
+    var x = roundWithTwoDecimals(coord[0]);
+    var y = roundWithTwoDecimals(coord[1]);
+    var z = roundWithTwoDecimals(coord[2]);
+    var position = 'x = ' + x + ' y = ' + y + ' z = ' + z;
+    $(atom_position).html(position);
+
+    if (atoms_dict[uuid]['select'].length == 2){
+        calculate_distance(uuid);
+        draw_line(uuid);
+    }
+    else if (atoms_dict[uuid]['select'].length == 3){
+        calculate_angle(uuid);
+        draw_line(uuid);
+    }
+
+    console.log(event);
+}
+//Add a onMouseover callback to every shape
+$(document).ready(function(){
+    $("shape").each(function() {
+        // $(this).attr("onMouseover", "handleOnMouseover_shape(this)");
+        // $(this).attr("onclick", "handleClick_shape(this)");
+    });
+    //Add a onMouseover callback to every transform
+    $("transform").each(function() {
+        // $(this).attr("onMouseover", "handleOnMouseover_transform(this)");
+        // $(this).attr("onclick", "handleClick_transform(this)");
+    });
+});
+$(document).on("click", function(e) {
+    if (e.target === document || e.target.tagName === "BODY" || e.target.tagName === "HTML") {
+        $('#marker').attr('scale', "0.0001 0.0001 0.0001");
+    }
+});
+//Handle onMouseover on a shape
+function handleOnMouseover_shape(shape)
+{
+    var atom_kind = '#lastonMouseoverObject_kind_'.concat($(shape).attr("uuid"));
+    var atom_index = '#lastonMouseoverObject_index_'.concat($(shape).attr("uuid"));
+    $(atom_kind).html($(shape).attr("kind"));
+    $(atom_index).html($(shape).attr("index"));
+}
+//Handle onMouseover on a shape
+function handleClick_shape(shape)
+{
+    var atom_kind = '#lastonMouseoverObject_kind_'.concat($(shape).attr("uuid"));
+    var atom_index = '#lastonMouseoverObject_index_'.concat($(shape).attr("uuid"));
+    $(atom_kind).html($(shape).attr("kind"));
+    $(atom_index).html($(shape).attr("index"));
+}
+//Handle onMouseover on a transform
+function handleOnMouseover_transform(transform)
+{
+    var atom_position = '#position_'.concat($(transform).attr("uuid"));
+    var coord = $(transform).attr("translation").split(" "[0]);
+    var x = roundWithTwoDecimals(coord[0]);
+    var y = roundWithTwoDecimals(coord[1]);
+    var z = roundWithTwoDecimals(coord[2]);
+    var position = 'x = ' + x + ' y = ' + y + ' z = ' + z;
+    $(atom_position).html(position);
+}
+
+function calculate_distance(uuid)
+{
+    var measure = '#measure_'.concat(uuid);
+    var c1 = document.getElementById(atoms_dict[uuid]['select'][0]).getAttribute("translation").split(" ");
+    var c2 = document.getElementById(atoms_dict[uuid]['select'][1]).getAttribute("translation").split(" ");
+    r = (c1[0] - c2[0])*(c1[0] - c2[0]) + (c1[1] - c2[1])*(c1[1] - c2[1]) + (c1[2] - c2[2])*(c1[2] - c2[2]);
+    r = roundWithTwoDecimals(Math.sqrt(r));
+    var dist = 'Distance:  ' + r;
+    $(measure).html(dist);
+}
+function calculate_angle(uuid)
+{
+    var measure = '#measure_'.concat(uuid);
+    var c1 = document.getElementById(atoms_dict[uuid]['select'][0]).getAttribute("translation").split(" ");
+    var c2 = document.getElementById(atoms_dict[uuid]['select'][1]).getAttribute("translation").split(" ");
+    var c3 = document.getElementById(atoms_dict[uuid]['select'][2]).getAttribute("translation").split(" ");
+    var AB = Math.sqrt(Math.pow(c2[0]-c1[0],2)+ Math.pow(c2[1]-c1[1],2) + Math.pow(c2[2]-c1[2],2));    
+    var BC = Math.sqrt(Math.pow(c2[0]-c3[0],2)+ Math.pow(c2[1]-c3[1],2) + Math.pow(c2[2]-c3[2],2)); 
+    var AC = Math.sqrt(Math.pow(c3[0]-c1[0],2)+ Math.pow(c3[1]-c1[1],2)+ Math.pow(c3[2]-c1[2],2));
+    var angle = roundWithTwoDecimals(Math.acos((BC*BC+AB*AB-AC*AC)/(2*BC*AB))*180/3.1415926);
+    var angle = 'angle:  ' + angle;
+    $(measure).html(angle);
+}
+function draw_line(uuid)
+{
+    var n = atoms_dict[uuid]['select'].length;
+    var coordIndex = '';
+    var point = document.getElementById(atoms_dict[uuid]['select'][0]).getAttribute("translation");
+    for (var i = 1; i < n; i++) {
+        var c1 = document.getElementById(atoms_dict[uuid]['select'][i]).getAttribute("translation");
+        coordIndex = coordIndex + (i-1) + ' ' + i + ' -1 ';
+        point = point + ' ' + c1 + ' ';
+    }
+    $('#line_coor_' + 0 + '_' + uuid).attr('point', point);
+    $('#line_ind_' + 0 + '_' + uuid).attr('coordIndex', coordIndex);
+    $('#switch_line_' + 0 + '_' + uuid).attr('whichChoice', 0);
+}
+//Handle models
+function spacefilling(uuid)
+{
+    var objs = document.getElementsByName(''.concat('at_'.concat(uuid)));
+    var max=objs.length;
+    for (var i=0; i< max; i++) {
+        objs[i].setAttribute("scale", "1.0, 1.0, 1.0");
+        }
+    document.getElementById('bs_'.concat(uuid)).setAttribute("whichChoice", '-1');
+    document.getElementById('ps_'.concat(uuid)).setAttribute("whichChoice", '-1');
+}
+function ballstick(uuid)
+{
+    if (atoms_dict[uuid]['bond']=='False'){ 
+        alert('Please set bond parameter in your code, e.g. bond=1.0!');
+        $('#error_'.concat(uuid)).html('(^_^) Please set bond parameter in your code, e.g. bond=1.0!');
+		return ;
+    }
+    var objs = document.getElementsByName(''.concat('at_'.concat(uuid)));
+    var max=objs.length;
+    for (var i=0; i< max; i++) {
+        objs[i].setAttribute("scale", "0.6, 0.6, 0.6");
+        }
+    document.getElementById('bs_'.concat(uuid)).setAttribute("whichChoice", '0');
+    document.getElementById('ps_'.concat(uuid)).setAttribute("whichChoice", '-1');
+}
+function polyhedra(uuid)
+{
+    if (atoms_dict[uuid]['polyhedra'].length==0){ 
+        alert('Please set polyhedra parameter in your code, e.g. polyhedra={"Ti": ["O"]}!');
+        $('#error_'.concat(uuid)).html('(^_^) Please set polyhedra parameter in your code, e.g. polyhedra={"Ti": ["O"]}!');
+		return ;
+    }
+    var objs = document.getElementsByName(''.concat('at_'.concat(uuid)));
+    var max=objs.length;
+    for (var i=0; i< max; i++) {
+        objs[i].setAttribute("scale", "0.6, 0.6, 0.6");
+        }
+    document.getElementById('bs_'.concat(uuid)).setAttribute("whichChoice", '0');
+    document.getElementById('ps_'.concat(uuid)).setAttribute("whichChoice", '0');
+}
+function none(uuid)
+{
+    var objs = document.getElementsByName(''.concat('am_'.concat(uuid)));
+    var max=objs.length;
+    for (var i=0; i< max; i++) {
+        objs[i].setAttribute("transparency", "0.0");
+        }
+    document.getElementById('ele_'.concat(uuid)).setAttribute("whichChoice", '-1');
+    document.getElementById('ind_'.concat(uuid)).setAttribute("whichChoice", '-1');
+}
+        
+function element(uuid)
+{
+    if (atoms_dict[uuid]['label']=='False'){ 
+        alert('To show element, please set label=True in your code!');
+        $('#error_'.concat(uuid)).html('(^_^) To show element, please set label=True in your code!');
+		return ;
+	}
+    var objs = document.getElementsByName(''.concat('am_'.concat(uuid)));
+    var max=objs.length;
+    for (var i=0; i< max; i++) {
+        objs[i].setAttribute("transparency", "0.4");
+        }
+    document.getElementById('ele_'.concat(uuid)).setAttribute("whichChoice", '0');
+    document.getElementById('ind_'.concat(uuid)).setAttribute("whichChoice", '-1');
+    document.getElementById('bs_'.concat(uuid)).setAttribute("whichChoice", '-1');
+}
+function index(uuid)
+{
+    if (atoms_dict[uuid]['label']=='False'){ 
+        alert('To show index, please set label=True in your code!');
+        $('#error_'.concat(uuid)).html('(^_^) To show index, please set label=True in your code!');
+		return ;
+	}
+    var objs = document.getElementsByName(''.concat('am_'.concat(uuid)));
+    var max=objs.length;
+    for (var i=0; i< max; i++) {
+        objs[i].setAttribute("transparency", "0.4");
+        }
+    document.getElementById('ind_'.concat(uuid)).setAttribute("whichChoice", '0');
+    document.getElementById('ele_'.concat(uuid)).setAttribute("whichChoice", '-1');
+    document.getElementById('bs_'.concat(uuid)).setAttribute("whichChoice", '-1');
+}
+// } 
+</script> </body>
+</html>
