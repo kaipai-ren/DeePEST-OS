@@ -15,10 +15,11 @@ The contents of each folder are as follows:
 ## Installation environment
 After downloading the DeePEST-OS.zip file and extracting it, navigate to the folder in a terminal (execution on a Linux system is recommended) and run the following command to install the environment:
 
-1. conda create --name deepest_os
-2. conda env update --name deepest_os --file environment.yml
-3. conda install --name deepest_os --file packages.txt
-
+```
+conda create --name deepest_os
+conda env update --name deepest_os --file environment.yml
+conda install --name deepest_os --file packages.txt
+```
 
 
 ## Usage tutorial
