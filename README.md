@@ -15,9 +15,9 @@ The contents of each folder are as follows:
 ## Installation environment
 After downloading the DeePEST-OS.zip file and extracting it, navigate to the folder in a terminal (execution on a Linux system is recommended) and run the following command to install the environment:
 
-  conda create --name deepest_os
-  conda env update --name deepest_os --file environment.yml
-  conda install --name deepest_os --file packages.txt
+1. conda create --name deepest_os
+2. conda env update --name deepest_os --file environment.yml
+3. conda install --name deepest_os --file packages.txt
 
 
 
@@ -29,6 +29,6 @@ After downloading the repository using git clone or similar commands, move to th
 python ts_opt.py
 ```
 
-This command will use the MACE_deltaL model to optimize the initial guess of transition state structures and predict energy barrier in `./example/input` folder , and output to `./example/output`.
+This command will use the DeePEST-OS model to optimize the initial guess of transition state structures and predict energy barrier in `./example/input` folder , and output to `./example/output`.
 
 Users can modify the input file path and output file path in ts_opt.py.
