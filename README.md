@@ -8,54 +8,27 @@ The contents of each folder are as follows:
 
 1. **dataset**: 1000 initial guess geometries of transition states for external validation.
 2. **example**: Workfolder of transition state optimization and energy barrier predictio by DeePEST-OS model.
-3. **models**: The DeePEST-OS models in the article, including MACE_deltaL, MACE, PaiNN.
-4. **neuralneb**: Dependency modules of PaiNN model.
-5. **ts_opt.py**: Script for transition state optimization and energy barrier prediction driven by DeePEST-OS models.
+3. **models**: The DeePEST-OS model in the article.
+4. **ts_opt.py**: Script for transition state optimization and energy barrier prediction driven by DeePEST-OS model.
+5. **environment.yml and packages.txt**: The required environment information for running DeePEST-OS model.
+   
+## Installation environment
+After downloading the DeePEST-OS.zip file and extracting it, navigate to the folder in a terminal (execution on a Linux system is recommended) and run the following command to install the environment:
 
-## Required modules
+  conda create --name deepest_os
+  conda env update --name deepest_os --file environment.yml
+  conda install --name deepest_os --file packages.txt
 
-- torch
-- numpy
-- xtb
-- mace-torch
-- ase
-- sella
-- matplotlib
-- natsort
-- configparser
-- os
-- time
-- traceback
-- argparse
-- x3dase
+
 
 ## Usage tutorial
 
 After downloading the repository using git clone or similar commands, move to the generated directory and run the following:
 
 ```
-python ts_opt.py --model_name='MACE_deltaL'
+python ts_opt.py
 ```
 
 This command will use the MACE_deltaL model to optimize the initial guess of transition state structures and predict energy barrier in `./example/input` folder , and output to `./example/output`.
 
-Other arguments:
-
-```
---input_path
-```
-
-Type: str. Specifies the XYZ format geometry path for the input.
-
-```
---output_path
-```
-
-Type: str. Specifies the output file path.
-
-```
---model_path
-```
-
-Type: str. Specifies the DeePEST-OS model file path.
-
+Users can modify the input file path and output file path in ts_opt.py.
