@@ -1,0 +1,7 @@
+ref_time: 8.3
+refine_steps: 27
+irc_time: 5.73
+irc_steps: 40
+Ef: 1.407908 eV
+Er: 1.415230 eV
+irc_split_flag: 22
