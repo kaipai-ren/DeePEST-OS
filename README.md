@@ -23,7 +23,7 @@ This repository includes the structures of organic reaction systems discussed in
 │─ [dataset](./dataset): files in XYZ format of transition state initial guesses for reactions, produced by the `GENiniTS-RS` software.  
 │  ├─ [1000_external_test_set](./dataset/1000_external_test_set): 1k initial structures of external test reactions in this work.  
 │  └─ [conformational_isomer](./dataset/conformational_isomer): conformation isomers in the transition state conformational isomer screening case.  
-│  └─ [cross-dataset_validation_of_DeePEST-OS-T1x](./dataset/cross-dataset_validation_of_DeePEST-OS-T1x): initial structures of test reactions used to compare DeePEST-OS and T1x.  
+│  └─ [cross-dataset_validation_of_DeePEST-OS-T1x](./dataset/cross-dataset_validation_of_DeePEST-OS-T1x):  cross validation dataset of MACE model trained on Transition1x database.  
 │  └─ [multi-step_organic_reactions](./dataset/multi-step_organic_reactions): intermediate and transition state initial structures in multi-step organic reaction retrosynthesis case.  
 │─ [examples](./examples): sample scripts for model training and inference are here.  
 │  ├─ [ts_and_irc](./examples/ts_and_irc): demo for transition state optimization and IRC calculation.  
