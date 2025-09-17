@@ -19,7 +19,8 @@ This repository includes the structures of organic reaction systems discussed in
 
 ## Repo Contents
 
-**[DeePEST-OS](https://github.com/kaipai-ren/DeePEST-OS)**/
+```markdown
+**[DeePEST-OS](https://github.com/kaipai-ren/DeePEST-OS)**
 │─ [dataset](./dataset): files in XYZ format of transition state initial guesses for reactions, produced by the `GENiniTS-RS` software.
 │  ├─ [1000_external_test_set](./dataset/1000_external_test_set): 1k initial structures of external test reactions in this work.
 │  └─ [conformational_isomer](./dataset/conformational_isomer): conformation isomers in the transition state conformational isomer screening case.
@@ -33,6 +34,7 @@ This repository includes the structures of organic reaction systems discussed in
 │  └─ [MACE_deltaL](./models/MACE_deltaL): MACE model trained with delta learning strategy.
 │  └─ [PaiNN](./models/PaiNN): PaiNN model trained without delta learning strategy.
 │─ [requirements](./requirements): Python packages and their versions in the virtual environment required to run the RMLP models.
+```
 
 ## System Requirements
 
