@@ -1,0 +1,292 @@
+2025-09-17 19:08:48.337 INFO: ===========VERIFYING SETTINGS===========
+2025-09-17 19:08:48.338 INFO: Stage Two is activated as start_stage_two was defined
+2025-09-17 19:08:48.339 INFO: MACE version: 0.3.13
+2025-09-17 19:08:48.340 DEBUG: Configuration: Namespace(config='config.yaml', name='demo', seed=42, work_dir='.', log_dir='./logs', model_dir='./logs', checkpoints_dir='./ckps', results_dir='./logs', downloads_dir='./downloads', device='cuda', default_dtype='float32', distributed=False, log_level='INFO', plot=True, plot_frequency=0, error_table='TotalMAE', model='MACE', r_max=6.0, radial_type='bessel', num_radial_basis=8, num_cutoff_basis=5, pair_repulsion=False, distance_transform='None', interaction='RealAgnosticResidualInteractionBlock', interaction_first='RealAgnosticResidualInteractionBlock', max_ell=3, correlation=3, num_interactions=2, MLP_irreps='16x0e', radial_MLP='[64, 64, 64]', hidden_irreps=256x0e+256x1o+256x2e, num_channels=256, max_L=2, gate='silu', scaling='rms_forces_scaling', avg_num_neighbors=1, compute_avg_num_neighbors=True, compute_stress=False, compute_forces=True, train_file='./demo_train.xyz', valid_file=None, valid_fraction=0.1, test_file=None, test_dir=None, multi_processed_test=False, num_workers=0, pin_memory=True, atomic_numbers=None, mean=None, std=None, statistics_file=None, E0s='average', foundation_filter_elements=True, heads=None, multiheads_finetuning=True, foundation_head=None, weight_pt_head=1.0, num_samples_pt=10000, force_mh_ft_lr=False, subselect_pt='random', filter_type_pt='none', pt_train_file=None, pt_valid_file=None, foundation_model_elements=False, keep_isolated_atoms=False, energy_key='energy', forces_key='forces', virials_key='REF_virials', stress_key='REF_stress', dipole_key='dipole', head_key='head', charges_key='REF_charges', skip_evaluate_heads='pt_head', loss='weighted', forces_weight=10.0, swa_forces_weight=100.0, energy_weight=10.0, swa_energy_weight=1000.0, virials_weight=1.0, swa_virials_weight=10.0, stress_weight=1.0, swa_stress_weight=10.0, dipole_weight=1.0, swa_dipole_weight=1.0, config_type_weights='{"Default":1.0}', huber_delta=0.01, optimizer='adamw', beta=0.9, batch_size=10, valid_batch_size=10, lr=0.001, swa_lr=0.001, weight_decay=5e-07, amsgrad=True, scheduler='ReduceLROnPlateau', lr_factor=0.8, scheduler_patience=50, lr_scheduler_gamma=0.9993, swa=True, start_swa=100, lbfgs=False, ema=True, ema_decay=0.99, max_num_epochs=400, patience=10, foundation_model=None, foundation_model_readout=True, eval_interval=2, keep_checkpoints=False, save_all_checkpoints=False, restart_latest=True, save_cpu=False, clip_grad=10.0, dry_run=False, enable_cueq=True, wandb=False, wandb_dir=None, wandb_project='', wandb_entity='', wandb_name='', wandb_log_hypers=['num_channels', 'max_L', 'correlation', 'lr', 'swa_lr', 'weight_decay', 'batch_size', 'max_num_epochs', 'start_swa', 'energy_weight', 'forces_weight'], key_specification=KeySpecification(info_keys={'energy': 'energy', 'stress': 'REF_stress', 'virials': 'REF_virials', 'dipole': 'dipole', 'head': 'head'}, arrays_keys={'forces': 'forces', 'charges': 'REF_charges'}))
+2025-09-17 19:08:48.563 INFO: CUDA version: 12.1, CUDA device: 0
+2025-09-17 19:08:48.637 DEBUG: Popen(['git', 'version'], cwd=/mnt/d/rmlp/DeePEST-OS/examples/model_training, stdin=None, shell=False, universal_newlines=False)
+2025-09-17 19:08:48.649 DEBUG: Popen(['git', 'version'], cwd=/mnt/d/rmlp/DeePEST-OS/examples/model_training, stdin=None, shell=False, universal_newlines=False)
+2025-09-17 19:08:48.824 DEBUG: Popen(['git', 'cat-file', '--batch-check'], cwd=/mnt/d/rmlp/DeePEST-OS, stdin=<valid stream>, shell=False, universal_newlines=False)
+2025-09-17 19:08:48.911 DEBUG: Current Git commit: 0cf5132eb7a94211a571112f675534a774b39e01
+2025-09-17 19:08:48.911 INFO: ===========LOADING INPUT DATA===========
+2025-09-17 19:08:48.912 INFO: Using heads: ['Default']
+2025-09-17 19:08:48.913 INFO: Using the key specifications to parse data:
+2025-09-17 19:08:48.914 INFO: Default: KeySpecification(info_keys={'energy': 'energy', 'stress': 'REF_stress', 'virials': 'REF_virials', 'dipole': 'dipole', 'head': 'head'}, arrays_keys={'forces': 'forces', 'charges': 'REF_charges'})
+2025-09-17 19:08:48.915 INFO: =============    Processing head Default     ===========
+2025-09-17 19:08:48.919 DEBUG: Loading training file: ./demo_train.xyz
+2025-09-17 19:08:52.960 WARNING: Since ASE version 3.23.0b1, using energy_key 'energy' is no longer safe when communicating between MACE and ASE. We recommend using a different key, rewriting 'energy' to 'REF_energy'. You need to use --energy_key='REF_energy' to specify the chosen key name.
+2025-09-17 19:08:53.373 WARNING: Since ASE version 3.23.0b1, using forces_key 'forces' is no longer safe when communicating between MACE and ASE. We recommend using a different key, rewriting 'forces' to 'REF_forces'. You need to use --forces_key='REF_forces' to specify the chosen key name.
+2025-09-17 19:08:53.865 INFO: Training set 1/1 [energy: 5760, stress: 0, virials: 0, dipole components: 0, head: 5760, forces: 5760, charges: 0]
+2025-09-17 19:08:53.881 INFO: Total Training set [energy: 5760, stress: 0, virials: 0, dipole components: 0, head: 5760, forces: 5760, charges: 0]
+2025-09-17 19:08:53.882 INFO: No validation set provided, splitting training data instead.
+2025-09-17 19:08:53.928 INFO: Using random 10% of training set for validation with indices saved in: ./valid_indices_42.txt
+2025-09-17 19:08:53.952 INFO: Random Split Training set [energy: 5184, stress: 0, virials: 0, dipole components: 0, head: 5184, forces: 5184, charges: 0]
+2025-09-17 19:08:53.954 INFO: Random Split Validation set [energy: 576, stress: 0, virials: 0, dipole components: 0, head: 576, forces: 576, charges: 0]
+2025-09-17 19:08:53.955 INFO: Total number of configurations: train=5184, valid=576, tests=[],
+2025-09-17 19:08:53.965 INFO: Atomic Numbers used: [1, 6, 7, 8, 9, 17, 35]
+2025-09-17 19:08:53.967 INFO: Isolated Atomic Energies (E0s) not in training file, using command line argument
+2025-09-17 19:08:53.967 INFO: Computing average Atomic Energies using least squares regression
+2025-09-17 19:08:54.008 INFO: Atomic Energies used (z: eV) for head Default: {1: -2.225405372779404, 6: -979.0053578025254, 7: -1410.5780230604885, 8: -1936.6416571327854, 9: -2588.4096139972894, 17: -12398.640526277448, 35: -69931.22600875009}
+2025-09-17 19:08:54.009 INFO: Processing datasets for head 'Default'
+2025-09-17 19:08:55.346 DEBUG: Successfully loaded dataset from ASE files: ['./demo_train.xyz']
+2025-09-17 19:08:55.346 INFO: Combining 1 list datasets for head 'Default'
+2025-09-17 19:08:55.588 INFO: Head 'Default' training dataset size: 5184
+2025-09-17 19:08:55.589 INFO: Computing average number of neighbors
+2025-09-17 19:08:57.016 INFO: Average number of neighbors: 12.1578950881958
+2025-09-17 19:08:57.027 INFO: During training the following quantities will be reported: energy, forces
+2025-09-17 19:08:57.027 INFO: ===========MODEL DETAILS===========
+2025-09-17 19:08:57.861 INFO: Building model
+2025-09-17 19:08:57.874 INFO: Message passing with 256 channels and max_L=2 (256x0e+256x1o+256x2e)
+2025-09-17 19:08:57.880 INFO: 2 layers, each with correlation order: 3 (body order: 4) and spherical harmonics up to: l=3
+2025-09-17 19:08:57.882 INFO: 8 radial and 5 basis functions
+2025-09-17 19:08:57.883 INFO: Radial cutoff: 6.0 A (total receptive field for each atom: 12.0 A)
+2025-09-17 19:08:57.884 INFO: Distance transform for radial basis functions: None
+2025-09-17 19:08:57.885 INFO: Hidden irreps: 256x0e+256x1o+256x2e
+2025-09-17 19:08:59.130 DEBUG: ScaleShiftMACE(
+  (node_embedding): LinearNodeEmbeddingBlock(
+    (linear): Linear(7x0e -> 256x0e | 1792 weights)
+  )
+  (radial_embedding): RadialEmbeddingBlock(
+    (bessel_fn): BesselBasis(r_max=6.0, num_basis=8, trainable=False)
+    (cutoff_fn): PolynomialCutoff(p=5, r_max=6.0)
+  )
+  (spherical_harmonics): SphericalHarmonics()
+  (atomic_energies_fn): AtomicEnergiesBlock(energies=[[-2.2254, -979.0054, -1410.5780, -1936.6416, -2588.4097, -12398.6406, -69931.2266]])
+  (interactions): ModuleList(
+    (0): RealAgnosticInteractionBlock(
+      (linear_up): Linear(256x0e -> 256x0e | 65536 weights)
+      (conv_tp): TensorProduct(256x0e x 1x0e+1x1o+1x2e+1x3o -> 256x0e+256x1o+256x2e+256x3o | 1024 paths | 1024 weights)
+      (conv_tp_weights): FullyConnectedNet[8, 64, 64, 64, 1024]
+      (linear): Linear(256x0e+256x1o+256x2e+256x3o -> 256x0e+256x1o+256x2e+256x3o | 262144 weights)
+      (skip_tp): FullyConnectedTensorProduct(256x0e+256x1o+256x2e+256x3o x 7x0e -> 256x0e+256x1o+256x2e+256x3o | 1835008 paths | 1835008 weights)
+      (reshape): reshape_irreps()
+    )
+    (1): RealAgnosticResidualInteractionBlock(
+      (linear_up): Linear(256x0e+256x1o+256x2e -> 256x0e+256x1o+256x2e | 196608 weights)
+      (conv_tp): TensorProduct(256x0e+256x1o+256x2e x 1x0e+1x1o+1x2e+1x3o -> 768x0e+1280x1o+1280x2e+1024x3o | 4352 paths | 4352 weights)
+      (conv_tp_weights): FullyConnectedNet[8, 64, 64, 64, 4352]
+      (linear): Linear(256x0e+256x0e+256x0e+256x1o+256x1o+256x1o+256x1o+256x1o+256x2e+256x2e+256x2e+256x2e+256x2e+256x3o+256x3o+256x3o+256x3o -> 256x0e+256x1o+256x2e+256x3o | 1114112 weights)
+      (skip_tp): FullyConnectedTensorProduct(256x0e+256x1o+256x2e x 7x0e -> 256x0e | 458752 paths | 458752 weights)
+      (reshape): reshape_irreps()
+    )
+  )
+  (products): ModuleList(
+    (0): EquivariantProductBasisBlock(
+      (symmetric_contractions): SymmetricContraction(
+        (contractions): ModuleList(
+          (0): Contraction(
+            (contractions_weighting): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (contractions_features): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (weights): ParameterList(
+                (0): Parameter containing: [torch.float32 of size 7x4x256 (cuda:0)]
+                (1): Parameter containing: [torch.float32 of size 7x1x256 (cuda:0)]
+            )
+            (graph_opt_main): GraphModule()
+          )
+          (1): Contraction(
+            (contractions_weighting): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (contractions_features): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (weights): ParameterList(
+                (0): Parameter containing: [torch.float32 of size 7x6x256 (cuda:0)]
+                (1): Parameter containing: [torch.float32 of size 7x1x256 (cuda:0)]
+            )
+            (graph_opt_main): GraphModule()
+          )
+          (2): Contraction(
+            (contractions_weighting): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (contractions_features): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (weights): ParameterList(
+                (0): Parameter containing: [torch.float32 of size 7x7x256 (cuda:0)]
+                (1): Parameter containing: [torch.float32 of size 7x1x256 (cuda:0)]
+            )
+            (graph_opt_main): GraphModule()
+          )
+        )
+      )
+      (linear): Linear(256x0e+256x1o+256x2e -> 256x0e+256x1o+256x2e | 196608 weights)
+    )
+    (1): EquivariantProductBasisBlock(
+      (symmetric_contractions): SymmetricContraction(
+        (contractions): ModuleList(
+          (0): Contraction(
+            (contractions_weighting): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (contractions_features): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (weights): ParameterList(
+                (0): Parameter containing: [torch.float32 of size 7x4x256 (cuda:0)]
+                (1): Parameter containing: [torch.float32 of size 7x1x256 (cuda:0)]
+            )
+            (graph_opt_main): GraphModule()
+          )
+        )
+      )
+      (linear): Linear(256x0e -> 256x0e | 65536 weights)
+    )
+  )
+  (readouts): ModuleList(
+    (0): LinearReadoutBlock(
+      (linear): Linear(256x0e+256x1o+256x2e -> 1x0e | 256 weights)
+    )
+    (1): NonLinearReadoutBlock(
+      (linear_1): Linear(256x0e -> 16x0e | 4096 weights)
+      (non_linearity): Activation [x] (16x0e -> 16x0e)
+      (linear_2): Linear(16x0e -> 1x0e | 16 weights)
+    )
+  )
+  (scale_shift): ScaleShiftBlock(scale=0.4431, shift=0.0000)
+)
+2025-09-17 19:08:59.134 INFO: Total number of parameters: 4897040
+2025-09-17 19:08:59.134 INFO: 
+2025-09-17 19:08:59.135 INFO: ===========OPTIMIZER INFORMATION===========
+2025-09-17 19:08:59.135 INFO: Using ADAMW as parameter optimizer
+2025-09-17 19:08:59.136 INFO: Batch size: 10
+2025-09-17 19:08:59.136 INFO: Using Exponential Moving Average with decay: 0.99
+2025-09-17 19:08:59.137 INFO: Number of gradient updates: 207360
+2025-09-17 19:08:59.137 INFO: Learning rate: 0.001, weight decay: 5e-07
+2025-09-17 19:08:59.137 INFO: WeightedEnergyForcesLoss(energy_weight=10.000, forces_weight=10.000)
+2025-09-17 19:08:59.138 INFO: Converting model to CUEQ for accelerated training
+2025-09-17 19:08:59.226 INFO: Creating new model with cuequivariance settings
+2025-09-17 19:08:59.228 DEBUG: Normalized paths for operand 2 in uv,iu,iv operands=[(7, 256)],[(1, 7)],[(1, 256)] paths=[op0[0]*op1[0]*op2[0]*1.]: got uv,iu,iv operands=[(7, 256)],[(1, 7)],[(1, 256)] paths=[op0[0]*op1[0]*op2[0]*0.38]
+2025-09-17 19:08:59.241 DEBUG: Normalized paths for operand 2 in uv,iu,iv operands=[(256, 256)],[(1, 256)],[(1, 256)] paths=[op0[0]*op1[0]*op2[0]*1.]: got uv,iu,iv operands=[(256, 256)],[(1, 256)],[(1, 256)] paths=[op0[0]*op1[0]*op2[0]*0.06]
+2025-09-17 19:08:59.252 DEBUG: Normalized paths for operand 3 in uv,iu,jv,kuv+ijk sizes=1024,256,16,4096 num_segments=4,1,4,4 num_paths=4 i=1 j={1, 3, 5, 7} k={1, 3, 5, 7} u=256 v=1: got uv,iu,jv,kuv+ijk sizes=1024,256,16,4096 num_segments=4,1,4,4 num_paths=4 i=1 j={1, 3, 5, 7} k={1, 3, 5, 7} u=256 v=1
+2025-09-17 19:08:59.252 DEBUG: Starting search for a cuda kernel for uv,iu,jv,kuv+ijk sizes=1024,256,16,4096 num_segments=4,1,4,4 num_paths=4 i=1 j={1, 3, 5, 7} k={1, 3, 5, 7} u=256 v=1
+2025-09-17 19:08:59.255 DEBUG: Flattened ijk in uv,iu,jv,kuv+ijk sizes=1024,256,16,4096 num_segments=4,1,4,4 num_paths=4 i=1 j={1, 3, 5, 7} k={1, 3, 5, 7} u=256 v=1: got uv,u,v,uv sizes=1024,256,16,4096 num_segments=4,1,16,16 num_paths=16 u=256 v=1
+2025-09-17 19:08:59.256 DEBUG: Squeezed uv,u,v,uv sizes=1024,256,16,4096 num_segments=4,1,16,16 num_paths=16 u=256 v=1 to u,u,,u sizes=1024,256,16,4096 num_segments=4,1,16,16 num_paths=16 u=256
+2025-09-17 19:08:59.258 DEBUG: Split u in u,u,,u sizes=1024,256,16,4096 num_segments=4,1,16,16 num_paths=16 u=256: got u,u,,u sizes=1024,256,16,4096 num_segments=4,1,16,16 num_paths=16 u=256
+2025-09-17 19:08:59.259 WARNING: CUDA implementation not available: libcue_ops.so: cannot open shared object file: No such file or directory
+2025-09-17 19:08:59.260 WARNING: Did you forget to install the CUDA version of cuequivariance-ops-torch?
+Install it with one of the following commands:
+pip install cuequivariance-ops-torch-cu11
+pip install cuequivariance-ops-torch-cu12
+2025-09-17 19:08:59.303 DEBUG: Normalized paths for operand 2 in uv,iu,iv sizes=262144,4096,4096 num_segments=4,4,4 num_paths=4 i={1, 3, 5, 7} u=256 v=256: got uv,iu,iv sizes=262144,4096,4096 num_segments=4,4,4 num_paths=4 i={1, 3, 5, 7} u=256 v=256
+2025-09-17 19:08:59.342 DEBUG: Normalized paths for operand 3 in uvw,iu,jv,kw+ijk sizes=1835008,4096,7,4096 num_segments=4,4,1,4 num_paths=4 i={1, 3, 5, 7} j=1 k={1, 3, 5, 7} u=256 v=7 w=256: got uvw,iu,jv,kw+ijk sizes=1835008,4096,7,4096 num_segments=4,4,1,4 num_paths=4 i={1, 3, 5, 7} j=1 k={1, 3, 5, 7} u=256 v=7 w=256
+2025-09-17 19:09:01.818 DEBUG: Flattened abciu in u,a,b,c,i+abcui operands=[(23,)],[(16,)],[(16,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*op3[0]*op4[0]*c c.shape=(16, 16, 16, 23, 1) c.nnz=276]: got ,,,, sizes=23,16,16,16,1 num_segments=23,16,16,16,1 num_paths=276
+2025-09-17 19:09:01.821 DEBUG: Flattened abiu in u,a,b,i+abui operands=[(4,)],[(16,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*op3[0]*c c.shape=(16, 16, 4, 1) c.nnz=16]: got ,,, sizes=4,16,16,1 num_segments=4,16,16,1 num_paths=16
+2025-09-17 19:09:01.822 DEBUG: Flattened aiu in u,a,i+aui operands=[(1,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*c c.shape=(16, 1, 1) c.nnz=1]: got ,, sizes=1,16,1 num_segments=1,16,1 num_paths=1
+2025-09-17 19:09:01.872 DEBUG: Flattened abciu in u,a,b,c,i+abcui operands=[(51,)],[(16,)],[(16,)],[(16,)],[(3,)] paths=[op0[0]*op1[0]*op2[0]*op3[0]*op4[0]*c c.shape=(16, 16, 16, 51, 3) c.nnz=1543]: got ,,,, sizes=51,16,16,16,3 num_segments=51,16,16,16,3 num_paths=1543
+2025-09-17 19:09:01.882 DEBUG: Flattened abiu in u,a,b,i+abui operands=[(6,)],[(16,)],[(16,)],[(3,)] paths=[op0[0]*op1[0]*op2[0]*op3[0]*c c.shape=(16, 16, 6, 3) c.nnz=70]: got ,,, sizes=6,16,16,3 num_segments=6,16,16,3 num_paths=70
+2025-09-17 19:09:01.887 DEBUG: Flattened aiu in u,a,i+aui operands=[(1,)],[(16,)],[(3,)] paths=[op0[0]*op1[0]*op2[0]*c c.shape=(16, 1, 3) c.nnz=3]: got ,, sizes=1,16,3 num_segments=1,16,3 num_paths=3
+2025-09-17 19:09:02.019 DEBUG: Flattened abciu in u,a,b,c,i+abcui operands=[(65,)],[(16,)],[(16,)],[(16,)],[(5,)] paths=[op0[0]*op1[0]*op2[0]*op3[0]*op4[0]*c c.shape=(16, 16, 16, 65, 5) c.nnz=3907]: got ,,,, sizes=65,16,16,16,5 num_segments=65,16,16,16,5 num_paths=3907
+2025-09-17 19:09:02.040 DEBUG: Flattened abiu in u,a,b,i+abui operands=[(7,)],[(16,)],[(16,)],[(5,)] paths=[op0[0]*op1[0]*op2[0]*op3[0]*c c.shape=(16, 16, 7, 5) c.nnz=100]: got ,,, sizes=7,16,16,5 num_segments=7,16,16,5 num_paths=100
+2025-09-17 19:09:02.042 DEBUG: Flattened aiu in u,a,i+aui operands=[(1,)],[(16,)],[(5,)] paths=[op0[0]*op1[0]*op2[0]*c c.shape=(16, 1, 5) c.nnz=5]: got ,, sizes=1,16,5 num_segments=1,16,5 num_paths=5
+2025-09-17 19:09:02.594 DEBUG: _reduced_tensor_product_basis (0e+1o+2e+3o,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 2e, 1o})
+2025-09-17 19:09:02.596 DEBUG: Normalized paths for operand 2 in w,a,i+aiw sizes=3,16,9 num_segments=3,1,3 num_paths=3 a=16 i={1, 3, 5} w=1: got w,a,i+aiw sizes=3,16,9 num_segments=3,1,3 num_paths=3 a=16 i={1, 3, 5} w=1
+2025-09-17 19:09:02.597 DEBUG: Flattened aiw in w,a,i+aiw sizes=3,16,9 num_segments=3,1,3 num_paths=3 a=16 i={1, 3, 5} w=1: got ,, sizes=3,16,9 num_segments=3,16,9 num_paths=9
+2025-09-17 19:09:02.598 DEBUG: _reduced_tensor_product_basis (0e+1o+2e+3o, 0e+1o+2e+3o), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 2e, 1o}), use _optimized_reduced_symmetric_tensor_product_basis
+2025-09-17 19:09:02.599 DEBUG: _reduced_tensor_product_basis (0e,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 2o, 3o, 2e, 3e, 5o, 1e, 1o, 4o, 4e})
+2025-09-17 19:09:02.599 DEBUG: _reduced_tensor_product_basis (0e, 0e), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 2e, 1o})
+2025-09-17 19:09:02.663 DEBUG: _reduced_tensor_product_basis (1o,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 2o, 3o, 2e, 3e, 5o, 1e, 1o, 4o, 4e})
+2025-09-17 19:09:02.663 DEBUG: _reduced_tensor_product_basis (1o, 1o), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 2e, 1o})
+2025-09-17 19:09:02.665 DEBUG: _reduced_tensor_product_basis (2e,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 2o, 3o, 2e, 3e, 5o, 1e, 1o, 4o, 4e})
+2025-09-17 19:09:02.666 DEBUG: _reduced_tensor_product_basis (2e, 2e), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 2e, 1o})
+2025-09-17 19:09:02.668 DEBUG: _reduced_tensor_product_basis (3o,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 2o, 3o, 2e, 3e, 5o, 1e, 1o, 4o, 4e})
+2025-09-17 19:09:02.669 DEBUG: _reduced_tensor_product_basis (3o, 3o), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 2e, 1o})
+2025-09-17 19:09:02.678 DEBUG: Normalized paths for operand 3 in w,a,b,i+abiw sizes=12,16,16,9 num_segments=3,1,1,3 num_paths=3 a=16 b=16 i={1, 3, 5} w={3, 4, 5}: got w,a,b,i+abiw sizes=12,16,16,9 num_segments=3,1,1,3 num_paths=3 a=16 b=16 i={1, 3, 5} w={3, 4, 5}
+2025-09-17 19:09:02.681 DEBUG: Flattened abiw in w,a,b,i+abiw sizes=12,16,16,9 num_segments=3,1,1,3 num_paths=3 a=16 b=16 i={1, 3, 5} w={3, 4, 5}: got ,,, sizes=12,16,16,9 num_segments=12,16,16,9 num_paths=215
+2025-09-17 19:09:02.683 DEBUG: _reduced_tensor_product_basis (0e+1o+2e+3o, 0e+1o+2e+3o, 0e+1o+2e+3o), frozenset({(1, (0, 1, 2)), (1, (1, 0, 2)), (1, (2, 0, 1)), (1, (1, 2, 0)), (1, (0, 2, 1)), (1, (2, 1, 0))}), keep_ir=frozenset({0e, 2e, 1o}), use _optimized_reduced_symmetric_tensor_product_basis
+2025-09-17 19:09:02.684 DEBUG: _reduced_tensor_product_basis (0e,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 2o, 7o, 3o, 2e, 7e, 8e, 3e, 5o, 6e, 1e, 6o, 5e, 1o, 0o, 4o, 4e})
+2025-09-17 19:09:02.685 DEBUG: _reduced_tensor_product_basis (0e, 0e), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 2o, 3o, 2e, 3e, 5o, 1e, 1o, 4o, 4e})
+2025-09-17 19:09:02.687 DEBUG: _reduced_tensor_product_basis (0e, 0e, 0e), frozenset({(1, (0, 1, 2)), (1, (1, 0, 2)), (1, (2, 0, 1)), (1, (1, 2, 0)), (1, (0, 2, 1)), (1, (2, 1, 0))}), keep_ir=frozenset({0e, 2e, 1o})
+2025-09-17 19:09:02.688 DEBUG: _reduced_tensor_product_basis (1o,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 2o, 7o, 3o, 2e, 7e, 8e, 3e, 5o, 6e, 1e, 6o, 5e, 1o, 0o, 4o, 4e})
+2025-09-17 19:09:02.689 DEBUG: _reduced_tensor_product_basis (1o, 1o), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 2o, 3o, 2e, 3e, 5o, 1e, 1o, 4o, 4e})
+2025-09-17 19:09:02.691 DEBUG: _reduced_tensor_product_basis (1o, 1o, 1o), frozenset({(1, (0, 1, 2)), (1, (1, 0, 2)), (1, (2, 0, 1)), (1, (1, 2, 0)), (1, (0, 2, 1)), (1, (2, 1, 0))}), keep_ir=frozenset({0e, 2e, 1o})
+2025-09-17 19:09:02.692 DEBUG: _reduced_tensor_product_basis (1o, 1o), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 2o, 3o, 2e, 1e, 1o})
+2025-09-17 19:09:02.695 DEBUG: _reduced_tensor_product_basis (2e,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 2o, 7o, 3o, 2e, 7e, 8e, 3e, 5o, 6e, 1e, 6o, 5e, 1o, 0o, 4o, 4e})
+2025-09-17 19:09:02.696 DEBUG: _reduced_tensor_product_basis (2e, 2e), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 2o, 3o, 2e, 3e, 5o, 1e, 1o, 4o, 4e})
+2025-09-17 19:09:02.698 DEBUG: _reduced_tensor_product_basis (2e, 2e, 2e), frozenset({(1, (0, 1, 2)), (1, (1, 0, 2)), (1, (2, 0, 1)), (1, (1, 2, 0)), (1, (0, 2, 1)), (1, (2, 1, 0))}), keep_ir=frozenset({0e, 2e, 1o})
+2025-09-17 19:09:02.699 DEBUG: _reduced_tensor_product_basis (2e, 2e), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 2o, 3o, 2e, 3e, 1e, 1o, 4e})
+2025-09-17 19:09:02.704 DEBUG: _reduced_tensor_product_basis (3o,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 2o, 7o, 3o, 2e, 7e, 8e, 3e, 5o, 6e, 1e, 6o, 5e, 1o, 0o, 4o, 4e})
+2025-09-17 19:09:02.705 DEBUG: _reduced_tensor_product_basis (3o, 3o), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 2o, 3o, 2e, 3e, 5o, 1e, 1o, 4o, 4e})
+2025-09-17 19:09:02.708 DEBUG: _reduced_tensor_product_basis (3o, 3o, 3o), frozenset({(1, (0, 1, 2)), (1, (1, 0, 2)), (1, (2, 0, 1)), (1, (1, 2, 0)), (1, (0, 2, 1)), (1, (2, 1, 0))}), keep_ir=frozenset({0e, 2e, 1o})
+2025-09-17 19:09:02.708 DEBUG: _reduced_tensor_product_basis (3o, 3o), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({2o, 3o, 2e, 3e, 5o, 1o, 4o, 4e})
+2025-09-17 19:09:03.201 DEBUG: Normalized paths for operand 4 in w,a,b,c,i+abciw sizes=34,16,16,16,9 num_segments=3,1,1,1,3 num_paths=3 a=16 b=16 c=16 i={1, 3, 5} w={8, 12, 14}: got w,a,b,c,i+abciw sizes=34,16,16,16,9 num_segments=3,1,1,1,3 num_paths=3 a=16 b=16 c=16 i={1, 3, 5} w={8, 12, 14}
+2025-09-17 19:09:03.256 DEBUG: Flattened abciw in w,a,b,c,i+abciw sizes=34,16,16,16,9 num_segments=3,1,1,1,3 num_paths=3 a=16 b=16 c=16 i={1, 3, 5} w={8, 12, 14}: got ,,,, sizes=34,16,16,16,9 num_segments=34,16,16,16,9 num_paths=5455
+2025-09-17 19:09:05.102 DEBUG: Split u in u,u,u sizes=4096,12544,2304 num_segments=16,49,9 num_paths=9 u=256: got u,u,u sizes=4096,12544,2304 num_segments=16,49,9 num_paths=9 u=256
+2025-09-17 19:09:05.117 DEBUG: Split u in u,u,u,u sizes=4096,4096,12544,2304 num_segments=16,16,49,9 num_paths=125 u=256: got u,u,u,u sizes=4096,4096,12544,2304 num_segments=16,16,49,9 num_paths=125 u=256
+2025-09-17 19:09:05.225 DEBUG: Split u in u,u,u,u,u sizes=4096,4096,4096,12544,2304 num_segments=16,16,16,49,9 num_paths=1093 u=256: got u,u,u,u,u sizes=4096,4096,4096,12544,2304 num_segments=16,16,16,49,9 num_paths=1093 u=256
+2025-09-17 19:09:05.227 WARNING: Failed to initialize CUDA implementation: libcue_ops.so: cannot open shared object file: No such file or directory
+2025-09-17 19:09:57.233 DEBUG: Normalized paths for operand 2 in uv,iu,iv sizes=196608,2304,2304 num_segments=3,3,3 num_paths=3 i={1, 3, 5} u=256 v=256: got uv,iu,iv sizes=196608,2304,2304 num_segments=3,3,3 num_paths=3 i={1, 3, 5} u=256 v=256
+2025-09-17 19:09:57.265 DEBUG: Normalized paths for operand 2 in uv,iu,iv sizes=256,2304,1 num_segments=1,3,1 num_paths=1 i={1, 3, 5} u=256 v=1: got uv,iu,iv sizes=256,2304,1 num_segments=1,3,1 num_paths=1 i={1, 3, 5} u=256 v=1
+2025-09-17 19:09:57.277 DEBUG: Normalized paths for operand 2 in uv,iu,iv sizes=196608,2304,2304 num_segments=3,3,3 num_paths=3 i={1, 3, 5} u=256 v=256: got uv,iu,iv sizes=196608,2304,2304 num_segments=3,3,3 num_paths=3 i={1, 3, 5} u=256 v=256
+2025-09-17 19:09:57.322 DEBUG: Normalized paths for operand 3 in uv,iu,jv,kuv+ijk sizes=4352,2304,16,18176 num_segments=17,3,4,17 num_paths=17 i={1, 3, 5} j={1, 3, 5, 7} k={1, 3, 5, 7} u=256 v=1: got uv,iu,jv,kuv+ijk sizes=4352,2304,16,18176 num_segments=17,3,4,17 num_paths=17 i={1, 3, 5} j={1, 3, 5, 7} k={1, 3, 5, 7} u=256 v=1
+2025-09-17 19:09:57.324 DEBUG: Starting search for a cuda kernel for uv,iu,jv,kuv+ijk sizes=4352,2304,16,18176 num_segments=17,3,4,17 num_paths=17 i={1, 3, 5} j={1, 3, 5, 7} k={1, 3, 5, 7} u=256 v=1
+2025-09-17 19:09:57.330 DEBUG: Flattened ijk in uv,iu,jv,kuv+ijk sizes=4352,2304,16,18176 num_segments=17,3,4,17 num_paths=17 i={1, 3, 5} j={1, 3, 5, 7} k={1, 3, 5, 7} u=256 v=1: got uv,u,v,uv sizes=4352,2304,16,18176 num_segments=17,9,16,71 num_paths=215 u=256 v=1
+2025-09-17 19:09:57.335 DEBUG: Squeezed uv,u,v,uv sizes=4352,2304,16,18176 num_segments=17,9,16,71 num_paths=215 u=256 v=1 to u,u,,u sizes=4352,2304,16,18176 num_segments=17,9,16,71 num_paths=215 u=256
+2025-09-17 19:09:57.348 DEBUG: Split u in u,u,,u sizes=4352,2304,16,18176 num_segments=17,9,16,71 num_paths=215 u=256: got u,u,,u sizes=4352,2304,16,18176 num_segments=17,9,16,71 num_paths=215 u=256
+2025-09-17 19:09:57.359 WARNING: CUDA implementation not available: libcue_ops.so: cannot open shared object file: No such file or directory
+2025-09-17 19:09:57.362 WARNING: Did you forget to install the CUDA version of cuequivariance-ops-torch?
+Install it with one of the following commands:
+pip install cuequivariance-ops-torch-cu11
+pip install cuequivariance-ops-torch-cu12
+2025-09-17 19:09:57.497 DEBUG: Normalized paths for operand 2 in uv,iu,iv sizes=1114112,18176,4096 num_segments=17,17,4 num_paths=17 i={1, 3, 5, 7} u=256 v=256: got uv,iu,iv sizes=1114112,18176,4096 num_segments=17,17,4 num_paths=17 i={1, 3, 5, 7} u=256 v=256
+2025-09-17 19:09:57.600 DEBUG: Normalized paths for operand 3 in uvw,iu,jv,kw+ijk sizes=458752,2304,7,256 num_segments=1,3,1,1 num_paths=1 i={1, 3, 5} j=1 k=1 u=256 v=7 w=256: got uvw,iu,jv,kw+ijk sizes=458752,2304,7,256 num_segments=1,3,1,1 num_paths=1 i={1, 3, 5} j=1 k=1 u=256 v=7 w=256
+2025-09-17 19:09:57.629 DEBUG: Flattened abciu in u,a,b,c,i+abcui operands=[(23,)],[(16,)],[(16,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*op3[0]*op4[0]*c c.shape=(16, 16, 16, 23, 1) c.nnz=276]: got ,,,, sizes=23,16,16,16,1 num_segments=23,16,16,16,1 num_paths=276
+2025-09-17 19:09:57.634 DEBUG: Flattened abiu in u,a,b,i+abui operands=[(4,)],[(16,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*op3[0]*c c.shape=(16, 16, 4, 1) c.nnz=16]: got ,,, sizes=4,16,16,1 num_segments=4,16,16,1 num_paths=16
+2025-09-17 19:09:57.635 DEBUG: Flattened aiu in u,a,i+aui operands=[(1,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*c c.shape=(16, 1, 1) c.nnz=1]: got ,, sizes=1,16,1 num_segments=1,16,1 num_paths=1
+2025-09-17 19:09:57.659 DEBUG: _reduced_tensor_product_basis (0e+1o+2e+3o,), frozenset({(1, (0,))}), keep_ir=frozenset({0e})
+2025-09-17 19:09:57.661 DEBUG: Normalized paths for operand 2 in w,a,i+aiw operands=[(1,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*c c.shape=(16, 1, 1) c.nnz=1]: got w,a,i+aiw operands=[(1,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*c c.shape=(16, 1, 1) c.nnz=1]
+2025-09-17 19:09:57.662 DEBUG: Flattened aiw in w,a,i+aiw operands=[(1,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*c c.shape=(16, 1, 1) c.nnz=1]: got ,, sizes=1,16,1 num_segments=1,16,1 num_paths=1
+2025-09-17 19:09:57.663 DEBUG: _reduced_tensor_product_basis (0e+1o+2e+3o, 0e+1o+2e+3o), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e}), use _optimized_reduced_symmetric_tensor_product_basis
+2025-09-17 19:09:57.664 DEBUG: _reduced_tensor_product_basis (0e,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 1o, 3o, 2e})
+2025-09-17 19:09:57.665 DEBUG: _reduced_tensor_product_basis (0e, 0e), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e})
+2025-09-17 19:09:57.668 DEBUG: _reduced_tensor_product_basis (1o,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 1o, 3o, 2e})
+2025-09-17 19:09:57.669 DEBUG: _reduced_tensor_product_basis (1o, 1o), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e})
+2025-09-17 19:09:57.671 DEBUG: _reduced_tensor_product_basis (2e,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 1o, 3o, 2e})
+2025-09-17 19:09:57.672 DEBUG: _reduced_tensor_product_basis (2e, 2e), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e})
+2025-09-17 19:09:57.674 DEBUG: _reduced_tensor_product_basis (3o,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 1o, 3o, 2e})
+2025-09-17 19:09:57.675 DEBUG: _reduced_tensor_product_basis (3o, 3o), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e})
+2025-09-17 19:09:57.680 DEBUG: Normalized paths for operand 3 in w,a,b,i+abiw operands=[(4,)],[(16,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*op3[0]*c c.shape=(16, 16, 1, 4) c.nnz=16]: got w,a,b,i+abiw operands=[(4,)],[(16,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*op3[0]*c c.shape=(16, 16, 1, 4) c.nnz=16]
+2025-09-17 19:09:57.681 DEBUG: Flattened abiw in w,a,b,i+abiw operands=[(4,)],[(16,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*op3[0]*c c.shape=(16, 16, 1, 4) c.nnz=16]: got ,,, sizes=4,16,16,1 num_segments=4,16,16,1 num_paths=16
+2025-09-17 19:09:57.682 DEBUG: _reduced_tensor_product_basis (0e+1o+2e+3o, 0e+1o+2e+3o, 0e+1o+2e+3o), frozenset({(1, (0, 1, 2)), (1, (1, 0, 2)), (1, (2, 0, 1)), (1, (1, 2, 0)), (1, (0, 2, 1)), (1, (2, 1, 0))}), keep_ir=frozenset({0e}), use _optimized_reduced_symmetric_tensor_product_basis
+2025-09-17 19:09:57.683 DEBUG: _reduced_tensor_product_basis (0e,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 2o, 3o, 2e, 3e, 5o, 6e, 1e, 1o, 5e, 4o, 4e})
+2025-09-17 19:09:57.684 DEBUG: _reduced_tensor_product_basis (0e, 0e), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 1o, 3o, 2e})
+2025-09-17 19:09:57.685 DEBUG: _reduced_tensor_product_basis (0e, 0e, 0e), frozenset({(1, (0, 1, 2)), (1, (1, 0, 2)), (1, (2, 0, 1)), (1, (1, 2, 0)), (1, (0, 2, 1)), (1, (2, 1, 0))}), keep_ir=frozenset({0e})
+2025-09-17 19:09:57.687 DEBUG: _reduced_tensor_product_basis (1o,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 2o, 3o, 2e, 3e, 5o, 6e, 1e, 1o, 5e, 4o, 4e})
+2025-09-17 19:09:57.688 DEBUG: _reduced_tensor_product_basis (1o, 1o), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 1o, 3o, 2e})
+2025-09-17 19:09:57.690 DEBUG: _reduced_tensor_product_basis (1o, 1o, 1o), frozenset({(1, (0, 1, 2)), (1, (1, 0, 2)), (1, (2, 0, 1)), (1, (1, 2, 0)), (1, (0, 2, 1)), (1, (2, 1, 0))}), keep_ir=frozenset({0e})
+2025-09-17 19:09:57.690 DEBUG: _reduced_tensor_product_basis (1o, 1o), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({1o})
+2025-09-17 19:09:57.692 DEBUG: _reduced_tensor_product_basis (2e,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 2o, 3o, 2e, 3e, 5o, 6e, 1e, 1o, 5e, 4o, 4e})
+2025-09-17 19:09:57.692 DEBUG: _reduced_tensor_product_basis (2e, 2e), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 1o, 3o, 2e})
+2025-09-17 19:09:57.694 DEBUG: _reduced_tensor_product_basis (2e, 2e, 2e), frozenset({(1, (0, 1, 2)), (1, (1, 0, 2)), (1, (2, 0, 1)), (1, (1, 2, 0)), (1, (0, 2, 1)), (1, (2, 1, 0))}), keep_ir=frozenset({0e})
+2025-09-17 19:09:57.694 DEBUG: _reduced_tensor_product_basis (2e, 2e), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({2e})
+2025-09-17 19:09:57.697 DEBUG: _reduced_tensor_product_basis (3o,), frozenset({(1, (0,))}), keep_ir=frozenset({0e, 2o, 3o, 2e, 3e, 5o, 6e, 1e, 1o, 5e, 4o, 4e})
+2025-09-17 19:09:57.698 DEBUG: _reduced_tensor_product_basis (3o, 3o), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({0e, 1o, 3o, 2e})
+2025-09-17 19:09:57.700 DEBUG: _reduced_tensor_product_basis (3o, 3o, 3o), frozenset({(1, (0, 1, 2)), (1, (1, 0, 2)), (1, (2, 0, 1)), (1, (1, 2, 0)), (1, (0, 2, 1)), (1, (2, 1, 0))}), keep_ir=frozenset({0e})
+2025-09-17 19:09:57.701 DEBUG: _reduced_tensor_product_basis (3o, 3o), frozenset({(1, (0, 1)), (1, (1, 0))}), keep_ir=frozenset({3o})
+2025-09-17 19:09:57.726 DEBUG: Normalized paths for operand 4 in w,a,b,c,i+abciw operands=[(8,)],[(16,)],[(16,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*op3[0]*op4[0]*c c.shape=(16, 16, 16, 1, 8) c.nnz=353]: got w,a,b,c,i+abciw operands=[(8,)],[(16,)],[(16,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*op3[0]*op4[0]*c c.shape=(16, 16, 16, 1, 8) c.nnz=353]
+2025-09-17 19:09:57.738 DEBUG: Flattened abciw in w,a,b,c,i+abciw operands=[(8,)],[(16,)],[(16,)],[(16,)],[(1,)] paths=[op0[0]*op1[0]*op2[0]*op3[0]*op4[0]*c c.shape=(16, 16, 16, 1, 8) c.nnz=353]: got ,,,, sizes=8,16,16,16,1 num_segments=8,16,16,16,1 num_paths=353
+2025-09-17 19:09:57.808 DEBUG: Split u in u,u,u sizes=4096,3328,256 num_segments=16,13,1 num_paths=1 u=256: got u,u,u sizes=4096,3328,256 num_segments=16,13,1 num_paths=1 u=256
+2025-09-17 19:09:57.810 DEBUG: Split u in u,u,u,u sizes=4096,4096,3328,256 num_segments=16,16,13,1 num_paths=16 u=256: got u,u,u,u sizes=4096,4096,3328,256 num_segments=16,16,13,1 num_paths=16 u=256
+2025-09-17 19:09:57.818 DEBUG: Split u in u,u,u,u,u sizes=4096,4096,4096,3328,256 num_segments=16,16,16,13,1 num_paths=77 u=256: got u,u,u,u,u sizes=4096,4096,4096,3328,256 num_segments=16,16,16,13,1 num_paths=77 u=256
+2025-09-17 19:09:57.820 WARNING: Failed to initialize CUDA implementation: libcue_ops.so: cannot open shared object file: No such file or directory
+2025-09-17 19:10:00.360 DEBUG: Normalized paths for operand 2 in uv,iu,iv operands=[(256, 256)],[(1, 256)],[(1, 256)] paths=[op0[0]*op1[0]*op2[0]*1.]: got uv,iu,iv operands=[(256, 256)],[(1, 256)],[(1, 256)] paths=[op0[0]*op1[0]*op2[0]*0.06]
+2025-09-17 19:10:00.371 DEBUG: Normalized paths for operand 2 in uv,iu,iv operands=[(256, 16)],[(1, 256)],[(1, 16)] paths=[op0[0]*op1[0]*op2[0]*1.]: got uv,iu,iv operands=[(256, 16)],[(1, 256)],[(1, 16)] paths=[op0[0]*op1[0]*op2[0]*0.06]
+2025-09-17 19:10:00.446 DEBUG: Normalized paths for operand 2 in uv,iu,iv operands=[(16, 1)],[(1, 16)],[(1, 1)] paths=[op0[0]*op1[0]*op2[0]*1.]: got uv,iu,iv operands=[(16, 1)],[(1, 16)],[(1, 1)] paths=[op0[0]*op1[0]*op2[0]*0.25]
+2025-09-17 19:10:08.565 DEBUG: Transferring additional key: atomic_numbers
+2025-09-17 19:10:08.566 DEBUG: Transferring additional key: radial_embedding.cutoff_fn.p
+2025-09-17 19:10:08.567 DEBUG: Transferring additional key: r_max
+2025-09-17 19:10:08.567 DEBUG: Transferring additional key: radial_embedding.bessel_fn.prefactor
+2025-09-17 19:10:08.568 DEBUG: Transferring additional key: num_interactions
+2025-09-17 19:10:08.568 DEBUG: Transferring additional key: radial_embedding.bessel_fn.r_max
+2025-09-17 19:10:08.568 DEBUG: Transferring additional key: radial_embedding.cutoff_fn.r_max
+2025-09-17 19:10:08.648 INFO: Stage Two (after 100 epochs) with loss function: WeightedEnergyForcesLoss(energy_weight=1000.000, forces_weight=100.000), with energy weight : 1000.0, forces weight : 100.0 and learning rate : 0.001
+2025-09-17 19:10:17.871 WARNING: Cannot find checkpoint with tag 'demo_run-42' in './ckps'
+2025-09-17 19:10:17.876 INFO: Using gradient clipping with tolerance=10.000
+2025-09-17 19:10:17.880 INFO: 
+2025-09-17 19:10:17.881 INFO: ===========TRAINING===========
+2025-09-17 19:10:17.883 INFO: Started training, reporting errors on validation set
+2025-09-17 19:10:17.883 INFO: Loss metrics on validation set
