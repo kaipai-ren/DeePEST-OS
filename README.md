@@ -1,6 +1,6 @@
 # DeePEST-OS: A Generic Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis
 
-[![License](https://img.shields.io/github/license/kaipai-ren/DeePEST-OS)](https://img.shields.io/github/license/kaipai-ren/DeePEST-OS)[![ChemRxiv](https://img.shields.io/badge/ChemRxiv-Preprint-orange)](https://chemrxiv.org/engage/chemrxiv/article-details/684161351a8f9bdab5d606ae)
+[![License](https://img.shields.io/github/license/kaipai-ren/DeePEST-OS)](https://img.shields.io/github/license/kaipai-ren/DeePEST-OS) [![ChemRxiv](https://img.shields.io/badge/ChemRxiv-Preprint-orange)](https://chemrxiv.org/engage/chemrxiv/article-details/684161351a8f9bdab5d606ae)
 
 ## Contents
 
