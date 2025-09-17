@@ -15,7 +15,7 @@
 
 ## Overview
 
-This repository includes the structures of organic reaction systems discussed in the article "**DeePEST-OS: A Generic Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis**,"(https://chemrxiv.org/engage/chemrxiv/article-details/684161351a8f9bdab5d606ae) as well as the corresponding code for transition state structure optimization and energy barrier prediction using the Deep learning-based molecular Potential Energy Surface prediction Tool for Organic Synthesis (DeePEST-OS).
+This repository includes the structures of organic reaction systems discussed in the article [**DeePEST-OS: A Generic Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis**](https://chemrxiv.org/engage/chemrxiv/article-details/684161351a8f9bdab5d606ae) as well as the corresponding demo code for transition state structure optimizations and IRC calculations using the **D**eep learning-based molecular **P**otential **E**nergy **S**urface prediction **T**ool for **O**rganic **S**ynthesis (DeePEST-OS).
 
 ## Repo Contents
 
@@ -48,7 +48,7 @@ GPU: NVIDIA GPU with 4+ GB memory
 
 ### Software Requirements
 
-This code can be run on **Windows** or **Linux** using a **Conda** environment.
+This code can be run on **Linux** system using a **Conda** environment.
 
 
 ## Installation Guide
@@ -65,14 +65,14 @@ The virtual environment installation should be completed within tens of minutes.
 
 ## Demo
 
-The Demo folder contains Jupyter notebook example scripts for machine learning potential model training and inference (transition state search).
+The Demo folder contains Jupyter notebook example scripts for machine learning potential model training and inference (transition state optimizations).
 
 - [ts_and_irc](./examples/ts_and_irc): example for transition state optimizations and IRC calculations.
 - [model_training](./examples/model_training): example for training a MACE model.
 
 ## Instructions for use
 
-After configuring the necessary virtual environment, run the demo script as follows:
+After configuring the necessary virtual environment, run the demo scripts as follows:
 
 1. `conda activate deepest_os`
 2. `cd ~/path where the example notebook is located/`
