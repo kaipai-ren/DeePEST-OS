@@ -1,19 +1,59 @@
 # DeePEST-OS: A Generic Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis
 
-## Introduction
+[![License](https://img.shields.io/github/license/isayevlab/aimnetcentral)](https://img.shields.io/github/license/isayevlab/aimnetcentral)
 
-This repository includes the structures of organic reaction systems discussed in the article "**DeePEST-OS: A Generic Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis**,"(https://chemrxiv.org/engage/chemrxiv/article-details/684161351a8f9bdab5d606ae) as well as the corresponding code for transition state structure optimization and energy barrier prediction using the Deep learning-based molecular Potential Energy Surface prediction Tool for Organic Synthesis(DeePEST-OS).
+## Contents
 
-The contents of each folder are as follows:
+- [Overview](#overview)
+- [Repo Contents](#repo-contents)
+- [System Requirements](#system-requirements)
+- [Installation Guide](#installation-guide)
+- [Demo](#demo)
+- [Instructions for use](#instructions-for-use)
+- [Citation](#citation)
+- [Contact](#contact)
 
-1. **dataset**: 1000 initial guess geometries of transition states for external validation.
-2. **example**: Workfolder of transition state optimization and energy barrier predictio by DeePEST-OS model.
-3. **models**: The DeePEST-OS model in the article.
-4. **ts_opt.py**: Script for transition state optimization and energy barrier prediction driven by DeePEST-OS model.
-5. **environment.yml and packages.txt**: The required environment information for running DeePEST-OS model.
-   
-## Installation environment
-After downloading the DeePEST-OS.zip file and extracting it, navigate to the folder in a terminal (execution on a Linux system is recommended) and run the following command to install the environment:
+## Overview
+
+This repository includes the structures of organic reaction systems discussed in the article "**DeePEST-OS: A Generic Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis**,"(https://chemrxiv.org/engage/chemrxiv/article-details/684161351a8f9bdab5d606ae) as well as the corresponding code for transition state structure optimization and energy barrier prediction using the Deep learning-based molecular Potential Energy Surface prediction Tool for Organic Synthesis (DeePEST-OS).
+
+## Repo Contents
+
+**[DeePEST-OS](https://github.com/kaipai-ren/DeePEST-OS)**/
+│─ [dataset](./dataset): files in XYZ format of transition state initial guesses for reactions, produced by the `GENiniTS-RS` software.
+│  ├─ [1000_external_test_set](./dataset/1000_external_test_set): 1k initial structures of external test reactions in this work.
+│  └─ [conformational_isomer](./dataset/conformational_isomer): conformation isomers in the transition state conformational isomer screening case.
+│  └─ [cross-dataset_validation_of_DeePEST-OS-T1x](./dataset/cross-dataset_validation_of_DeePEST-OS-T1x): initial structures of test reactions used to compare DeePEST-OS and T1x.
+│  └─ [multi-step_organic_reactions](./dataset/multi-step_organic_reactions): intermediate and transition state initial structures in multi-step organic reaction retrosynthesis case.
+│─ [examples](./examples): sample scripts for model training and inference are here.
+│  ├─ [ts_and_irc](./examples/ts_and_irc): demo for transition state optimization and IRC calculation.
+│  └─ [model_training](./examples/model_training): demo for training machine learning potential model in this work.
+│─ [models](./models): all the relevant model files in this work.
+│  ├─ [MACE](./models/MACE): MACE model trained without delta learning strategy.
+│  └─ [MACE_deltaL](./models/MACE_deltaL): MACE model trained with delta learning strategy.
+│  └─ [PaiNN](./models/PaiNN): PaiNN model trained without delta learning strategy.
+│─ [requirements](./requirements): Python packages and their versions in the virtual environment required to run the RMLP models.
+
+## System Requirements
+
+### Hardware Requirements
+
+The working examples in this repository require a standard computer with CPU, NVIDIA GPU and enough RAM to support the operations defined by a user. When the computer doesn't have an NVIDIA GPU, the machine learning potential model can only be inferred on the CPU, which makes the model less efficient. We recommend a computer with the following specs:
+
+```
+CPU: 4+ cores, 3.3+ GHz/core
+RAM: 16+ GB
+GPU: NVIDIA GPU with 4+ GB memory
+```
+
+### Software Requirements
+
+This code can be run on **Windows** or **Linux** using a **Conda** environment.
+
+
+## Installation Guide
+
+After downloading this repository, navigate to the folder in a terminal (execution on a Linux system is recommended) and run the following command to install the virtual environment:
 
 ```
 conda create --name deepest_os
@@ -21,15 +61,35 @@ conda env update --name deepest_os --file environment.yml
 conda install --name deepest_os --file packages.txt
 ```
 
+The virtual environment installation should be completed within tens of minutes.
 
-## Usage tutorial
+## Demo
 
-After downloading the repository using git clone or similar commands, move to the generated directory and run the following:
+The Demo folder contains Jupyter notebook example scripts for machine learning potential model training and inference (transition state search).
+
+- [ts_and_irc](./examples/ts_and_irc): example for transition state optimizations and IRC calculations.
+- [model_training](./examples/model_training): example for training a MACE model.
+
+## Instructions for use
+
+After configuring the necessary virtual environment, run the demo script as follows:
+
+1. `conda activate deepest_os`
+2. `cd ~/path where the example notebook is located/`
+3. `jupyter notebook` (conda install jupyter if not installed)
+4. run the cells in jupyter notebook as instructed.
+
+## Citation
 
 ```
-python ts_opt.py
+@article{ren2025deepest,
+  title={DeePEST-OS: A Generic Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis},
+  author={Ren, Kaipai and Tang, Kun and Zhao, Yujing and Zhang, Lei and Du, Jian and Meng, Qingwei and Liu, Qilei},
+  year={2025}
+}
 ```
 
-This command will use the DeePEST-OS model to optimize the initial guess of transition state structures and predict energy barrier in `./example/input` folder , and output to `./example/output`.
+## Contact
 
-Users can modify the input file path and output file path in ts_opt.py.
+Please contact us ([liuqilei@dlut.edu.cn](mailto:liuqilei@dlut.edu.cn)) if you have any question about our implementation.
+
