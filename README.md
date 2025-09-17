@@ -82,11 +82,11 @@ The Demo folder contains example scripts for machine learning potential model tr
 
 - [ts_and_irc](./examples/ts_and_irc): example for transition state optimizations and IRC calculations.
 
-  > On a laptop with an AMD Ryzen 9 7945HX processor and 48 GB of RAM, running `ts_opt.ipynb` allows transition state optimization of each XYZ structure to finish within ten seconds.
+  > On a laptop with an AMD Ryzen 9 7945HX processor, NVIDIA GeForce RTX 4060, and 48 GB of RAM, running `ts_opt.ipynb` allows transition state optimization of each XYZ structure to finish within ten seconds.
 
 - [model_training](./examples/model_training): example for training a MACE model.
 
-  > On a laptop with an AMD Ryzen 9 7945HX processor and 48 GB of RAM, training the model on the example dataset (`demo.xyz`) takes roughly 40 seconds per epoch.
+  > On a laptop with an AMD Ryzen 9 7945HX processor, NVIDIA GeForce RTX 4060, and 48 GB of RAM, training the model on the example dataset (`demo.xyz`) takes roughly 40 seconds per epoch.
 
 ## Instructions for use
 
