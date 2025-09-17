@@ -1,2 +1,0 @@
-name	ref_time	refine_steps	irc_time	irc_steps	Ef	Er	flag
-tip	8.3	27	5.73	40	1.407908	1.415230	22

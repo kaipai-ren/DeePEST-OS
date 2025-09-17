@@ -32,6 +32,7 @@ This repository includes the structures of organic reaction systems discussed in
 │  ├─ [MACE](./models/MACE): MACE model trained without delta learning strategy.  
 │  └─ [MACE_deltaL](./models/MACE_deltaL): MACE model trained with delta learning strategy.  
 │  └─ [PaiNN](./models/PaiNN): PaiNN model trained without delta learning strategy.  
+│  └─ [DeePEST-OS-T1x](./models/DeePEST-OS-T1x): MACE model trained one Transition1x dataset..  
 │─ [requirements](./requirements): Python packages and their versions in the virtual environment required to run the RMLP models.
 
 ## System Requirements
@@ -53,19 +54,31 @@ This code can be run on **Linux** system using a **Conda** environment.
 
 ## Installation Guide
 
-After downloading this repository, navigate to the folder in a terminal (execution on a Linux system is recommended) and run the following command to install the virtual environment:
+- Rebuilding the virtual environment using dependency files ([deepest_os.txt](./requirements/deepest_os.txt)).
 
-```
-conda create --name deepest_os
-conda env update --name deepest_os --file environment.yml
-conda install --name deepest_os --file packages.txt
-```
+  After downloading this repository, navigate to the folder in a terminal (execution on a Linux system is recommended) and run the following command to install the virtual environment:
 
-The virtual environment installation should be completed within tens of minutes.
+  ```
+  conda create --name deepest_os --file deepest_os.txt
+  conda activate deepest_os
+  ```
+
+  The virtual environment installation should be completed within tens of minutes.
+
+- Rebuild the environment by downloading the [virtual environment compressed package](https://zenodo.org/records/17141212).
+
+  After successfully downloading the `deepest_os.tar.gz` file, you can install the environment using the following commands:
+
+  ```
+  cd ~/anaconda/env
+  mkdir deepest_os 
+  cd deepest_os 
+  tar -zxvf deepest_os.tar.gz
+  ```
 
 ## Demo
 
-The Demo folder contains Jupyter notebook example scripts for machine learning potential model training and inference (transition state optimizations).
+The Demo folder contains example scripts for machine learning potential model training and inference (transition state optimizations).
 
 - [ts_and_irc](./examples/ts_and_irc): example for transition state optimizations and IRC calculations.
 - [model_training](./examples/model_training): example for training a MACE model.
@@ -74,10 +87,19 @@ The Demo folder contains Jupyter notebook example scripts for machine learning p
 
 After configuring the necessary virtual environment, run the demo scripts as follows:
 
-1. `conda activate deepest_os`
-2. `cd ~/path where the example notebook is located/`
-3. `jupyter notebook` (conda install jupyter if not installed)
-4. run the cells in jupyter notebook as instructed.
+- For transition state optimizations and IRC calculations:
+
+  1. `conda activate deepest_os`
+  2. `cd ~/path where the example notebook is located/`
+  3. `jupyter lab` (pip install jupyterlab if not installed)
+  4. run the cells in **ts_opt.ipynb** as instructed.
+
+- For model training:
+
+  1. `conda activate deepest_os`
+  2. `cd ~/path where the example python script is located/`
+  3. split the full demo.xyz dataset by `python split_dataset.py`
+  4. `python run_train --config=config.yaml`
 
 ## Citation
 
@@ -85,7 +107,8 @@ After configuring the necessary virtual environment, run the demo scripts as fol
 @article{ren2025deepest,
   title={DeePEST-OS: A Generic Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis},
   author={Ren, Kaipai and Tang, Kun and Zhao, Yujing and Zhang, Lei and Du, Jian and Meng, Qingwei and Liu, Qilei},
-  year={2025}
+  year={2025},
+  journal = {ChemRxiv}
 }
 ```
 

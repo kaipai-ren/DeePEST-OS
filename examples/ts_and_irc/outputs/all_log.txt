@@ -1,0 +1,3 @@
+name	ref_time	refine_steps	irc_time	irc_steps	Ef	Er	flag
+ts_1_1_NO2-A-11-b_opt	2.03	27	5.21	40	1.407912	1.415230	22
+ts_1_1_S-C-2-ab_opt	4.24	47	23.59	224	1.842367	1.917304	147
