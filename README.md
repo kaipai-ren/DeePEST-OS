@@ -81,7 +81,12 @@ This code can be run on **Linux** system using a **Conda** environment.
 The Demo folder contains example scripts for machine learning potential model training and inference (transition state optimizations).
 
 - [ts_and_irc](./examples/ts_and_irc): example for transition state optimizations and IRC calculations.
+
+  > On a laptop with an AMD Ryzen 9 7945HX processor and 48 GB of RAM, running `ts_opt.ipynb` allows transition state optimization of each XYZ structure to finish within ten seconds.
+
 - [model_training](./examples/model_training): example for training a MACE model.
+
+  > On a laptop with an AMD Ryzen 9 7945HX processor and 48 GB of RAM, training the model on the example dataset (`demo.xyz`) takes roughly 40 seconds per epoch.
 
 ## Instructions for use
 
