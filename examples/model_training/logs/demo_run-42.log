@@ -64,3 +64,58 @@ pip install cuequivariance-ops-torch-cu12
 2025-09-17 19:10:17.881 INFO: ===========TRAINING===========
 2025-09-17 19:10:17.883 INFO: Started training, reporting errors on validation set
 2025-09-17 19:10:17.883 INFO: Loss metrics on validation set
+2025-09-17 19:30:26.610 INFO: ===========VERIFYING SETTINGS===========
+2025-09-17 19:30:26.612 INFO: Stage Two is activated as start_stage_two was defined
+2025-09-17 19:30:26.614 INFO: MACE version: 0.3.13
+2025-09-17 19:30:26.834 INFO: CUDA version: 12.6, CUDA device: 0
+2025-09-17 19:30:27.039 INFO: ===========LOADING INPUT DATA===========
+2025-09-17 19:30:27.040 INFO: Using heads: ['Default']
+2025-09-17 19:30:27.040 INFO: Using the key specifications to parse data:
+2025-09-17 19:30:27.040 INFO: Default: KeySpecification(info_keys={'energy': 'energy', 'stress': 'REF_stress', 'virials': 'REF_virials', 'dipole': 'dipole', 'head': 'head'}, arrays_keys={'forces': 'forces', 'charges': 'REF_charges'})
+2025-09-17 19:30:27.041 INFO: =============    Processing head Default     ===========
+2025-09-17 19:30:31.158 WARNING: Since ASE version 3.23.0b1, using energy_key 'energy' is no longer safe when communicating between MACE and ASE. We recommend using a different key, rewriting 'energy' to 'REF_energy'. You need to use --energy_key='REF_energy' to specify the chosen key name.
+2025-09-17 19:30:31.539 WARNING: Since ASE version 3.23.0b1, using forces_key 'forces' is no longer safe when communicating between MACE and ASE. We recommend using a different key, rewriting 'forces' to 'REF_forces'. You need to use --forces_key='REF_forces' to specify the chosen key name.
+2025-09-17 19:30:32.110 INFO: Training set 1/1 [energy: 5760, stress: 0, virials: 0, dipole components: 0, head: 5760, forces: 5760, charges: 0]
+2025-09-17 19:30:32.125 INFO: Total Training set [energy: 5760, stress: 0, virials: 0, dipole components: 0, head: 5760, forces: 5760, charges: 0]
+2025-09-17 19:30:32.125 INFO: No validation set provided, splitting training data instead.
+2025-09-17 19:30:32.133 INFO: Using random 10% of training set for validation with indices saved in: ./valid_indices_42.txt
+2025-09-17 19:30:32.151 INFO: Random Split Training set [energy: 5184, stress: 0, virials: 0, dipole components: 0, head: 5184, forces: 5184, charges: 0]
+2025-09-17 19:30:32.174 INFO: Random Split Validation set [energy: 576, stress: 0, virials: 0, dipole components: 0, head: 576, forces: 576, charges: 0]
+2025-09-17 19:30:32.175 INFO: Total number of configurations: train=5184, valid=576, tests=[],
+2025-09-17 19:30:32.188 INFO: Atomic Numbers used: [1, 6, 7, 8, 9, 17, 35]
+2025-09-17 19:30:32.190 INFO: Isolated Atomic Energies (E0s) not in training file, using command line argument
+2025-09-17 19:30:32.191 INFO: Computing average Atomic Energies using least squares regression
+2025-09-17 19:30:32.232 INFO: Atomic Energies used (z: eV) for head Default: {1: -2.225405372779404, 6: -979.0053578025254, 7: -1410.5780230604885, 8: -1936.6416571327854, 9: -2588.4096139972894, 17: -12398.640526277448, 35: -69931.22600875009}
+2025-09-17 19:30:32.233 INFO: Processing datasets for head 'Default'
+2025-09-17 19:30:33.634 INFO: Combining 1 list datasets for head 'Default'
+2025-09-17 19:30:33.772 INFO: Head 'Default' training dataset size: 5184
+2025-09-17 19:30:33.777 INFO: Computing average number of neighbors
+2025-09-17 19:30:34.959 INFO: Average number of neighbors: 12.1578950881958
+2025-09-17 19:30:34.964 INFO: During training the following quantities will be reported: energy, forces
+2025-09-17 19:30:34.988 INFO: ===========MODEL DETAILS===========
+2025-09-17 19:30:35.743 INFO: Building model
+2025-09-17 19:30:35.749 INFO: Message passing with 256 channels and max_L=2 (256x0e+256x1o+256x2e)
+2025-09-17 19:30:35.759 INFO: 2 layers, each with correlation order: 3 (body order: 4) and spherical harmonics up to: l=3
+2025-09-17 19:30:35.768 INFO: 8 radial and 5 basis functions
+2025-09-17 19:30:35.769 INFO: Radial cutoff: 6.0 A (total receptive field for each atom: 12.0 A)
+2025-09-17 19:30:35.770 INFO: Distance transform for radial basis functions: None
+2025-09-17 19:30:35.771 INFO: Hidden irreps: 256x0e+256x1o+256x2e
+2025-09-17 19:30:36.912 INFO: Total number of parameters: 4897040
+2025-09-17 19:30:36.913 INFO: 
+2025-09-17 19:30:36.914 INFO: ===========OPTIMIZER INFORMATION===========
+2025-09-17 19:30:36.915 INFO: Using ADAMW as parameter optimizer
+2025-09-17 19:30:36.916 INFO: Batch size: 10
+2025-09-17 19:30:36.916 INFO: Using Exponential Moving Average with decay: 0.99
+2025-09-17 19:30:36.916 INFO: Number of gradient updates: 207360
+2025-09-17 19:30:36.917 INFO: Learning rate: 0.001, weight decay: 5e-07
+2025-09-17 19:30:36.917 INFO: WeightedEnergyForcesLoss(energy_weight=10.000, forces_weight=10.000)
+2025-09-17 19:30:36.917 INFO: Converting model to CUEQ for accelerated training
+2025-09-17 19:30:36.995 INFO: Creating new model with cuequivariance settings
+2025-09-17 19:30:43.753 INFO: Stage Two (after 100 epochs) with loss function: WeightedEnergyForcesLoss(energy_weight=1000.000, forces_weight=100.000), with energy weight : 1000.0, forces weight : 100.0 and learning rate : 0.001
+2025-09-17 19:30:43.885 WARNING: Cannot find checkpoint with tag 'demo_run-42' in './ckps'
+2025-09-17 19:30:43.887 INFO: Using gradient clipping with tolerance=10.000
+2025-09-17 19:30:43.887 INFO: 
+2025-09-17 19:30:43.888 INFO: ===========TRAINING===========
+2025-09-17 19:30:43.895 INFO: Started training, reporting errors on validation set
+2025-09-17 19:30:43.895 INFO: Loss metrics on validation set
+2025-09-17 19:30:52.872 INFO: Initial: head: Default, loss=0.19962351, MAE_E=  260.47 meV, MAE_F=  293.22 meV / A
