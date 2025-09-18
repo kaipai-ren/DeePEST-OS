@@ -90,7 +90,7 @@ The Demo folder contains example scripts for machine learning potential model tr
 
 - [ts_and_irc](./examples/ts_and_irc): example for transition state optimizations and IRC calculations.
 
-  > On a laptop with an AMD Ryzen 9 7945HX processor, NVIDIA GeForce RTX 4060, and 48 GB of RAM, running `ts_opt.ipynb` allows transition state optimization of each XYZ structure to finish within ten seconds.
+  > On a laptop with an AMD Ryzen 9 7945HX processor, NVIDIA GeForce RTX 4060, and 48 GB of RAM, running `ts_opt.ipynb` allows transition state optimization of each XYZ structure to finish within ten seconds. For instructions on how to run the .ipynb tutorial script, see the [**Instructions for use **](#instructions-for-use) section of this README.
   >
   > The input files for transition state optimization and IRC calculations are located in the `inputs` folder within the same directory as the `ts_opt.ipynb` file. The xyz file containing the initial guess for the transition state structures are provided. The output files from the script are located in the `outputs` folder and include the complete transition state structure obtained through the machine learning potential-driven search, the IRC path, the optimized reactant and product structures, the optimized trajectory file, an image of the IRC path, and a GIF of the reaction process.
 
