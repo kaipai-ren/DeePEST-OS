@@ -33,7 +33,7 @@ This repository includes the structures of organic reaction systems discussed in
 │  └─ [MACE_deltaL](./models/MACE_deltaL): MACE model trained with delta learning strategy.  
 │  └─ [PaiNN](./models/PaiNN): PaiNN model trained without delta learning strategy.  
 │  └─ [DeePEST-OS-T1x](./models/DeePEST-OS-T1x): MACE model trained one Transition1x dataset..  
-│─ [requirements](./requirements): Python packages and their versions in the virtual environment required to run the RMLP models.
+│─ [requirements](./requirements): python packages and their versions in the virtual environment required to run the RMLP models.
 
 ## System Requirements
 
@@ -124,4 +124,5 @@ After configuring the necessary virtual environment, run the demo scripts as fol
 ## Contact
 
 Please contact us ([liuqilei@dlut.edu.cn](mailto:liuqilei@dlut.edu.cn)) if you have any question about our implementation.
+
 
