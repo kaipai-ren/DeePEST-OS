@@ -81,6 +81,8 @@ Please install the conda environment according to one of the following methods.
   cd deepest_os 
   wget -O deepest_os.tar.gz "https://zenodo.org/records/17141212/files/deepest_os.tar.gz?download=1"
   tar -zxvf deepest_os.tar.gz
+  conda install -c conda-forge conda-unpack
+  conda-unpack
   conda activate deepest_os
   ```
   The installation speed depends on the network quality. According to local tests, using this method takes a relatively long time: downloading the compressed package usually takes several hours, while decompression typically only takes a few minutes.
