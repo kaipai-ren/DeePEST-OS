@@ -1,4 +1,4 @@
-# DeePEST-OS: A Generic Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis
+# **Generic Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis**
 
 [![License](https://img.shields.io/github/license/kaipai-ren/DeePEST-OS)](https://img.shields.io/github/license/kaipai-ren/DeePEST-OS) [![ChemRxiv](https://img.shields.io/badge/ChemRxiv-Preprint-orange)](https://chemrxiv.org/engage/chemrxiv/article-details/684161351a8f9bdab5d606ae)
 
@@ -15,7 +15,7 @@
 
 ## Overview
 
-This repository includes the structures of organic reaction systems discussed in the article [**DeePEST-OS: A Generic Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis**](https://chemrxiv.org/engage/chemrxiv/article-details/684161351a8f9bdab5d606ae) as well as the corresponding demo code for transition state structure optimizations and IRC calculations using the **D**eep learning-based molecular **P**otential **E**nergy **S**urface prediction **T**ool for **O**rganic **S**ynthesis (DeePEST-OS).
+This repository includes the structures of organic reaction systems discussed in the article [**Generic Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis**](https://chemrxiv.org/engage/chemrxiv/article-details/684161351a8f9bdab5d606ae) as well as the corresponding demo code for transition state structure optimizations and IRC calculations using the **D**eep learning-based molecular **P**otential **E**nergy **S**urface prediction **T**ool for **O**rganic **S**ynthesis (DeePEST-OS).
 
 ## Repo Contents
 
@@ -23,7 +23,7 @@ This repository includes the structures of organic reaction systems discussed in
 │─ [dataset](./dataset): files in XYZ format of transition state initial guesses for reactions, produced by the `GENiniTS-RS` software.  
 │  ├─ [1000_external_test_set](./dataset/1000_external_test_set): 1k initial structures of external test reactions in this work.  
 │  └─ [conformational_isomer](./dataset/conformational_isomer): conformation isomers in the transition state conformational isomer screening case.  
-│  └─ [cross-dataset_validation_of_DeePEST-OS-T1x](./dataset/cross-dataset_validation_of_DeePEST-OS-T1x):  cross validation dataset of MACE model trained on Transition1x database.  
+│  └─ [cross-dataset_validation_of_DeePEST-OS-T1x](./dataset/cross-dataset_validation_of_DeePEST-OS-T1x):  cross validation dataset of MACE_delta model trained on Transition1x database.  
 │  └─ [multi-step_organic_reactions](./dataset/multi-step_organic_reactions): intermediate and transition state initial structures in multi-step organic reaction retrosynthesis case.  
 │─ [examples](./examples): sample scripts for model training and inference are here.  
 │  ├─ [ts_and_irc](./examples/ts_and_irc): demo for transition state optimization and IRC calculation.  
