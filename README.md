@@ -58,12 +58,14 @@ Please install the conda environment according to one of the following methods.
 
 - **Installation option 1**
 
-   Rebuilding the conda environment using dependency files ([deepest_os.txt](./requirements/deepest_os.txt)).
+  Rebuilding the conda environment using dependency files ([deepest_os.txt](./requirements/deepest_os.txt)).
 
   After downloading this repository, navigate to the [requirements folder](./requirements) in a terminal (execution on a Linux system is recommended) and run the following command to install the virtual environment:
 
   ```
-  conda create --name deepest_os --file deepest_os.txt
+  cd /path/to/requirements
+  conda create --name deepest_os conda_requirements.txt -y
+  pip install -r pip_requirements.txt
   conda activate deepest_os
   ```
 
@@ -118,7 +120,7 @@ After configuring the necessary virtual environment, run the demo scripts as fol
   1. `conda activate deepest_os`
   2. `cd /path/to/the/example/python/script`
   3. split the full demo.xyz dataset by `python split_dataset.py`
-  4. `python run_train --config=config.yaml`
+  4. `python run_train.py --config=config.yaml`
 
 ## Citation
 
