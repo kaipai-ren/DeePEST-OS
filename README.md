@@ -83,10 +83,14 @@ The Demo folder contains example scripts for machine learning potential model tr
 - [ts_and_irc](./examples/ts_and_irc): example for transition state optimizations and IRC calculations.
 
   > On a laptop with an AMD Ryzen 9 7945HX processor, NVIDIA GeForce RTX 4060, and 48 GB of RAM, running `ts_opt.ipynb` allows transition state optimization of each XYZ structure to finish within ten seconds.
+  >
+  > The input files for transition state optimization and IRC calculations are located in the `inputs` folder within the same directory as the `ts_opt.ipynb` file. The xyz file containing the initial guess for the transition state structures are provided. The output files from the script are located in the `outputs` folder and include the complete transition state structure obtained through the machine learning potential-driven search, the IRC path, the optimized reactant and product structures, the optimized trajectory file, an image of the IRC path, and a GIF of the reaction process.
 
 - [model_training](./examples/model_training): example for training a MACE model.
 
   > On a laptop with an AMD Ryzen 9 7945HX processor, NVIDIA GeForce RTX 4060, and 48 GB of RAM, training the model on the example dataset (`demo.xyz`) takes roughly 40 seconds per epoch.
+  >
+  > The input file for model training is `demo_train.xyz`, and the test set of the model is `demo_test.xyz`. During the training process, a `log` folder containing the training process log file and the final model file and a `ckp` folder containing the checkpoint files during the training process will be generated.
 
 ## Instructions for use
 
