@@ -88,7 +88,7 @@ The Demo folder contains example scripts for machine learning potential model tr
 
 - [model_training](./examples/model_training): example for training a MACE model.
 
-  > On a laptop with an AMD Ryzen 9 7945HX processor, NVIDIA GeForce RTX 4060, and 48 GB of RAM, training the model on the example dataset (`demo.xyz`) takes roughly 40 seconds per epoch.
+  > Train the model by running `run_train.py`. On a laptop with an AMD Ryzen 9 7945HX processor, NVIDIA GeForce RTX 4060, and 48 GB of RAM, training the model on the example dataset (`demo.xyz`) takes roughly 40 seconds per epoch.
   >
   > The input file for model training is `demo_train.xyz`, and the test set of the model is `demo_test.xyz`. During the training process, a `log` folder containing the training process log file and the final model file and a `ckp` folder containing the checkpoint files during the training process will be generated.
 
