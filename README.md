@@ -73,7 +73,7 @@ Please install the conda environment according to one of the following methods.
 
   Rebuild the conda environment by downloading the [virtual environment compressed package](https://zenodo.org/records/17141212).
 
-  After successfully downloading the `deepest_os.tar.gz` file, you can install the environment using the following commands:
+  Please follow the commands below to install the conda environment:
   
   ```
   cd /path/to/your/conda/environment
