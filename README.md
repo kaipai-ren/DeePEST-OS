@@ -64,13 +64,12 @@ Please install the conda environment according to one of the following methods.
 
   ```
   cd /path/to/requirements
-  conda create --name deepest_os conda_requirements.txt -y
-  pip install -r pip_requirements.txt
+  conda env create -f deepest_os.yaml
   conda activate deepest_os
   ```
-
-  The installation speed depends on the network quality. According to local tests, using this option can usually result in a successful installation within a dozen minutes.
-
+  
+The installation speed depends on the network quality. According to local tests, using this option can usually result in a successful installation within a dozen minutes.
+  
 - **Installation option 2**
 
   Rebuild the conda environment by downloading the [virtual environment compressed package](https://zenodo.org/records/17141212).
