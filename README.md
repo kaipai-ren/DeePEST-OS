@@ -58,7 +58,7 @@ Please install the conda environment according to one of the following methods.
 
 - **Installation option 1**
 
-  Rebuilding the conda environment using dependency files ([conda_requirements.txt](./requirements/deepest_os.txt) and [pip_requirements.txt](./requirements/pip_requirements.txt)).
+  Rebuilding the conda environment using dependency files ([conda_requirements.txt](./requirements/conda_requirements.txt) and [pip_requirements.txt](./requirements/pip_requirements.txt)).
 
   After downloading this repository, navigate to the [requirements folder](./requirements) in a terminal (execution on a Linux system is recommended) and run the following command to install the virtual environment:
 
