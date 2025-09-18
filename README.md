@@ -67,7 +67,7 @@ Please install the conda environment according to one of the following methods.
   conda activate deepest_os
   ```
 
-  The virtual environment installation should be completed within tens of minutes.
+  The installation speed depends on the network quality. According to local tests, using this option can usually result in a successful installation within a dozen minutes.
 
 - **Installation option 2**
 
@@ -83,7 +83,7 @@ Please install the conda environment according to one of the following methods.
   tar -zxvf deepest_os.tar.gz
   conda activate deepest_os
   ```
-
+  The installation speed depends on the network quality. According to local tests, using this method takes a relatively long time: downloading the compressed package usually takes several hours, while decompression typically only takes a few minutes.
 ## Demo
 
 The Demo folder contains example scripts for machine learning potential model training and inference (transition state optimizations).
@@ -132,5 +132,6 @@ After configuring the necessary virtual environment, run the demo scripts as fol
 ## Contact
 
 Please contact us ([liuqilei@dlut.edu.cn](mailto:liuqilei@dlut.edu.cn)) if you have any question about our implementation.
+
 
 
