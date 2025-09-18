@@ -58,7 +58,7 @@ Please install the conda environment according to one of the following methods.
 
 - **Installation option 1**
 
-   Rebuilding the virtual environment using dependency files ([deepest_os.txt](./requirements/deepest_os.txt)).
+   Rebuilding the conda environment using dependency files ([deepest_os.txt](./requirements/deepest_os.txt)).
 
   After downloading this repository, navigate to the [requirements folder](./requirements) in a terminal (execution on a Linux system is recommended) and run the following command to install the virtual environment:
 
@@ -71,7 +71,7 @@ Please install the conda environment according to one of the following methods.
 
 - **Installation option 2**
 
-  Rebuild the environment by downloading the [virtual environment compressed package](https://zenodo.org/records/17141212).
+  Rebuild the conda environment by downloading the [virtual environment compressed package](https://zenodo.org/records/17141212).
 
   After successfully downloading the `deepest_os.tar.gz` file, you can install the environment using the following commands:
   
