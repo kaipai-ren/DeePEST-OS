@@ -20,11 +20,13 @@ This repository includes the structures of organic reaction systems discussed in
 ## Repo Contents
 
 **[DeePEST-OS](https://github.com/kaipai-ren/DeePEST-OS)**  
-│─ [dataset](./dataset): files in XYZ format of transition state initial guesses for reactions, produced by the `GENiniTS-RS` software.  
-│  ├─ [1000_external_test_set](./dataset/1000_external_test_set): 1k initial structures of external test reactions in this work.  
+│─ [dataset](./dataset): files in XYZ format of initial guess of transition states(produced by the `GENiniTS-RS` software) and/or DFT/GFN2-xTB/DeePEST-OS optimize transition states.  
+│  ├─ [1000_external_test_set](./dataset/1000_external_test_set): 1k transition state structures of external test of DORTS reactions in this work.  
+│  ├─ [OOD_test](./dataset/OOD_test):100 transition state structures of Transtion1x reactions in this work.  
 │  └─ [conformational_isomer](./dataset/conformational_isomer): conformation isomers in the transition state conformational isomer screening case.  
 │  └─ [cross-dataset_validation_of_DeePEST-OS-T1x](./dataset/cross-dataset_validation_of_DeePEST-OS-T1x):  cross validation dataset of MACE_delta model trained on Transition1x database.  
 │  └─ [multi-step_organic_reactions](./dataset/multi-step_organic_reactions): intermediate and transition state initial structures in multi-step organic reaction retrosynthesis case.  
+│  └─ [DA_exp](./dataset/DA_exp): 11 transition state structures of DA reactions in this work.. 
 │─ [examples](./examples): sample scripts for model training and inference are here.  
 │  ├─ [ts_and_irc](./examples/ts_and_irc): demo for transition state optimization and IRC calculation.  
 │  └─ [model_training](./examples/model_training): demo for training machine learning potential model in this work.  
@@ -136,6 +138,7 @@ After configuring the necessary virtual environment, run the demo scripts as fol
 ## Contact
 
 Please contact us ([liuqilei@dlut.edu.cn](mailto:liuqilei@dlut.edu.cn)) if you have any question about our implementation.
+
 
 
 
