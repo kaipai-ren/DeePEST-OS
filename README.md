@@ -15,16 +15,16 @@
 
 ## Overview
 
-This repository includes the structures of organic reaction systems discussed in the article [**Generic Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis**](https://chemrxiv.org/engage/chemrxiv/article-details/684161351a8f9bdab5d606ae) as well as the corresponding demo code for transition state structure optimizations and IRC calculations using the **D**eep learning-based molecular **P**otential **E**nergy **S**urface prediction **T**ool for **O**rganic **S**ynthesis (DeePEST-OS).
+This repository includes the structures of organic reaction systems discussed in the article [**Reactive Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis**](https://chemrxiv.org/engage/chemrxiv/article-details/684161351a8f9bdab5d606ae) as well as the corresponding demo code for transition state structure optimizations and IRC calculations using the **D**eep learning-based molecular **P**otential **E**nergy **S**urface prediction **T**ool for **O**rganic **S**ynthesis (DeePEST-OS).
 
 ## Repo Contents
 
 **[DeePEST-OS](https://github.com/kaipai-ren/DeePEST-OS)**  
 │─ [dataset](./dataset): files in XYZ format of initial guess of transition states(produced by the `GENiniTS-RS` software) and/or DFT/GFN2-xTB/DeePEST-OS optimize transition states.  
-│  ├─ [DORTS-1K](./dataset/DORTS-1K): 1k transition state structures of external test of DORTS reactions in this work.  
-│  └─ [OOD_test](./dataset/OOD_test):1,073 transition state structures of Transtion1x reactions in this work.  
+│  ├─ [DORTS-1K](./dataset/DORTS-1K): 1k transition state structures of the external test of DORTS reactions in this work.  
+│  └─ [OOD_test](./dataset/OOD_test):1,073 transition state structures of the Transtion1x reactions in this work.  
 │  └─ [conformational_isomer](./dataset/conformational_isomer): conformation isomers in the transition state conformational isomer screening case.  
-│  └─ [cross-dataset_validation_of_DeePEST-OS-T1x](./dataset/cross-dataset_validation_of_DeePEST-OS-T1x):  cross validation dataset of MACE_delta model trained on Transition1x database.  
+│  └─ [cross-dataset_validation_of_DeePEST-OS-T1x](./dataset/cross-dataset_validation_of_DeePEST-OS-T1x):  cross validation dataset of MACE_delta trained on the Transition1x database.  
 │  └─ [multi-step_organic_reactions](./dataset/multi-step_organic_reactions): intermediate and transition state initial structures in multi-step organic reaction retrosynthesis case.  
 │  └─ [DA_exp](./dataset/DA_exp): 11 transition state structures of DA reactions in this work.
 
@@ -38,7 +38,7 @@ This repository includes the structures of organic reaction systems discussed in
 │  └─ [PaiNN](./models/PaiNN): PaiNN model trained without delta learning strategy.  
 │  └─ [DeePEST-OS-T1x](./models/DeePEST-OS-T1x): MACE model trained one Transition1x dataset.
 
-│─ [requirements](./requirements): python packages and their versions in the virtual environment required to run the RMLP models.
+│─ [requirements](./requirements): python packages and their versions in the virtual environment required to run the MLP models.
 
 ## System Requirements
 
@@ -141,6 +141,7 @@ After configuring the necessary virtual environment, run the demo scripts as fol
 ## Contact
 
 Please contact us ([liuqilei@dlut.edu.cn](mailto:liuqilei@dlut.edu.cn)) if you have any question about our implementation.
+
 
 
 
