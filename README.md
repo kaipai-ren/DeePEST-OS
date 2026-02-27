@@ -1,4 +1,4 @@
-# **Generic Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis**
+# **Reactive Machine Learning Potential for Accelerating Transition State Search in Organic Synthesis**
 
 [![License](https://img.shields.io/github/license/kaipai-ren/DeePEST-OS)](https://img.shields.io/github/license/kaipai-ren/DeePEST-OS) [![ChemRxiv](https://img.shields.io/badge/ChemRxiv-Preprint-orange)](https://chemrxiv.org/engage/chemrxiv/article-details/684161351a8f9bdab5d606ae)
 
@@ -21,7 +21,7 @@ This repository includes the structures of organic reaction systems discussed in
 
 **[DeePEST-OS](https://github.com/kaipai-ren/DeePEST-OS)**  
 │─ [dataset](./dataset): files in XYZ format of initial guess of transition states(produced by the `GENiniTS-RS` software) and/or DFT/GFN2-xTB/DeePEST-OS optimize transition states.  
-│  ├─ [DORTS](./dataset/1000_external_test_set): 1k transition state structures of external test of DORTS reactions in this work.  
+│  ├─ [DORTS-1k](./dataset/DORTS-1k): 1k transition state structures of external test of DORTS reactions in this work.  
 │  └─ [OOD_test](./dataset/OOD_test):1,073 transition state structures of Transtion1x reactions in this work.  
 │  └─ [conformational_isomer](./dataset/conformational_isomer): conformation isomers in the transition state conformational isomer screening case.  
 │  └─ [cross-dataset_validation_of_DeePEST-OS-T1x](./dataset/cross-dataset_validation_of_DeePEST-OS-T1x):  cross validation dataset of MACE_delta model trained on Transition1x database.  
@@ -141,6 +141,7 @@ After configuring the necessary virtual environment, run the demo scripts as fol
 ## Contact
 
 Please contact us ([liuqilei@dlut.edu.cn](mailto:liuqilei@dlut.edu.cn)) if you have any question about our implementation.
+
 
 
 
